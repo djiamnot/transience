@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Pyospat
-# Copyright (C) 2011 Alexandre Quessy
+# Transience
 # Copyright (C) 2011 Michal Seta
 #
 # This file is free software: you can redistribute it and/or modify
@@ -10,27 +9,27 @@
 # the Free Software Foundation, either version 2 of the License, or
 # (at your option) any later version.
 #
-# Pyospat is distributed in the hope that it will be useful,
+# Transience is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Pyospat.  If not, see <http://www.gnu.org/licenses/>.
+# along with Transience.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 The Runner function.
 """
 from optparse import OptionParser
 from transience import __version__
-#from pyospat import server
-#from pyospat import application
-from pyospat import configuration
+#from transience import server
+#from transience import application
+from transience import configuration
 import os
 import sys
 import time
 
-DESCRIPTION = "Python audio renderer for SpatOSC"
+DESCRIPTION = "Python control application for Transience score"
 
 def run():
     """
@@ -43,11 +42,11 @@ def run():
     config = configuration.Configuration()
     if options.verbose:
         config.verbose = True
-    if options.osc_receive_port:
-        config.osc_receive_port = options.osc_receive_port
+    if options.osc_send_port:
+        config.osc_send_port = options.osc_send_port
 
-    s = server.ServerWrapper(use_twisted=True)
+    #s = server.ServerWrapper(use_twisted=True)
     app = application.Application(config)
-    s.run()
+    #s.run()
     # why does it often end with a segmentation fault?
 
