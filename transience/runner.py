@@ -23,7 +23,7 @@ The Runner function.
 from optparse import OptionParser
 from transience import __version__
 #from transience import server
-#from transience import application
+from transience import application
 from transience import configuration
 import os
 import sys
@@ -45,8 +45,5 @@ def run():
     if options.osc_send_port:
         config.osc_send_port = options.osc_send_port
 
-    #s = server.ServerWrapper(use_twisted=True)
-    app = application.Application(config)
-    #s.run()
-    # why does it often end with a segmentation fault?
+    app = application.Application()
 
