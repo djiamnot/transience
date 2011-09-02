@@ -50,8 +50,9 @@ class INScoreCom(object):
 
         
     def _hello(self):
-        #self._send(osc.Message("/ITL/scene","del"))
-        self._send(osc.Message("/ITL/scene/text","set","txt","Hello!"))
+        self._send(osc.Message("/ITL/scene/text","del"))
+        self._send(osc.Message("/ITL/scene/text","set","txt","Hello INSCORE!"))
+        self._send(osc.Message("/ITL/scene/text", "scale", 4.0))
         def _stop():
             reactor.stop()
         reactor.callLater(0.1,_stop)
