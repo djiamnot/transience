@@ -1,3 +1,7 @@
 transience.egg-info
 *.pyc
 *.swp
+*.*~
+.*
+#*.*#
+
