@@ -56,6 +56,8 @@ class PrefParser(object):
         # TODO: replace the random for something more meaningful
         config_file = os.path.expanduser("~/.transiencerc")
         parser = SafeConfigParser()
+        inscore_port = parser.add_section("inscore_port")
+        parser.set(inscore_port("7000"))
         for i in range (9):
             page = "page {}".format(i)
             parser.add_section(page)
