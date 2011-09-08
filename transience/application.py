@@ -22,6 +22,9 @@ Configuration parser.
 Configuration consists mainly of content to be displayed on each "page"
 of the score.
 """
+from transience import __version__
+#from transience import server
+from transience import application
 import time
 import os
 import sys
@@ -33,7 +36,7 @@ class Application(object):
     """
     def __init__(self):
         # TODO: move this one to inscore.py
-        #parser = PrefParser()
+        # parser = PrefParser()
         self._running = False
 
     def run(self):
@@ -41,6 +44,7 @@ class Application(object):
         Runs blocking mainloop
         """
         self._running = True
+        
         try:
             while self._running:
                 time.sleep(0.1)
