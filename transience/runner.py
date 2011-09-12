@@ -18,11 +18,14 @@
 # along with Transience.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-The Runner function.
+The run!
 """
+from transience import __version__
 from optparse import OptionParser
-
 from transience import configuration
+from transience import application
+from transience import inscore
+from twisted.internet import reactor
 import os
 import sys
 import time
@@ -33,6 +36,7 @@ def run():
     """
     Runs the application.
     """
+    print("entered runner.run")
     parser = OptionParser(usage="%prog [options]", version="%prog " + __version__, description=DESCRIPTION)
     parser.add_option("-v", "--verbose", action="store_true", help="Makes the output verbose.")
     parser.add_option("-p", "--osc-send-port", type="int", default=7000, help="UDP port to send OSC to INScore.  Default is 7000")
@@ -42,5 +46,8 @@ def run():
         config.verbose = True
     if options.osc_send_port:
         config.osc_send_port = options.osc_send_port
-    app = application.Application()
 
+#    inscore_server = inscore.INScore(use_twisted=True)
+#    inscore_server.run()
+    app = application.Application(config)
+    app.greet()
