@@ -4,4 +4,5 @@ transience.egg-info
 *.*~
 .*
 #*.*#
-
+*.png
+*.jpg
