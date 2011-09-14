@@ -99,3 +99,6 @@ class Element(object):
         cook position message
         """
         return osc.Message(self.makeURI(), "y", self.y)
+
+    def watch_mouse_enter(self):
+        return osc.Message(self.makeURI(), "watch", "mouseEnter", "127.0.0.1:7001/mouse", "mouse entered!")
