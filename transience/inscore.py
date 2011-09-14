@@ -44,10 +44,17 @@ class INScore(object):
         self._sender_port = reactor.listenUDP(0,self.sender)
         self._running = False
         print("INScore inited ...")
-        # self._receiver_out_port = reactor.listenUDP(
-        #     self.receive_out_port, async.DatagramClientProtocol(self.receiver))
-        # self._receiver_err_port = reactor.listenUDP(
-        #     self.receive_err_port, async.DatagramClientProtocol(self.receiver))
+        self._receiver_out_port = reactor.listenUDP(
+            self.receive_out_port, async.DatagramServerProtocol(self.receiver))
+        self._receiver_err_port = reactor.listenUDP(
+           self.receive_error_port, async.DatagramServerProtocol(self.receiver))
+        self.receiver.addCallback("/mouse", self.mouse_handler)
+
+    def mouse_handler(self, message, address):
+        """
+        mouse interaction handler
+        """
+        print("  Got {} message from {}".format(message, address))
         
     def _send(self, msg):
         """
