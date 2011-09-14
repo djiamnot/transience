@@ -19,49 +19,83 @@
 """
 Transience score 
 """
+
 import inscore
+from txosc import osc
 
-class ScoreElement(object):
-    """
-    Main container for a INSCore element.  This class (and its derived classes)
-    is meant to provide the proper OSC messages to be used by INScore engine.
-    """
-    def __init__(self, URI, x=0.0, y=0.0):
-        self.show = 1
-        self.x = x
-        self.y = y
-        self.scale = 1.0
-        self.URI = URI
+import os
 
-    def del(self):
-        """
-        Delete an element
-        """
-        return [self.URI, "del"]
 
-    def x(self, xpos):
-        self.x = xpos
-        return [self.URI, "x", xpos]
+ABS_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))
+MEDIA_PATH = ABS_PATH[0]+"/media/"
 
-    def y(self, ypos):
-        self.y = ypos
-        return [self.URI, "y", ypos]
-
-    def scale(self, factor):
-        self.scale = factor
-        return [self.URI, "scale", factor]
-
-class ImageElement(ScoreElement):
-    """
-    Container for images in INSCore
-    """
-    def __init__(self, URI, x=0.0, y=0.0, imgPath):
-        self.imgPath = imgPath
-        
 
 # TODO: write the score
 
-class Transience(object):
-    def __init__(self):
-        parser = PrefParser()
-        
+class Element(object):
+    """
+    This the instance of the Transience score element.  
+    """
+
+    def __init__(self, x=0.0, y=0.0, URI="", path = "", number=1):
+        """
+        Initialize.
+        @param x, y: x, y position (between 0 and 1)
+        @param URI: OSC address (without /ITL/scene part) of the element
+        @param path: relative path to the folder containing element's images
+        @param number: number (as part of the file name.  Files in form n.png)
+
+        The x, y position will used to place the element on screen.  The URI
+        will be used to identify the element within INScore scene.  This class
+        will in fact prepend "/ITL/scene/" to the path variable and the resulting
+        string will be the OSC address of the element.
+
+        The path will be mangled as well to use absolute path relative to script's
+        directory and let INSCore use the absolute path for loading images.
+        Therefore the path provided here will be:
+        /absolute/path/to/transience/media/<path>/<number>.png
+        """
+
+        self.x = x
+        self.y = y
+        self.URI = URI
+        self.path = MEDIA_PATH+path
+        self.number = number
+
+    def delete(self):
+        """
+        Delete the element from INScore scene
+        """
+        return osc.Message(URI, "del")
+
+    def makeURI(self):
+        """
+        Cook the OSC address of the component relative to /ITL/scene
+        """
+        return "/ITL/scene/"+self.URI
+
+    def makePath(self):
+        """
+        Cook the path to the image file
+        """
+        return self.path + "/" + str(self.number) + ".png"
+
+    def image(self):
+        """
+        Cook the OSC message to create an image in INSCore
+        """
+        URI = self.makeURI()
+        path = self.makePath()
+        return osc.Message(URI, "set", "img", path)
+
+    def get_x(self):
+        """
+        cook position message
+        """
+        return osc.Message(self.makeURI(), "x", self.x)
+
+    def get_y(self):
+        """
+        cook position message
+        """
+        return osc.Message(self.makeURI(), "y", self.y)
