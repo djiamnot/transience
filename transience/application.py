@@ -23,6 +23,7 @@ Application class
 from transience import __version__
 #from transience import server
 from transience import inscore
+from transience import score
 from twisted.internet import reactor
 from txosc import osc
 import time
@@ -41,8 +42,16 @@ class Application(object):
         self.oscore = inscore.INScore()
         print("*** Running Transience version {}".format(__version__))
         #print("Did it work?")
+        self.recitation = score.Element(
+            x = -0.80, 
+            y = -0.80, 
+            URI="recitation", 
+            path="recitation", 
+            number=1)
         reactor.callLater(12.0,self.oscore._send, osc.Message("/ITL/scene/text","scale",10.0))
         reactor.callLater(2.0,self.greet)
+        reactor.callLater(4.0,self.make_recitation)
+        reactor.callLater(14.0, self.change_recitation)
         self.oscore.run() # move to INSCore's __init__?
     
     def greet(self):
@@ -52,12 +61,22 @@ class Application(object):
 
     def _hello(self):
         print("Entered _hello")
-        self.oscore._send(osc.Message("/ITL/scene/text","del"))
+        self.oscore._send(osc.Message("/ITL/scene/*","del"))
         self.oscore._send(osc.Message("/ITL/scene/text","set","txt","Hello SELF.OSCORE!"))
         self.oscore._send(osc.Message("/ITL/scene/text", "scale", 4.0))
         #def _stop():
         #    reactor.stop()
         #reactor.callLater(20.0,_stop)
+
+    def make_recitation(self):
+        self.recitation.image()
+        self.oscore._send(self.recitation.image())
+        self.oscore._send(self.recitation.get_x())
+        self.oscore._send(self.recitation.get_y())
+
+    def change_recitation(self):
+        self.recitation.number = 4
+        self.oscore._send(self.recitation.image())
 
 
 ## if __name__ == "__main__":
