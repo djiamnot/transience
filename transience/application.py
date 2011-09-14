@@ -43,17 +43,17 @@ class Application(object):
         print("*** Running Transience version {}".format(__version__))
         #print("Did it work?")
         self.recitation = score.Element(
-            x = -0.80, 
-            y = -0.80, 
-            URI="recitation", 
-            path="recitation", 
+            x = -0.80,
+            y = -0.80,
+            URI="recitation",
+            path="recitation",
             number=1)
         reactor.callLater(12.0,self.oscore._send, osc.Message("/ITL/scene/text","scale",10.0))
         reactor.callLater(2.0,self.greet)
         reactor.callLater(4.0,self.make_recitation)
         reactor.callLater(14.0, self.change_recitation)
         self.oscore.run() # move to INSCore's __init__?
-    
+   
     def greet(self):
         print("Entered greet")
         reactor.callLater(0.1,self._hello)
