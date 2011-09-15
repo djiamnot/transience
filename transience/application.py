@@ -35,7 +35,7 @@ Application
 Sets up and controls the score
 """
 recitation = score.Element(
-    x = -0.99,
+    x = -1.08661,
     y = -0.85,
     URI="recitation",
     path="recitation",
@@ -43,72 +43,82 @@ recitation = score.Element(
     scale = 1.)
 
 mood = score.Element(
-    x = -0.30,
+    x = -0.359580,
     y = -0.85,
     URI="mood",
     path="mood",
     number=1)
 
 instructions = score.Element(
-    x = -0.30,
+    x = 0.446194,
     y = -0.85,
     URI="instructions",
     path="instructions",
     number=1)
 
 durations = score.Element(
-    x = -0.30,
+    x = 1.06037,
     y = -0.85,
     URI="durations",
     path="durations",
     number=1)
 
 glissandis = score.Element(
-    x = -0.30,
-    y = -0.85,
+    x = -0.616798,
+    y = -0.572178,
     URI="glissandis",
     path="glissandis",
     number=1,
-    scale = 0.5)
+    scale = 0.25)
 
 interactions = score.Element(
-    x = -0.30,
-    y = -0.85,
+    x = 0.564305,
+    y = -0.561680,
     URI="interactions",
     path="interactions",
     number=1,
     scale = 0.5)
 
 envelopes = score.Element(
-    x = -0.30,
-    y = -0.85,
+    x = 0.0918635,
+    y = 0.136483,
     URI="envelopes",
     path="envelopes",
     number=1,
-    scale = 0.5)
+    scale = 0.8)
 
 melos = score.Element(
-    x = -0.30,
-    y = -0.85,
+    x = 0.186352,
+    y = 0.490814,
     URI="melos",
     path="melos",
     number=1,
-    scale = 0.5)
+    scale = 0.75)
 
 rhythms = score.Element(
-    x = -0.30,
-    y = -0.85,
+    x = 0.186352,
+    y = 0.839895,
     URI="rhythms",
     path="rhythms",
     number=1,
-    scale = 0.5)
+    scale = 0.75)
 
 poems = score.Element(
-    x = -0.30,
-    y = -0.85,
+    x = -1.16010,
+    y = 0.154856,
     URI="poems",
     path="poems",
-    number=101)
+    number=101,
+    scale = 0.6)
+
+# TODO: deal with etexts as well!
+jtexts = score.Element(
+    x = 0.178478,
+    y = -0.244094,
+    URI="jtexts",
+    path="jtexts",
+    number=101,
+    scale = 0.8)
 
 class Application(object):
     """
@@ -131,6 +141,7 @@ class Application(object):
         self.melos = melos
         self.rhythms = rhythms
         self.poems = poems
+        self.jtexts = jtexts
         reactor.callLater(0.1,self.recitation.watch_mouse_enter)
         reactor.callLater(0.0,self.oscore._send, osc.Message("/ITL/scene/*","del"))
         reactor.callLater(0.01,self.oscore._send, osc.Message("/ITL/scene","fullscreen", 1))
@@ -151,6 +162,7 @@ class Application(object):
         reactor.callLater(14.0, self.make_melos)
         reactor.callLater(14.0, self.make_rhythms)
         reactor.callLater(14.0, self.make_poems)
+        reactor.callLater(14.0, self.make_jtexts)
         self.oscore.run()
         # move to INSCore's __init__?
    
@@ -247,6 +259,14 @@ class Application(object):
         self.oscore._send(self.instructions.get_y())
         self.oscore._send(self.instructions.scale_element())
         #self.oscore._send(self.instructions.watch_mouse_enter())
+
+    def make_jtexts(self):
+        #self.jtexts.image()
+        self.oscore._send(self.jtexts.image())
+        self.oscore._send(self.jtexts.get_x())
+        self.oscore._send(self.jtexts.get_y())
+        self.oscore._send(self.jtexts.scale_element())
+        #self.oscore._send(self.jtexts.watch_mouse_enter())
 
     def change_recitation(self):
         self.recitation.number = 4
