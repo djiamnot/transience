@@ -37,7 +37,7 @@ class Element(object):
     This the instance of the Transience score element.  
     """
 
-    def __init__(self, x=0.0, y=0.0, URI="", path = "", number=1):
+    def __init__(self, x=0.0, y=0.0, URI="", path = "", number=1, scale=1.):
         """
         Initialize.
         @param x, y: x, y position (between 0 and 1)
@@ -61,6 +61,7 @@ class Element(object):
         self.URI = URI
         self.path = MEDIA_PATH+path
         self.number = number
+        self.scale = scale
 
     def delete(self):
         """
@@ -87,6 +88,12 @@ class Element(object):
         URI = self.makeURI()
         path = self.makePath()
         return osc.Message(URI, "set", "img", path)
+
+    def scale_element(self):
+        """
+        Scale the element
+        """
+        return osc.Message(self.makeURI(), "scale", self.scale)
 
     def get_x(self):
         """

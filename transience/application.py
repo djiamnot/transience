@@ -35,74 +35,80 @@ Application
 Sets up and controls the score
 """
 recitation = score.Element(
-                x = -0.99,
-                y = -0.85,
-                URI="recitation",
-                path="recitation",
-                number=1)
+    x = -0.99,
+    y = -0.85,
+    URI="recitation",
+    path="recitation",
+    number=1,
+    scale = 1.)
 
 mood = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="mood",
-                path="mood",
-                number=1)
+    x = -0.30,
+    y = -0.85,
+    URI="mood",
+    path="mood",
+    number=1)
 
 instructions = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="instructions",
-                path="instructions",
-                number=1)
+    x = -0.30,
+    y = -0.85,
+    URI="instructions",
+    path="instructions",
+    number=1)
 
 durations = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="durations",
-                path="durations",
-                number=1)
+    x = -0.30,
+    y = -0.85,
+    URI="durations",
+    path="durations",
+    number=1)
 
 glissandis = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="glissandis",
-                path="glissandis",
-                number=1)
+    x = -0.30,
+    y = -0.85,
+    URI="glissandis",
+    path="glissandis",
+    number=1,
+    scale = 0.5)
 
 interactions = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="interactions",
-                path="interactions",
-                number=1)
+    x = -0.30,
+    y = -0.85,
+    URI="interactions",
+    path="interactions",
+    number=1,
+    scale = 0.5)
 
 envelopes = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="envelopes",
-                path="envelopes",
-                number=1)
+    x = -0.30,
+    y = -0.85,
+    URI="envelopes",
+    path="envelopes",
+    number=1,
+    scale = 0.5)
 
 melos = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="melos",
-                path="melos",
-                number=1)
+    x = -0.30,
+    y = -0.85,
+    URI="melos",
+    path="melos",
+    number=1,
+    scale = 0.5)
 
 rhythms = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="rhythms",
-                path="rhythms",
-                number=1)
+    x = -0.30,
+    y = -0.85,
+    URI="rhythms",
+    path="rhythms",
+    number=1,
+    scale = 0.5)
 
 poems = score.Element(
-                x = -0.30,
-                y = -0.85,
-                URI="poems",
-                path="poems",
-                number=101)
+    x = -0.30,
+    y = -0.85,
+    URI="poems",
+    path="poems",
+    number=101)
 
 class Application(object):
     """
@@ -167,6 +173,7 @@ class Application(object):
         self.oscore._send(self.mood.image())
         self.oscore._send(self.mood.get_x())
         self.oscore._send(self.mood.get_y())
+        self.oscore._send(self.mood.scale_element())
         #self.oscore._send(self.mood.watch_mouse_enter())
 
     def make_recitation(self):
@@ -174,6 +181,7 @@ class Application(object):
         self.oscore._send(self.recitation.image())
         self.oscore._send(self.recitation.get_x())
         self.oscore._send(self.recitation.get_y())
+        self.oscore._send(self.recitation.scale_element())
         self.oscore._send(self.recitation.watch_mouse_enter())
 
     def make_poems(self):
@@ -181,6 +189,7 @@ class Application(object):
         self.oscore._send(self.poems.image())
         self.oscore._send(self.poems.get_x())
         self.oscore._send(self.poems.get_y())
+        self.oscore._send(self.poems.scale_element())
         #self.oscore._send(self.poems.watch_mouse_enter())
 
     def make_rhythms(self):
@@ -188,6 +197,7 @@ class Application(object):
         self.oscore._send(self.rhythms.image())
         self.oscore._send(self.rhythms.get_x())
         self.oscore._send(self.rhythms.get_y())
+        self.oscore._send(self.rhythms.scale_element())
         #self.oscore._send(self.rhythms.watch_mouse_enter())
 
     def make_melos(self):
@@ -195,6 +205,7 @@ class Application(object):
         self.oscore._send(self.melos.image())
         self.oscore._send(self.melos.get_x())
         self.oscore._send(self.melos.get_y())
+        self.oscore._send(self.melos.scale_element())
         #self.oscore._send(self.melos.watch_mouse_enter())
 
     def make_envelopes(self):
@@ -202,6 +213,7 @@ class Application(object):
         self.oscore._send(self.envelopes.image())
         self.oscore._send(self.envelopes.get_x())
         self.oscore._send(self.envelopes.get_y())
+        self.oscore._send(self.envelopes.scale_element())
         #self.oscore._send(self.envelopes.watch_mouse_enter())
 
     def make_interactions(self):
@@ -209,6 +221,7 @@ class Application(object):
         self.oscore._send(self.interactions.image())
         self.oscore._send(self.interactions.get_x())
         self.oscore._send(self.interactions.get_y())
+        self.oscore._send(self.interactions.scale_element())
         #self.oscore._send(self.interactions.watch_mouse_enter())
 
     def make_glissandis(self):
@@ -216,6 +229,7 @@ class Application(object):
         self.oscore._send(self.glissandis.image())
         self.oscore._send(self.glissandis.get_x())
         self.oscore._send(self.glissandis.get_y())
+        self.oscore._send(self.glissandis.scale_element())
         #self.oscore._send(self.glissandis.watch_mouse_enter())
 
     def make_durations(self):
@@ -223,6 +237,7 @@ class Application(object):
         self.oscore._send(self.durations.image())
         self.oscore._send(self.durations.get_x())
         self.oscore._send(self.durations.get_y())
+        self.oscore._send(self.durations.scale_element())
         #self.oscore._send(self.durations.watch_mouse_enter())
 
     def make_instructions(self):
@@ -230,6 +245,7 @@ class Application(object):
         self.oscore._send(self.instructions.image())
         self.oscore._send(self.instructions.get_x())
         self.oscore._send(self.instructions.get_y())
+        self.oscore._send(self.instructions.scale_element())
         #self.oscore._send(self.instructions.watch_mouse_enter())
 
     def change_recitation(self):
