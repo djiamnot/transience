@@ -24,6 +24,7 @@ The Configuration class.
 
 from ConfigParser import SafeConfigParser
 import random
+import os
 
 class PrefParser(object):
     """
@@ -45,8 +46,10 @@ class PrefParser(object):
         parser.read(self._file_name)
         for section_name in parser.sections():
             print("Section: {}".format(section_name))
-            print("   Options: {}".format(parser.options(section_name)))
+            #print("   Options: {}".format(parser.options(section_name)))
             for name, value in parser.items(section_name):
+                # TODO: should use a dictionary for these but the dicts could
+                # be wrapped in an array of dicts.
                 print ("      {} : {}".format(name, value))
 
     def _default(self):
@@ -82,4 +85,5 @@ class Configuration(object):
     def __init__(self):
         self.verbose = False
         self.osc_send_port = 7000
+        p = PrefParser()
 
