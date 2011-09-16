@@ -62,8 +62,6 @@ class INScore(object):
         The message is
         @param l1: OSC message starting with OSC address.
         """
-        print("entered _send")
-        print("The message being sent is:")
         self.sender.send(msg, (self.send_host, self.send_port))
         
     def run(self):
