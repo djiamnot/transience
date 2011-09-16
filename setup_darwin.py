@@ -7,31 +7,31 @@ Usage:
 
 from distutils.core import setup
 import py2app
-import frigo
+import transience
 
-APP = ['scripts/frigoReplicator.py']
+APP = ['scripts/transienceScore.py']
 OPTIONS = {'argv_emulation': True,
-           'iconfile': 'icon.icns' # icon files shall be 'icns' type
+           #'iconfile': 'icon.icns' # icon files shall be 'icns' type
 } 
 
 setup(
     app=APP,
-    name = "frigo",
-    version = frigo.__version__, 
-    author = "Society for Arts and Technologies",
-    author_email = "metalab@sat.qc.ca",
-    url = "http://code.sat.qc.ca/",
-    description = "Digital Assets Replicator",
-    long_description = """Digital Assets Replicator""",
-    install_requires = [], # "twisted", "wxpython", "docutils", "unison"
+    name = "Transience",
+    version = transience.__version__, 
+    author = "Michal Seta",
+    author_email = "mis@artengine.ca",
+    url = "http://matralab.hexagram.ca",
+    description = "Transience Interactive Score",
+    long_description = """Transience, a composition by Sandeep Bhagwati, Interactive Score""",
+    install_requires = [], # "twisted", "wxpython", "docutils",
     license = "GPL",
     platforms = ["any"],
     zip_safe = True,
-    packages = ["frigo", "frigo/web", "frigo/web/data", "frigo/web/data/images"],
+    packages = ["transience", "media"],
     package_data = {
-        "":["*.cfg", "*.png", "*.jpg", "*.json", "*.txt", "*.rst"]
+        "":["*.cfg", "*.png", "*.jpg", "*.json", "*.txt", "*.rst", ".pdf"]
     },
-    #package_dir = {'': 'frigo','':'frigo/web'},
+    #package_dir = {'': 'transience','':'media'},
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],  
 )
