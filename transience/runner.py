@@ -29,6 +29,8 @@ from twisted.internet import reactor
 import os
 import sys
 import time
+import subprocess
+import re
 
 DESCRIPTION = "Python control application for Transience score"
 
@@ -46,8 +48,22 @@ def run():
         config.verbose = True
     if options.osc_send_port:
         config.osc_send_port = options.osc_send_port
+    # Find out if INScore is already running
+    # TODO: implement for MacOSX (and Windows?)
+    if sys.platform == 'linux2':
+        if not is_running("INScoreViewer"):
+            subprocess.Popen(['INScoreViewer'])
+        else:
+            print("INScore already running, not doing anything.")
 
 #    inscore_server = inscore.INScore(use_twisted=True)
 #    inscore_server.run()
     app = application.Application(config)
     app.greet()
+
+
+def is_running(process):
+    s = subprocess.check_output(["ps","x"])
+    if re.search(process, s):
+        return True
+    return False
