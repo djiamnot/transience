@@ -6,3 +6,5 @@ transience.egg-info
 #*.*#
 *.png
 *.jpg
+build
+dist
