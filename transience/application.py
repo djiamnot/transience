@@ -128,6 +128,7 @@ class Application(object):
         # TODO: move this one to inscore.py
         # parser = PrefParser()
         self.configuration = configuration
+        #print("Got config from COnfiguration: ", self.configuration.p.pages)
         self.oscore = inscore.INScore()
         print("*** Running Transience version {}".format(__version__))
         #print("Did it work?")
@@ -142,6 +143,7 @@ class Application(object):
         self.rhythms = rhythms
         self.poems = poems
         self.jtexts = jtexts
+        self.set_score_page(2)
         reactor.callLater(0.1,self.recitation.watch_mouse_enter)
         reactor.callLater(0.0,self.oscore._send, osc.Message("/ITL/scene/*","del"))
         reactor.callLater(0.01,self.oscore._send, osc.Message("/ITL/scene","fullscreen", 1))
@@ -166,6 +168,19 @@ class Application(object):
         self.oscore.run()
         # move to INSCore's __init__?
    
+    def set_score_page(self, p):
+        self.recitation.number = self.configuration.p.pages[p]['recitation']
+        self.mood.number = self.configuration.p.pages[p]['mood']
+        self.instructions.number = self.configuration.p.pages[p]['instructions']
+        self.durations.number = self.configuration.p.pages[p]['durations']
+        self.glissandis.number = self.configuration.p.pages[p]['glissandis']
+        self.interactions.number = self.configuration.p.pages[p]['interactions']
+        self.envelopes.number = self.configuration.p.pages[p]['envelopes']
+        self.melos.number = self.configuration.p.pages[p]['melos']
+        self.rhythms.number = self.configuration.p.pages[p]['rhythms']
+        self.poems.number = self.configuration.p.pages[p]['poems']
+        self.jtexts.number = self.configuration.p.pages[p]['jtexts']
+    
     def greet(self):
         print("Entered greet")
         reactor.callLater(0.1,self._hello)
