@@ -37,7 +37,9 @@ class PrefParser(object):
         if file_name is None:
             file_name = os.path.expanduser("~/.transiencerc")
         self._file_name = file_name
+        self.pages = []
         self._parse()
+        
 
     def _parse(self):
         if not os.path.exists(self._file_name):
@@ -45,12 +47,18 @@ class PrefParser(object):
         parser = SafeConfigParser()
         parser.read(self._file_name)
         for section_name in parser.sections():
+            page = {}
             print("Section: {}".format(section_name))
             #print("   Options: {}".format(parser.options(section_name)))
             for name, value in parser.items(section_name):
                 # TODO: should use a dictionary for these but the dicts could
                 # be wrapped in an array of dicts.
                 print ("      {} : {}".format(name, value))
+                page[name] = value
+            print("Page after 1 parser loop: ", page)
+            self.pages.append(page)
+        print("Contents of pages: ", self.pages)
+        
 
     def _default(self):
         """
@@ -64,16 +72,17 @@ class PrefParser(object):
         for i in range (9):
             page = "page {}".format(i)
             parser.add_section(page)
-            parser.set(page, "recitation", "{}".format(random.randint(0,9)))
-            parser.set(page, "mood", "{}".format(random.randint(0,9)))
-            parser.set(page, "instructions", "{}".format(random.randint(0,9)))
-            parser.set(page, "durations", "{}".format(random.randint(0,9)))
-            parser.set(page, "glissandis", "{}".format(random.randint(0,9)))
-            parser.set(page, "interactions", "{}".format(random.randint(0,9)))
-            parser.set(page, "envelopes", "{}".format(random.randint(0,9)))
-            parser.set(page, "melos", "{}".format(random.randint(0,9)))
-            parser.set(page, "rhythms", "{}".format(random.randint(0,9)))
-            parser.set(page, "poems", "{}".format(random.randint(0,9)))
+            parser.set(page, "recitation", "{}".format(random.randint(1,9)))
+            parser.set(page, "mood", "{}".format(random.randint(1,9)))
+            parser.set(page, "instructions", "{}".format(random.randint(1,9)))
+            parser.set(page, "durations", "{}".format(random.randint(1,9)))
+            parser.set(page, "glissandis", "{}".format(random.randint(1,9)))
+            parser.set(page, "interactions", "{}".format(random.randint(1,9)))
+            parser.set(page, "envelopes", "{}".format(random.randint(1,9)))
+            parser.set(page, "melos", "{}".format(random.randint(1,9)))
+            parser.set(page, "rhythms", "{}".format(random.randint(1,9)))
+            parser.set(page, "poems", "{}".format(101))
+            parser.set(page, "jtexts", "{}".format(101))
 
         with open(config_file,"w") as f:
             parser.write(f)
@@ -85,5 +94,5 @@ class Configuration(object):
     def __init__(self):
         self.verbose = False
         self.osc_send_port = 7000
-        p = PrefParser()
+        self.p = PrefParser()
 
