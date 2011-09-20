@@ -172,6 +172,9 @@ class Application(object):
                 self.current_page = 0
             print("Current page should be: ", self.current_page)
             self.set_score_page(self.current_page)
+        elif message.getValues()[0] == 'quit':
+            print("Quit invoked!  Going for sys.exit")
+            oscore.stop()
                 
         
     def set_score_page(self, p):
