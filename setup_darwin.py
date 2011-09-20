@@ -10,6 +10,7 @@ import py2app
 import transience
 
 APP = ['scripts/transienceScore.py']
+DATA_FILES = ['./media']
 OPTIONS = {'argv_emulation': True,
            #'iconfile': 'icon.icns' # icon files shall be 'icns' type
 } 
@@ -28,6 +29,7 @@ setup(
     platforms = ["any"],
     zip_safe = True,
     packages = ["transience", "media"],
+    data_file = DATA_FILES
     package_data = {
         "":["*.cfg", "*.png", "*.jpg", "*.json", "*.txt", "*.rst", ".pdf"]
     },
