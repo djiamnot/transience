@@ -99,7 +99,7 @@ class INScore(object):
         
     def stop(self):
         """
-        Stops the main loop
+        Stops the main loop and exists python interpreter
         """
         self._running = False
         if reactor.running:
