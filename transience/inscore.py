@@ -44,6 +44,7 @@ class INScore(object):
         self._sender_port = reactor.listenUDP(0,self.sender)
         self._running = False
         print("INScore inited ...")
+        # TODO: Catch any message sent over UDP ports (see comment in runner.py)
         self._receiver_out_port = reactor.listenUDP(
             self.receive_out_port, async.DatagramServerProtocol(self.receiver))
         self._receiver_err_port = reactor.listenUDP(
