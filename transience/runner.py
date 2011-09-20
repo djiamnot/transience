@@ -53,11 +53,16 @@ def run():
     if sys.platform == 'linux2':
         if not is_running("INScoreViewer"):
             subprocess.Popen(['INScoreViewer'])
+
         else:
             print("INScore already running, not doing anything.")
 
-#    inscore_server = inscore.INScore(use_twisted=True)
-#    inscore_server.run()
+    # delay the applications start because INScoreViewer sends some
+    # non-osc messages at the beginning and twisted/txosc bails (although
+    # the thing runs).  By delaying the execution of the application
+    # we start cleanly without polutting the console with caught exceptions.
+    # TODO: fix this behaviour (catch any UDP message?)
+    time.sleep(4)
     app = application.Application(config)
     app.greet()
 
