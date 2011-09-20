@@ -29,7 +29,7 @@ setup(
     platforms = ["any"],
     zip_safe = True,
     packages = ["transience", "media"],
-    data_file = DATA_FILES
+    data_file = DATA_FILES,
     package_data = {
         "":["*.cfg", "*.png", "*.jpg", "*.json", "*.txt", "*.rst", ".pdf"]
     },
