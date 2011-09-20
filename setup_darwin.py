@@ -30,6 +30,7 @@ setup(
     zip_safe = True,
     packages = ["transience", "media"],
     data_file = DATA_FILES,
+    loader_files = [('media','./media')]
     package_data = {
         "":["*.cfg", "*.png", "*.jpg", "*.json", "*.txt", "*.rst", ".pdf"]
     },
