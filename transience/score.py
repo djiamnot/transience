@@ -112,3 +112,41 @@ class Element(object):
 
     def watch_mouse_down(self):
         return osc.Message(self.makeURI(),"watch","mouseDown","127.0.0.1:7001/mouse","clicked")
+
+
+class Button(object):
+
+    def __init__(self, x=0.0, y=0.0, URI="", txt="Text" ):
+        self.x = x
+        self.y = y
+        self.URI = URI
+        self.txt = txt
+
+    def set_color(self, r, g, b):
+        return osc.Message(self.makeURI(), "color", r, g, b)
+
+    def makeURI(self):
+        """
+        Cook the OSC address of the component relative to /ITL/scene
+        """
+        return "/ITL/scene/"+self.URI
+
+    def set_x(self):
+        return osc.Message(self.makeURI(), "x", self.x)
+
+
+    def set_y(self):
+        return osc.Message(self.makeURI(), "y", self.y)
+
+    def set_txt(self):
+        URI = self.makeURI()
+        return osc.Message(URI, "set", "txt", self.txt)
+
+    def doit(self):
+        self.set_txt()
+        self.set_x()
+        self.set_y()
+
+    def watch_mouse_down(self):
+        URI = self.URI
+        return osc.Message(URI, "watch", "mouseUp", "127.0.0.1:7001/mouse", URI, "clicked")

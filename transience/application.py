@@ -165,6 +165,8 @@ class Application(object):
         """
         # TODO: implement a check for visibility
         print("App received {} from {}".format(message.getValues()[0], address))
+        print("Values: ")
+        print(message.getValues())
         if message.getValues()[0] == 'clicked':
             if self.current_page < 8:
                 self.current_page += 1
@@ -172,6 +174,10 @@ class Application(object):
                 self.current_page = 0
             print("Current page should be: ", self.current_page)
             self.set_score_page(self.current_page)
+        if message.getValues()[0] == 'quitB' and message.getValues()[1] == "clicked":
+            print("Quit invoked!  Going for sys.exit")
+            self.oscore._send(osc.Message("/ITL", "quit"))
+            self.oscore.stop()
                 
         
     def set_score_page(self, p):
@@ -197,6 +203,7 @@ class Application(object):
         reactor.callLater(0.01, self.make_rhythms)
         reactor.callLater(0.01, self.make_poems)
         reactor.callLater(0.01, self.make_jtexts)
+        reactor.callLater(0.01, self.make_quit_button)
     
     def greet(self):
         print("Entered greet")
@@ -211,6 +218,22 @@ class Application(object):
         #def _stop():
         #    reactor.stop()
         #reactor.callLater(20.0,_stop)
+
+    def make_quit_button(self):
+        ## quitbutton = score.Button(x=-1., y=-1., URI="quitB", txt="Quit")
+        ## self.oscore._send(quitbutton.doit())
+        ## self.oscore._send(quitbutton.watch_mouse_down())
+        ## self.oscore._send(quitbutton.set_color(255, 0, 0))
+        URI = "/ITL/scene/quitB"
+        txt = "QUIT"
+        self.oscore._send(osc.Message(URI, "set", "txt", txt))
+        self.oscore._send(osc.Message(URI, "x", -1.2))
+        self.oscore._send(osc.Message(URI, "y", -0.90))
+        self.oscore._send(osc.Message(URI, "xorigin", -1))
+        self.oscore._send(osc.Message(URI, "yorigin", 1))
+        self.oscore._send(osc.Message(URI, "scale", 2.0))
+        self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
+        self.oscore._send(osc.Message(URI,"watch","mouseUp","127.0.0.1:7001/mouse", "quitB", "clicked"))
 
     def make_mood(self):
         #self.mood.image()
