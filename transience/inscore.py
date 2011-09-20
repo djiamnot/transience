@@ -21,6 +21,7 @@
 INScore control
 """
 import os
+import sys
 from twisted.internet import reactor
 from txosc import osc
 from txosc import async
@@ -103,3 +104,4 @@ class INScore(object):
         self._running = False
         if reactor.running:
             reactor.stop()
+        sys.exit(0)
