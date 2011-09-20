@@ -132,6 +132,7 @@ class Application(object):
         self.oscore = inscore.INScore()
         print("*** Running Transience version {}".format(__version__))
         #print("Did it work?")
+        self.OSCcallback = self.oscore.receiver.addCallback("/mouse",self.mouse_handler)
         self.recitation = recitation
         self.mood = mood
         self.instructions = instructions
@@ -143,10 +144,8 @@ class Application(object):
         self.rhythms = rhythms
         self.poems = poems
         self.jtexts = jtexts
-        self.set_score_page(2)
-        reactor.callLater(0.1,self.recitation.watch_mouse_enter)
         reactor.callLater(0.0,self.oscore._send, osc.Message("/ITL/scene/*","del"))
-        reactor.callLater(0.01,self.oscore._send, osc.Message("/ITL/scene","fullscreen", 1))
+        reactor.callLater(0.02,self.oscore._send, osc.Message("/ITL/scene","fullscreen", 1))
         reactor.callLater(0.01,self.oscore._send, osc.Message("/ITL/scene","foreground"))
         t = 0.05
         for i in range(0,150):
@@ -154,24 +153,31 @@ class Application(object):
             t += 0.05
         reactor.callLater(12.0,self.oscore._send, osc.Message("/ITL/scene/text","del"))
         reactor.callLater(2.0,self.greet)
-        reactor.callLater(14.0,self.make_recitation)
-        reactor.callLater(14.0, self.make_mood)
-        reactor.callLater(14.0, self.make_instructions)
-        reactor.callLater(14.0, self.make_durations)
-        reactor.callLater(14.0, self.make_glissandis)
-        reactor.callLater(14.0, self.make_interactions)
-        reactor.callLater(14.0, self.make_envelopes)
-        reactor.callLater(14.0, self.make_melos)
-        reactor.callLater(14.0, self.make_rhythms)
-        reactor.callLater(14.0, self.make_poems)
-        reactor.callLater(14.0, self.make_jtexts)
+        self.current_page = 0
+        reactor.callLater(12.0, self.set_score_page, self.current_page)
+        #self.set_score_page(self.current_page)
         self.oscore.run()
         # move to INSCore's __init__?
-   
+
+    def mouse_handler(self, message, address):
+        """
+        Handle mouse clicks in visible elements
+        """
+        # TODO: implement a check for visibility
+        print("App received {} from {}".format(message.getValues()[0], address))
+        if message.getValues()[0] == 'clicked':
+            if self.current_page < 8:
+                self.current_page += 1
+            else:
+                self.current_page = 0
+            print("Current page should be: ", self.current_page)
+            self.set_score_page(self.current_page)
+                
+        
     def set_score_page(self, p):
-        self.recitation.number = self.configuration.p.pages[p]['recitation']
-        self.mood.number = self.configuration.p.pages[p]['mood']
         self.instructions.number = self.configuration.p.pages[p]['instructions']
+        self.mood.number = self.configuration.p.pages[p]['mood']
+        self.recitation.number = self.configuration.p.pages[p]['recitation']
         self.durations.number = self.configuration.p.pages[p]['durations']
         self.glissandis.number = self.configuration.p.pages[p]['glissandis']
         self.interactions.number = self.configuration.p.pages[p]['interactions']
@@ -180,6 +186,17 @@ class Application(object):
         self.rhythms.number = self.configuration.p.pages[p]['rhythms']
         self.poems.number = self.configuration.p.pages[p]['poems']
         self.jtexts.number = self.configuration.p.pages[p]['jtexts']
+        reactor.callLater(0.01,self.make_recitation)
+        reactor.callLater(0.01, self.make_mood)
+        reactor.callLater(0.01, self.make_instructions)
+        reactor.callLater(0.01, self.make_durations)
+        reactor.callLater(0.01, self.make_glissandis)
+        reactor.callLater(0.01, self.make_interactions)
+        reactor.callLater(0.01, self.make_envelopes)
+        reactor.callLater(0.01, self.make_melos)
+        reactor.callLater(0.01, self.make_rhythms)
+        reactor.callLater(0.01, self.make_poems)
+        reactor.callLater(0.01, self.make_jtexts)
     
     def greet(self):
         print("Entered greet")
@@ -201,6 +218,7 @@ class Application(object):
         self.oscore._send(self.mood.get_x())
         self.oscore._send(self.mood.get_y())
         self.oscore._send(self.mood.scale_element())
+        self.oscore._send(self.mood.watch_mouse_down())
         #self.oscore._send(self.mood.watch_mouse_enter())
 
     def make_recitation(self):
@@ -209,7 +227,8 @@ class Application(object):
         self.oscore._send(self.recitation.get_x())
         self.oscore._send(self.recitation.get_y())
         self.oscore._send(self.recitation.scale_element())
-        self.oscore._send(self.recitation.watch_mouse_enter())
+        self.oscore._send(self.recitation.watch_mouse_down())
+        #self.oscore._send(self.recitation.watch_mouse_enter())
 
     def make_poems(self):
         #self.poems.image()
@@ -217,6 +236,7 @@ class Application(object):
         self.oscore._send(self.poems.get_x())
         self.oscore._send(self.poems.get_y())
         self.oscore._send(self.poems.scale_element())
+        self.oscore._send(self.poems.watch_mouse_down())
         #self.oscore._send(self.poems.watch_mouse_enter())
 
     def make_rhythms(self):
@@ -225,6 +245,7 @@ class Application(object):
         self.oscore._send(self.rhythms.get_x())
         self.oscore._send(self.rhythms.get_y())
         self.oscore._send(self.rhythms.scale_element())
+        self.oscore._send(self.rhythms.watch_mouse_down())
         #self.oscore._send(self.rhythms.watch_mouse_enter())
 
     def make_melos(self):
@@ -233,6 +254,7 @@ class Application(object):
         self.oscore._send(self.melos.get_x())
         self.oscore._send(self.melos.get_y())
         self.oscore._send(self.melos.scale_element())
+        self.oscore._send(self.melos.watch_mouse_down())
         #self.oscore._send(self.melos.watch_mouse_enter())
 
     def make_envelopes(self):
@@ -241,6 +263,7 @@ class Application(object):
         self.oscore._send(self.envelopes.get_x())
         self.oscore._send(self.envelopes.get_y())
         self.oscore._send(self.envelopes.scale_element())
+        self.oscore._send(self.envelopes.watch_mouse_down())
         #self.oscore._send(self.envelopes.watch_mouse_enter())
 
     def make_interactions(self):
@@ -249,6 +272,7 @@ class Application(object):
         self.oscore._send(self.interactions.get_x())
         self.oscore._send(self.interactions.get_y())
         self.oscore._send(self.interactions.scale_element())
+        self.oscore._send(self.interactions.watch_mouse_down())
         #self.oscore._send(self.interactions.watch_mouse_enter())
 
     def make_glissandis(self):
@@ -257,6 +281,7 @@ class Application(object):
         self.oscore._send(self.glissandis.get_x())
         self.oscore._send(self.glissandis.get_y())
         self.oscore._send(self.glissandis.scale_element())
+        self.oscore._send(self.glissandis.watch_mouse_down())
         #self.oscore._send(self.glissandis.watch_mouse_enter())
 
     def make_durations(self):
@@ -265,6 +290,7 @@ class Application(object):
         self.oscore._send(self.durations.get_x())
         self.oscore._send(self.durations.get_y())
         self.oscore._send(self.durations.scale_element())
+        self.oscore._send(self.durations.watch_mouse_down())
         #self.oscore._send(self.durations.watch_mouse_enter())
 
     def make_instructions(self):
@@ -273,6 +299,7 @@ class Application(object):
         self.oscore._send(self.instructions.get_x())
         self.oscore._send(self.instructions.get_y())
         self.oscore._send(self.instructions.scale_element())
+        self.oscore._send(self.mood.watch_mouse_down())
         #self.oscore._send(self.instructions.watch_mouse_enter())
 
     def make_jtexts(self):
@@ -281,12 +308,14 @@ class Application(object):
         self.oscore._send(self.jtexts.get_x())
         self.oscore._send(self.jtexts.get_y())
         self.oscore._send(self.jtexts.scale_element())
+        self.oscore._send(self.jtexts.watch_mouse_down())
         #self.oscore._send(self.jtexts.watch_mouse_enter())
 
     def change_recitation(self):
         self.recitation.number = 4
         self.oscore._send(self.recitation.image())
 
+    
 
 ## if __name__ == "__main__":
 ##     app = Application()
