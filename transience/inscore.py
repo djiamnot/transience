@@ -44,17 +44,30 @@ class INScore(object):
         self._sender_port = reactor.listenUDP(0,self.sender)
         self._running = False
         print("INScore inited ...")
+        # TODO: Catch any message sent over UDP ports (see comment in runner.py)
         self._receiver_out_port = reactor.listenUDP(
             self.receive_out_port, async.DatagramServerProtocol(self.receiver))
         self._receiver_err_port = reactor.listenUDP(
            self.receive_error_port, async.DatagramServerProtocol(self.receiver))
         self.receiver.addCallback("/mouse", self.mouse_handler)
+        # fallback
+        self.receiver.fallback = self.fallback
+
+    def fallback(self, message, address):
+        """
+        Fallback message
+        """
+        print("Fallback:")
+        print("Received {} from {}".format(message,address))
 
     def mouse_handler(self, message, address):
         """
         mouse interaction handler
         """
-        print("  Got {} message from {}".format(message, address))
+        # TODO:L fix this
+        #if message.getValues()[0] == 'clicked':
+        print("Received {} from {}".format(message,address))
+        
         
     def _send(self, msg):
         """
