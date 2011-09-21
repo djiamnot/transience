@@ -95,6 +95,12 @@ class Element(object):
         """
         return osc.Message(self.makeURI(), "scale", self.scale)
 
+    def shear(self, x, y):
+        """
+        Shear element
+        """
+        return osc.Message(self.makeURI(), "shear", x, y)
+
     def get_x(self):
         """
         cook position message

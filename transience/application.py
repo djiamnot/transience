@@ -285,6 +285,7 @@ class Application(object):
         self.oscore._send(self.envelopes.image())
         self.oscore._send(self.envelopes.get_x())
         self.oscore._send(self.envelopes.get_y())
+        #self.oscore._send(self.envelopes.shear(2.0, 1.0))
         self.oscore._send(self.envelopes.scale_element())
         self.oscore._send(self.envelopes.watch_mouse_down())
         #self.oscore._send(self.envelopes.watch_mouse_enter())
