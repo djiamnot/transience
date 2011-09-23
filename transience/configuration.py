@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 #
 # Transience
-# Copyright (C) 2011 Alexandre Quessy
 # Copyright (C) 2011 Michal Seta
 #
 # This file is free software: you can redistribute it and/or modify
