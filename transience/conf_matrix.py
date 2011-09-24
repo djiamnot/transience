@@ -18,8 +18,9 @@
 # along with Transience.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-The matrix configuration class.
-This class represents the matrix configuration possibilities.
+The matrix configuration module.
+This module represents the matrix configuration possibilities and provides
+some functions to work with the lists (and matrices) used in Transience.
 This really is just a collection of possible 'paths' through the matrix.
 There are finite possiblities for each of the elements, we need to lay them
 down only once.
@@ -33,6 +34,7 @@ The images are arranged in the order as per matrices in the instructions:
     6
 
 Therefore there are only 12 possible paths (*2, their reversed versions)
+
 """
 
 paths = [
@@ -50,37 +52,29 @@ paths = [
     [4, 2, 1, 3, 6],
     ]
 
-class ConfMatrix(object):
+
+def reversePath(path):
     """
-    Does some basic operations on the 'matrix'.
+    Reverses the path
+    @param path: a list
+    @rtype: list
     """
-    def __init__(self):
-        """
-        TODO: do we need to init anything?
-        """
-        pass
+    return list(reversed(path))
 
-    def reversePath(self, path):
-        """
-        Reverses the path
-        @param path: a list
-        @rtype: list
-        """
-        return list(reversed(path))
-        
 
-    def isValidPath(self, path):
-        """
-        Compare path to 
-        """
+def isValidPath(path):
+    """
+    Compare path to 
+    """
 
-        valid = False
-        for i in paths:
-            if i == path:
-                valid = True
-                break
-            else:
-                valid = False
-        return valid
-
-    
+    valid = False
+    for i in paths:
+        print("Searching in: ", i)
+        if i == path or reversePath(i) == path:
+            print("Mathes! ", i)
+            valid = True
+            break
+        else:
+            print("Next...")
+            valid = False
+    return valid
