@@ -17,10 +17,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Transience.  If not, see <http://www.gnu.org/licenses/>.
 """
-Transience score 
+Transience score elements
 """
 
-import inscore
+from transience import inscore
 from txosc import osc
 
 import os
