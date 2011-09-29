@@ -19,7 +19,9 @@
 
 """
 Application class
+
 """
+
 from transience import __version__
 #from transience import server
 from transience import inscore
@@ -208,10 +210,8 @@ class Application(object):
     def greet(self):
         print("Entered greet")
         reactor.callLater(0.1,self._hello)
-        print("Called callLater?")
 
     def _hello(self):
-        print("Entered _hello")
         self.oscore._send(osc.Message("/ITL/scene/*","del"))
         self.oscore._send(osc.Message("/ITL/scene/text","set","txt","Welcome to Transience\nby Sandeep Bhagwati"))
         self.oscore._send(osc.Message("/ITL/scene/text", "scale", 4.0))
