@@ -37,7 +37,7 @@ class Element(object):
     This the instance of the Transience score element.  
     """
 
-    def __init__(self, x=0.0, y=0.0, URI="", path = "", number=1, scale=1.):
+    def __init__(self, x=0.0, y=0.0, URI="", path = "", number=1, scale=1., show=1):
         """
         Initialize.
         @param x, y: x, y position (between 0 and 1)
@@ -62,6 +62,7 @@ class Element(object):
         self.path = MEDIA_PATH+path
         self.number = number
         self.scale = scale
+        self.show = show
 
     def delete(self):
         """
@@ -112,6 +113,21 @@ class Element(object):
         cook position message
         """
         return osc.Message(self.makeURI(), "y", self.y)
+
+    def show(self, shw):
+        """
+        Show or hide the element
+        @param shw: int(0,1)
+        """
+        self.show = shw
+        return osc.Message(self.makeURI(), "show", self.show)
+
+    def get_show(self):
+        """
+        get the show state
+        @rtype: int (0, 1)
+        """
+        return self.show
 
     def watch_mouse_enter(self):
         return osc.Message(self.makeURI(), "watch", "mouseEnter", "127.0.0.1:7001/mouse", "mouse entered!")
