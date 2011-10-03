@@ -44,13 +44,12 @@ class Application(object):
     Starts the transience application
     """
     def __init__(self, configuration):
-        # TODO: move this one to inscore.py
-        # parser = PrefParser()
+        # we read configuration here:
         self.configuration = configuration
         #print("Got config from COnfiguration: ", self.configuration.p.pages)
         print("*** Running Transience version {}".format(__version__))
         #self.set_score_page(self.current_page)
-        self.page = stacks.Page()
+        self.page = stacks.Page(configuration)
         reactor.callLater(0.0,self.page.oscore._send,
                           osc.Message("/ITL/scene/*","del"))
         reactor.callLater(0.02,self.page.oscore._send,
@@ -67,34 +66,12 @@ class Application(object):
         reactor.callLater(12.0,self.page.oscore._send,
                           osc.Message("/ITL/scene/text","del"))
         reactor.callLater(2.0,self.page.greet)
-        self.current_page = 0
-        reactor.callLater(12.0, self.set_score_page, self.current_page)
+        self.page.current_page = 0
+        reactor.callLater(12.0, self.page.set_score_page, self.page.current_page)
         self.page.oscore.run()
-        
-    def set_score_page(self, p):
-        self.page.instructions.number = self.configuration.p.pages[p]['instructions']
-        self.page.mood.number = self.configuration.p.pages[p]['mood']
-        self.page.recitation.number = self.configuration.p.pages[p]['recitation']
-        self.page.durations.number = self.configuration.p.pages[p]['durations']
-        self.page.glissandis.number = self.configuration.p.pages[p]['glissandis']
-        self.page.interactions.number = self.configuration.p.pages[p]['interactions']
-        self.page.envelopes.number = self.configuration.p.pages[p]['envelopes']
-        self.page.melos.number = self.configuration.p.pages[p]['melos']
-        self.page.rhythms.number = self.configuration.p.pages[p]['rhythms']
-        self.page.poems.number = self.configuration.p.pages[p]['poems']
-        self.page.jtexts.number = self.configuration.p.pages[p]['jtexts']
-        reactor.callLater(0.01,self.page.make_recitation)
-        reactor.callLater(0.01, self.page.make_mood)
-        reactor.callLater(0.01, self.page.make_instructions)
-        reactor.callLater(0.01, self.page.make_durations)
-        reactor.callLater(0.01, self.page.make_glissandis)
-        reactor.callLater(0.01, self.page.make_interactions)
-        reactor.callLater(0.01, self.page.make_envelopes)
-        reactor.callLater(0.01, self.page.make_melos)
-        reactor.callLater(0.01, self.page.make_rhythms)
-        reactor.callLater(0.01, self.page.make_poems)
-        reactor.callLater(0.01, self.page.make_jtexts)
-        reactor.callLater(0.01, self.page.make_quit_button)
+
+    def greet(self):
+        self.page.greet()
         
 ## if __name__ == "__main__":
 ##     app = Application()

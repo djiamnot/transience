@@ -132,9 +132,15 @@ class Page(object):
     Class page defines one page layout 
     """
 
-    def __init__(self):
+    def __init__(self, conf):
+        """
+        Initialize the page
+        @param conf: the configuration handed down by application
+        """
         self.oscore = inscore.INScore()
-
+        # TODO: This may be confusing...  this constructor depends on a
+        # configuration handed down. Maybe it is OK... 
+        self.configuration = conf
         #print("Did it work?")
         self.OSCcallback = self.oscore.receiver.addCallback("/mouse",self.mouse_handler)
         self.recitation = recitation
@@ -148,6 +154,7 @@ class Page(object):
         self.rhythms = rhythms
         self.poems = poems
         self.jtexts = jtexts
+        self.current_page = 0
         
 
     def mouse_handler(self, message, address):
@@ -303,3 +310,28 @@ class Page(object):
     def change_recitation(self):
         self.recitation.number = 4
         self.oscore._send(self.recitation.image())
+
+    def set_score_page(self, p):
+        self.instructions.number = self.configuration.p.pages[p]['instructions']
+        self.mood.number = self.configuration.p.pages[p]['mood']
+        self.recitation.number = self.configuration.p.pages[p]['recitation']
+        self.durations.number = self.configuration.p.pages[p]['durations']
+        self.glissandis.number = self.configuration.p.pages[p]['glissandis']
+        self.interactions.number = self.configuration.p.pages[p]['interactions']
+        self.envelopes.number = self.configuration.p.pages[p]['envelopes']
+        self.melos.number = self.configuration.p.pages[p]['melos']
+        self.rhythms.number = self.configuration.p.pages[p]['rhythms']
+        self.poems.number = self.configuration.p.pages[p]['poems']
+        self.jtexts.number = self.configuration.p.pages[p]['jtexts']
+        reactor.callLater(0.01,self.make_recitation)
+        reactor.callLater(0.01, self.make_mood)
+        reactor.callLater(0.01, self.make_instructions)
+        reactor.callLater(0.01, self.make_durations)
+        reactor.callLater(0.01, self.make_glissandis)
+        reactor.callLater(0.01, self.make_interactions)
+        reactor.callLater(0.01, self.make_envelopes)
+        reactor.callLater(0.01, self.make_melos)
+        reactor.callLater(0.01, self.make_rhythms)
+        reactor.callLater(0.01, self.make_poems)
+        reactor.callLater(0.01, self.make_jtexts)
+        reactor.callLater(0.01, self.make_quit_button)
