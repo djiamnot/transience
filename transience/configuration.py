@@ -20,10 +20,10 @@
 """
 The Configuration class.
 """
-
-from ConfigParser import SafeConfigParser
 import random
 import os
+from ConfigParser import SafeConfigParser
+import conf_matrix
 
 class PrefParser(object):
     """
@@ -36,7 +36,7 @@ class PrefParser(object):
         if file_name is None:
             file_name = os.path.expanduser("~/.transiencerc")
         self._file_name = file_name
-        self.pages = []
+        self.elements = []
         self._parse()
         
 
@@ -46,17 +46,17 @@ class PrefParser(object):
         parser = SafeConfigParser()
         parser.read(self._file_name)
         for section_name in parser.sections():
-            page = {}
+            element = {}
             print("Section: {}".format(section_name))
             #print("   Options: {}".format(parser.options(section_name)))
             for name, value in parser.items(section_name):
                 # TODO: should use a dictionary for these but the dicts could
                 # be wrapped in an array of dicts.
                 print ("      {} : {}".format(name, value))
-                page[name] = value
-            print("Page after 1 parser loop: ", page)
-            self.pages.append(page)
-        print("Contents of pages: ", self.pages)
+                element[name] = value
+            print("Element 1 parser loop: ", element)
+            self.elements.append(element)
+        print("Contents of elements: ", self.elements)
         
 
     def _default(self):
@@ -64,25 +64,28 @@ class PrefParser(object):
         write a default configuration file
         """
         # TODO: replace the random for something more meaningful
+        path = conf_matrix.paths
         config_file = os.path.expanduser("~/.transiencerc")
         parser = SafeConfigParser()
         #parser.add_section("inscore_port")
         #parser.set(inscore_port("7000"))
-        for i in range (9):
-            page = "page {}".format(i)
-            parser.add_section(page)
-            parser.set(page, "recitation", "{}".format(random.randint(1,9)))
-            parser.set(page, "mood", "{}".format(random.randint(1,9)))
-            parser.set(page, "instructions", "{}".format(random.randint(1,9)))
-            parser.set(page, "durations", "{}".format(random.randint(1,9)))
-            parser.set(page, "glissandis", "{}".format(random.randint(1,9)))
-            parser.set(page, "interactions", "{}".format(random.randint(1,9)))
-            parser.set(page, "envelopes", "{}".format(random.randint(1,9)))
-            parser.set(page, "melos", "{}".format(random.randint(1,9)))
-            parser.set(page, "rhythms", "{}".format(random.randint(1,9)))
-            parser.set(page, "poems", "{}".format(101))
-            parser.set(page, "jtexts", "{}".format(101))
-
+        elements = [
+            'recitation',
+            'mood',
+            'instructions',
+            'durations',
+            'glissandis',
+            'interactions',
+            'envelopes',
+            'melos',
+            'rhythms',
+            'poems',
+            'jtexts',
+            ]
+        for element in elements:
+            parser.add_section(element)
+            parser.set(element, "sequence", "{}".format(path[random.randint(0,4)]))
+            
         with open(config_file,"w") as f:
             parser.write(f)
 
