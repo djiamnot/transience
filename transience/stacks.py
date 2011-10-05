@@ -19,13 +19,12 @@
 """
 Transience elements combined into pages
 """
-
-from transience import score
-from transience import inscore
+import os
 from twisted.internet import reactor
 from txosc import osc
+from transience import score
+from transience import inscore
 
-import os
 
 # TODO: implement the 'X' card that will decide which elements are diplayed
 # at which time (and the elements should know in advance so that they can show
