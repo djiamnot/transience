@@ -66,8 +66,7 @@ class Application(object):
         reactor.callLater(12.0,self.page.oscore._send,
                           osc.Message("/ITL/scene/text","del"))
         reactor.callLater(2.0,self.page.greet)
-        self.page.current_page = 0
-        reactor.callLater(12.0, self.page.set_score_page, self.page.current_page)
+        reactor.callLater(12.0, self.page.set_score_page)
         self.page.oscore.run()
 
     def greet(self):
