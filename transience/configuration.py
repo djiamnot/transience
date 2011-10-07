@@ -36,7 +36,7 @@ class PrefParser(object):
         if file_name is None:
             file_name = os.path.expanduser("~/.transiencerc")
         self._file_name = file_name
-        self.elements = []
+        self.elements = {}
         self._parse()
         
 
@@ -45,30 +45,37 @@ class PrefParser(object):
             self._default()
         parser = SafeConfigParser()
         parser.read(self._file_name)
+        element = {}
         for section_name in parser.sections():
-            element = {}
             print("Section: {}".format(section_name))
             #print("   Options: {}".format(parser.options(section_name)))
             for name, value in parser.items(section_name):
                 # TODO: should use a dictionary for these but the dicts could
                 # be wrapped in an array of dicts.
                 print ("      {} : {}".format(name, value))
-                element[name] = value
-            print("Element 1 parser loop: ", element)
-            self.elements.append(element)
+                element[section_name] = self.read_sequence(value)
+            print("Element is %s: "%(element))
+            self.elements = element
         print("Contents of elements: ", self.elements)
         
+    def read_sequence(self, elems):
+        """
+        Read a python list formatted as string and turn it into a real
+        pythonlist
+        @param elems: string in the form of [1, 2, 3 ...]
+        @return: list of chars
+        """
+        my_list = elems[1:-1]
+        my_list = my_list.split(",")
+        return my_list
 
     def _default(self):
         """
         write a default configuration file
         """
-        # TODO: replace the random for something more meaningful
         path = conf_matrix.paths
         config_file = os.path.expanduser("~/.transiencerc")
         parser = SafeConfigParser()
-        #parser.add_section("inscore_port")
-        #parser.set(inscore_port("7000"))
         elements = [
             'recitation',
             'mood',
@@ -84,7 +91,7 @@ class PrefParser(object):
             ]
         for element in elements:
             parser.add_section(element)
-            parser.set(element, "sequence", "{}".format(path[random.randint(0,4)]))
+            parser.set(element, 'sequence', "{}".format(path[random.randint(0,4)]))
             
         with open(config_file,"w") as f:
             parser.write(f)
@@ -96,5 +103,5 @@ class Configuration(object):
     def __init__(self):
         self.verbose = False
         self.osc_send_port = 7000
-        self.p = PrefParser()
+        self.parser = PrefParser()
 

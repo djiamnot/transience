@@ -61,7 +61,7 @@ class Application(object):
             reactor.callLater(
                 t,
                 self.page.oscore._send,
-                osc.Message("/ITL/scene","color", 255-i,255-i, 255-i))
+                osc.Message("/ITL/scene","color", i,i, i))
             t += 0.05
         reactor.callLater(12.0,self.page.oscore._send,
                           osc.Message("/ITL/scene/text","del"))

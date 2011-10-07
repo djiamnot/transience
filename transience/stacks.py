@@ -184,7 +184,7 @@ class Page(object):
 
     def _hello(self):
         self.oscore._send(osc.Message("/ITL/scene/*","del"))
-        self.oscore._send(osc.Message("/ITL/scene/text","set","txt","Welcome to Transience\nby Sandeep Bhagwati"))
+        self.oscore._send(osc.Message("/ITL/scene/text","set","txt","Transience\nby Sandeep Bhagwati"))
         self.oscore._send(osc.Message("/ITL/scene/text", "scale", 4.0))
         #def _stop():
         #    reactor.stop()
@@ -311,17 +311,17 @@ class Page(object):
         self.oscore._send(self.recitation.image())
 
     def set_score_page(self, p):
-        self.instructions.number = self.configuration.p.pages[p]['instructions']
-        self.mood.number = self.configuration.p.pages[p]['mood']
-        self.recitation.number = self.configuration.p.pages[p]['recitation']
-        self.durations.number = self.configuration.p.pages[p]['durations']
-        self.glissandis.number = self.configuration.p.pages[p]['glissandis']
-        self.interactions.number = self.configuration.p.pages[p]['interactions']
-        self.envelopes.number = self.configuration.p.pages[p]['envelopes']
-        self.melos.number = self.configuration.p.pages[p]['melos']
-        self.rhythms.number = self.configuration.p.pages[p]['rhythms']
-        self.poems.number = self.configuration.p.pages[p]['poems']
-        self.jtexts.number = self.configuration.p.pages[p]['jtexts']
+        self.instructions.number = self.configuration.parser.elements['instructions'][0]
+        self.mood.number = self.configuration.parser.elements['mood'][0]
+        self.recitation.number = self.configuration.parser.elements['recitation'][0]
+        self.durations.number = self.configuration.parser.elements['durations'][0]
+        self.glissandis.number = self.configuration.parser.elements['glissandis'][0]
+        self.interactions.number = self.configuration.parser.elements['interactions'][0]
+        self.envelopes.number = self.configuration.parser.elements['envelopes'][0]
+        self.melos.number = self.configuration.parser.elements['melos'][0]
+        self.rhythms.number = self.configuration.parser.elements['rhythms'][0]
+        self.poems.number = self.configuration.parser.elements['poems'][0]
+        self.jtexts.number = self.configuration.parser.elements['jtexts'][0]
         reactor.callLater(0.01,self.make_recitation)
         reactor.callLater(0.01, self.make_mood)
         reactor.callLater(0.01, self.make_instructions)
