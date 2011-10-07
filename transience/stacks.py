@@ -142,20 +142,30 @@ class Page(object):
         self.configuration = conf
         #print("Did it work?")
         self.OSCcallback = self.oscore.receiver.addCallback("/mouse",self.mouse_handler)
-        self.recitation = recitation
-        self.mood = mood
-        self.instructions = instructions
         self.durations = durations
-        self.glissandis = glissandis
-        self.interactions = interactions
         self.envelopes = envelopes
-        self.melos = melos
-        self.rhythms = rhythms
-        self.poems = poems
+        self.glissandis = glissandis
+        self.instructions = instructions
+        self.interactions = interactions
         self.jtexts = jtexts
-        self.current_page = 0
+        self.melos = melos
+        self.mood = mood
+        self.poems = poems
+        self.rhythms = rhythms
+        self.recitation = recitation
+        # current card on stack
+        self.current_duration = 0
+        self.current_envelope = 0
+        self.current_glissando = 0
+        self.current_instruction = 0
+        self.current_interaction = 0
+        self.current_jtext = 0
+        self.current_melo = 0
+        self.current_mood = 0
+        self.current_poem = 0
+        self.current_rhythm = 0
+        self.current_recitation = 0
         
-
     def mouse_handler(self, message, address):
         """
         Handle mouse clicks in visible elements
@@ -175,8 +185,6 @@ class Page(object):
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
             self.oscore.stop()
-
-
     
     def greet(self):
         print("Entered greet")
@@ -310,18 +318,18 @@ class Page(object):
         self.recitation.number = 4
         self.oscore._send(self.recitation.image())
 
-    def set_score_page(self, p):
-        self.instructions.number = self.configuration.parser.elements['instructions'][0]
-        self.mood.number = self.configuration.parser.elements['mood'][0]
-        self.recitation.number = self.configuration.parser.elements['recitation'][0]
-        self.durations.number = self.configuration.parser.elements['durations'][0]
-        self.glissandis.number = self.configuration.parser.elements['glissandis'][0]
-        self.interactions.number = self.configuration.parser.elements['interactions'][0]
-        self.envelopes.number = self.configuration.parser.elements['envelopes'][0]
-        self.melos.number = self.configuration.parser.elements['melos'][0]
-        self.rhythms.number = self.configuration.parser.elements['rhythms'][0]
-        self.poems.number = self.configuration.parser.elements['poems'][0]
-        self.jtexts.number = self.configuration.parser.elements['jtexts'][0]
+    def set_score_page(self):
+        self.instructions.number = self.configuration.parser.elements['instructions'][self.current_instruction]
+        self.mood.number = self.configuration.parser.elements['mood'][self.current_mood]
+        self.recitation.number = self.configuration.parser.elements['recitation'][self.current_recitation]
+        self.durations.number = self.configuration.parser.elements['durations'][self.current_duration]
+        self.glissandis.number = self.configuration.parser.elements['glissandis'][self.current_glissando]
+        self.interactions.number = self.configuration.parser.elements['interactions'][self.current_interaction]
+        self.envelopes.number = self.configuration.parser.elements['envelopes'][self.current_envelope]
+        self.melos.number = self.configuration.parser.elements['melos'][self.current_melo]
+        self.rhythms.number = self.configuration.parser.elements['rhythms'][self.current_rhythm]
+        self.poems.number = self.configuration.parser.elements['poems'][self.current_poem]
+        self.jtexts.number = self.configuration.parser.elements['jtexts'][self.current_jtext]
         reactor.callLater(0.01,self.make_recitation)
         reactor.callLater(0.01, self.make_mood)
         reactor.callLater(0.01, self.make_instructions)

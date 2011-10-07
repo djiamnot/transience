@@ -69,12 +69,9 @@ def isValidPath(path):
 
     valid = False
     for i in paths:
-        print("Searching in: ", i)
         if i == path or reversePath(i) == path:
-            print("Mathes! ", i)
             valid = True
             break
         else:
-            print("Next...")
             valid = False
     return valid
