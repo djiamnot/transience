@@ -63,6 +63,7 @@ class Element(object):
         self.number = number
         self.scale = scale
         self.show = show
+        # TODO: should I initialize this?
         self.stack_sequence = None
 
     def delete(self):
@@ -118,6 +119,7 @@ class Element(object):
     def set_stack_seq(self, name_seq):
         """
         A score element is aware of the sequence of images on stack.
+        Set the class variable to a list.
         @param list: sequence of image names (without extension)
         """
         self.stack_sequence = name_seq
