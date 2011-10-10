@@ -52,7 +52,6 @@ paths = [
     [4, 2, 1, 3, 6],
     ]
 
-
 def reversePath(path):
     """
     Reverses the path

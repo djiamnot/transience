@@ -63,6 +63,7 @@ class Element(object):
         self.number = number
         self.scale = scale
         self.show = show
+        self.stack_sequence = None
 
     def delete(self):
         """
@@ -114,6 +115,13 @@ class Element(object):
         """
         return osc.Message(self.makeURI(), "y", self.y)
 
+    def set_stack_seq(self, name_seq):
+        """
+        A score element is aware of the sequence of images on stack.
+        @param list: sequence of image names (without extension)
+        """
+        self.stack_sequence = name_seq
+        
     def show(self, shw):
         """
         Show or hide the element

@@ -67,6 +67,12 @@ class PrefParser(object):
         """
         my_list = elems[1:-1]
         my_list = my_list.split(",")
+        # Aww...  let's strip some whitespace...
+        # TODO: COnfigParser/writer seems to be inserting whitespace... check.
+        new_list = []
+        for s in my_list:
+            new_list.append(s.replace(' ',''))
+        my_list = new_list
         return my_list
 
     def _default(self):

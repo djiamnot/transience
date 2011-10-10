@@ -20,6 +20,7 @@
 Transience elements combined into pages
 """
 import os
+import random
 from twisted.internet import reactor
 from txosc import osc
 from transience import score
@@ -126,6 +127,9 @@ etexts = score.Element(
     scale = 0.8,
     show = 0)
 
+page_sequence = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+page_sequence = random.shuffle(page_sequence)
+
 class Page(object):
     """
     Class page defines one page layout 
@@ -140,7 +144,7 @@ class Page(object):
         # TODO: This may be confusing...  this constructor depends on a
         # configuration handed down. Maybe it is OK... 
         self.configuration = conf
-        #print("Did it work?")
+        self.arrangement = self.configuration.parser.elements
         self.OSCcallback = self.oscore.receiver.addCallback("/mouse",self.mouse_handler)
         self.durations = durations
         self.envelopes = envelopes
@@ -154,17 +158,46 @@ class Page(object):
         self.rhythms = rhythms
         self.recitation = recitation
         # current card on stack
-        self.current_duration = 0
-        self.current_envelope = 0
-        self.current_glissando = 0
-        self.current_instruction = 0
-        self.current_interaction = 0
-        self.current_jtext = 0
-        self.current_melo = 0
-        self.current_mood = 0
-        self.current_poem = 0
-        self.current_rhythm = 0
-        self.current_recitation = 0
+        self.prepare_stack('mood')
+        print("testing: {}".format(self.arrangement['mood']))
+        self.current_duration = int(self.arrangement['durations'][0])
+        self.current_envelope = int(self.arrangement['envelopes'][0])
+        self.current_glissando = int(self.arrangement['glissandis'][0])
+        self.current_instruction = int(self.arrangement['instructions'][0])
+        self.current_interaction = int(self.arrangement['interactions'][0])
+        self.current_jtext = int(self.arrangement['jtexts'][0])
+        self.current_melo = int(self.arrangement['melos'][0])
+        self.current_mood = int(self.arrangement['mood'][0])
+        self.current_poem = int(self.arrangement['poems'][0])
+        self.current_rhythm = int(self.arrangement['rhythms'][0])
+        self.current_recitation = int(self.arrangement['recitation'][0])
+        
+
+    def prepare_stack(self, name):
+        self.arrangement[name].reverse()
+        
+    def next_page(self):
+        # TODO:  finish this function
+        page_count = 0
+        if page_count < 9:
+            if page_sequence[page_count] == 0:
+                self.current_envelope = advance_stack('envelope', 1)
+                self.current_pitch = advance_stack('pitch', 1)
+                self.current_rhythm = advance_stack('rhythm', 1)
+                self.current_melo = advance_stack('melo', 1)
+            elif page_sequence[page_count] == 1:
+                # TODO: Japanese/English/None text changes here
+                self.current_recitation = advance_stack('recitation', 2)
+                self.current_mood = advance_stack('mood', 2)
+                self.current_duration = advance_stack('duration', 2)
+            elif page_sequence[page_count] == 2:
+                self.current_envelope = advance_stack('envelopes', 3)
+                self.current_glissando = advance_stack('glissandi', 3)
+                self.current_mood = advance_stack('mood', 3)
+                self.interactions = advance_stack('interections', 3)
+                
+    def advance_stack(self, name, number):
+        return int(self.arrangement[name][number])
         
     def mouse_handler(self, message, address):
         """
@@ -231,15 +264,6 @@ class Page(object):
         self.oscore._send(self.recitation.scale_element())
         self.oscore._send(self.recitation.watch_mouse_down())
         #self.oscore._send(self.recitation.watch_mouse_enter())
-
-    def make_poems(self):
-        #self.poems.image()
-        self.oscore._send(self.poems.image())
-        self.oscore._send(self.poems.get_x())
-        self.oscore._send(self.poems.get_y())
-        self.oscore._send(self.poems.scale_element())
-        self.oscore._send(self.poems.watch_mouse_down())
-        #self.oscore._send(self.poems.watch_mouse_enter())
 
     def make_rhythms(self):
         #self.rhythms.image()
@@ -313,6 +337,15 @@ class Page(object):
         self.oscore._send(self.jtexts.scale_element())
         self.oscore._send(self.jtexts.watch_mouse_down())
         #self.oscore._send(self.jtexts.watch_mouse_enter())
+
+    def make_poems(self):
+        #self.poems.image()
+        self.oscore._send(self.poems.image())
+        self.oscore._send(self.poems.get_x())
+        self.oscore._send(self.poems.get_y())
+        self.oscore._send(self.poems.scale_element())
+        self.oscore._send(self.poems.watch_mouse_down())
+        #self.oscore._send(self.poems.watch_mouse_enter())
 
     def change_recitation(self):
         self.recitation.number = 4
