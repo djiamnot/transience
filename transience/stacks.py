@@ -21,6 +21,7 @@ Transience elements combined into pages
 """
 import os
 import random
+import itertools
 from twisted.internet import reactor
 from txosc import osc
 from transience import score
@@ -128,6 +129,7 @@ etexts = score.Element(
     show = 0)
 
 page_sequence = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+# Shuffle the page sequence every time we start application.
 page_sequence = random.shuffle(page_sequence)
 
 class Page(object):
@@ -146,6 +148,7 @@ class Page(object):
         self.configuration = conf
         self.arrangement = self.configuration.parser.elements
         self.OSCcallback = self.oscore.receiver.addCallback("/mouse",self.mouse_handler)
+        # Set up the page layout:
         self.durations = durations
         self.envelopes = envelopes
         self.glissandis = glissandis
@@ -157,47 +160,47 @@ class Page(object):
         self.poems = poems
         self.rhythms = rhythms
         self.recitation = recitation
-        # current card on stack
-        self.prepare_stack('mood')
-        print("testing: {}".format(self.arrangement['mood']))
-        self.current_duration = int(self.arrangement['durations'][0])
-        self.current_envelope = int(self.arrangement['envelopes'][0])
-        self.current_glissando = int(self.arrangement['glissandis'][0])
-        self.current_instruction = int(self.arrangement['instructions'][0])
-        self.current_interaction = int(self.arrangement['interactions'][0])
-        self.current_jtext = int(self.arrangement['jtexts'][0])
-        self.current_melo = int(self.arrangement['melos'][0])
-        self.current_mood = int(self.arrangement['mood'][0])
-        self.current_poem = int(self.arrangement['poems'][0])
-        self.current_rhythm = int(self.arrangement['rhythms'][0])
-        self.current_recitation = int(self.arrangement['recitation'][0])
-        
 
-    def prepare_stack(self, name):
-        self.arrangement[name].reverse()
-        
+        # set up the stacks
+        self.duration.stack_sequence = int(self.arrangement['durations'])
+        self.envelope.stack_sequence = int(self.arrangement['envelopes'])
+        self.glissando.stack_sequence = int(self.arrangement['glissandis'])
+        self.instruction.stack_sequence = int(self.arrangement['instructions'])
+        self.interaction.stack_sequence = int(self.arrangement['interactions'])
+        self.jtext.stack_sequence = int(self.arrangement['jtexts'])
+        self.melo.stack_sequence = int(self.arrangement['melos'])
+        self.mood.stack_sequence = int(self.arrangement['mood'])
+        self.poem.stack_sequence = int(self.arrangement['poems'])
+        self.rhythm.stack_sequence = int(self.arrangement['rhythms'])
+        self.recitation.stack_sequence = int(self.arrangement['recitation'])
+
     def next_page(self):
         # TODO:  finish this function
         page_count = 0
         if page_count < 9:
             if page_sequence[page_count] == 0:
-                self.current_envelope = advance_stack('envelope', 1)
-                self.current_pitch = advance_stack('pitch', 1)
-                self.current_rhythm = advance_stack('rhythm', 1)
-                self.current_melo = advance_stack('melo', 1)
+                self.envelope.stack_sequence = advance_stack('envelope', 1)
+                self.pitch.stack_sequence = advance_stack('pitch', 1)
+                self.rhythm.stack_sequence = advance_stack('rhythm', 1)
+                self.melo.stack_sequence = advance_stack('melo', 1)
             elif page_sequence[page_count] == 1:
                 # TODO: Japanese/English/None text changes here
-                self.current_recitation = advance_stack('recitation', 2)
-                self.current_mood = advance_stack('mood', 2)
-                self.current_duration = advance_stack('duration', 2)
+                self.recitation.stack_sequence = advance_stack('recitation', 2)
+                self.mood.stack_sequence = advance_stack('mood', 2)
+                self.duration.stack_sequence = advance_stack('duration', 2)
             elif page_sequence[page_count] == 2:
-                self.current_envelope = advance_stack('envelopes', 3)
-                self.current_glissando = advance_stack('glissandi', 3)
-                self.current_mood = advance_stack('mood', 3)
-                self.interactions = advance_stack('interections', 3)
+                self.envelope.stack_sequence = advance_stack('envelopes', 3)
+                self.glissando.stack_sequence = advance_stack('glissandi', 3)
+                self.mood.stack_sequence = advance_stack('mood', 3)
+                self.interactions = advance_stack('interactions', 3)
                 
     def advance_stack(self, name, number):
-        return int(self.arrangement[name][number])
+        """
+        Advance to the next element on stack
+        """
+        # TODO: perhaps make a check that we don't go beyond the stack....
+        # TODO: make use of itertools here
+        
         
     def mouse_handler(self, message, address):
         """
@@ -209,9 +212,9 @@ class Page(object):
         print(message.getValues())
         if message.getValues()[0] == 'clicked':
             if self.current_page < 8:
-                self.current_page += 1
+                self.page.stack_sequence += 1
             else:
-                self.current_page = 0
+                self.page.stack_sequence = 0
             print("Current page should be: ", self.current_page)
             self.set_score_page(self.current_page)
         if message.getValues()[0] == 'quitB' and message.getValues()[1] == "clicked":
@@ -352,17 +355,18 @@ class Page(object):
         self.oscore._send(self.recitation.image())
 
     def set_score_page(self):
-        self.instructions.number = self.configuration.parser.elements['instructions'][self.current_instruction]
-        self.mood.number = self.configuration.parser.elements['mood'][self.current_mood]
-        self.recitation.number = self.configuration.parser.elements['recitation'][self.current_recitation]
-        self.durations.number = self.configuration.parser.elements['durations'][self.current_duration]
-        self.glissandis.number = self.configuration.parser.elements['glissandis'][self.current_glissando]
-        self.interactions.number = self.configuration.parser.elements['interactions'][self.current_interaction]
-        self.envelopes.number = self.configuration.parser.elements['envelopes'][self.current_envelope]
-        self.melos.number = self.configuration.parser.elements['melos'][self.current_melo]
-        self.rhythms.number = self.configuration.parser.elements['rhythms'][self.current_rhythm]
-        self.poems.number = self.configuration.parser.elements['poems'][self.current_poem]
-        self.jtexts.number = self.configuration.parser.elements['jtexts'][self.current_jtext]
+        self.instructions.number = self.instructions.stack_sequence[self.current_instructions]
+        self.mood.number = self.mood.stack_sequence[self.current_mood]
+        self.recitation.number = self.recitation.stack_sequence[self.current_recitation]
+        self.durations.number = self.durations.stack_sequence[self.current_durations]
+        self.glissandis.number = self.glissandis.stack_sequence[self.current_glissandis]
+        self.interactions.number = self.interactions.stack_sequence[self.current_interactions]
+        self.envelopes.number = self.envelopes.stack_sequence[self.current_envelopes]
+        self.melos.number = self.melos.stack_sequence[self.current_melos]
+        self.rhythms.number = self.rhythms.stack_sequence[self.current_rhythms]
+        self.poems.number = self.poems.stack_sequence[self.current_poems]
+        self.jtexts.number = self.poems.number
+        self.etexts.nyumber = self.poems.number
         reactor.callLater(0.01,self.make_recitation)
         reactor.callLater(0.01, self.make_mood)
         reactor.callLater(0.01, self.make_instructions)
