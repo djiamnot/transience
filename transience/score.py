@@ -64,7 +64,7 @@ class Element(object):
         self.scale = scale
         self.show = show
         # TODO: should I initialize this?
-        self.stack_sequence = None
+        self.stack_sequence = []
 
     def delete(self):
         """
