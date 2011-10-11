@@ -21,7 +21,6 @@ Transience elements combined into pages
 """
 import os
 import random
-import itertools
 from twisted.internet import reactor
 from txosc import osc
 from transience import score
@@ -162,17 +161,18 @@ class Page(object):
         self.recitation = recitation
 
         # set up the stacks
-        self.duration.stack_sequence = int(self.arrangement['durations'])
-        self.envelope.stack_sequence = int(self.arrangement['envelopes'])
-        self.glissando.stack_sequence = int(self.arrangement['glissandis'])
-        self.instruction.stack_sequence = int(self.arrangement['instructions'])
-        self.interaction.stack_sequence = int(self.arrangement['interactions'])
-        self.jtext.stack_sequence = int(self.arrangement['jtexts'])
-        self.melo.stack_sequence = int(self.arrangement['melos'])
-        self.mood.stack_sequence = int(self.arrangement['mood'])
-        self.poem.stack_sequence = int(self.arrangement['poems'])
-        self.rhythm.stack_sequence = int(self.arrangement['rhythms'])
-        self.recitation.stack_sequence = int(self.arrangement['recitation'])
+        self.durations.stack_sequence = self.arrangement['durations']
+        self.envelopes.stack_sequence = self.arrangement['envelopes']
+        self.glissandis.stack_sequence = self.arrangement['glissandis']
+        self.instructions.stack_sequence = self.arrangement['instructions']
+        self.interactions.stack_sequence = self.arrangement['interactions']
+        self.jtexts.stack_sequence = self.arrangement['jtexts']
+        self.melos.stack_sequence = self.arrangement['melos']
+        self.mood.stack_sequence = self.arrangement['mood']
+        self.poems.stack_sequence = self.arrangement['poems']
+        self.rhythms.stack_sequence = self.arrangement['rhythms']
+        self.recitation.stack_sequence = self.arrangement['recitation']
+        self.advance_stack(self.durations)
 
     def next_page(self):
         # TODO:  finish this function
@@ -194,13 +194,15 @@ class Page(object):
                 self.mood.stack_sequence = advance_stack('mood', 3)
                 self.interactions = advance_stack('interactions', 3)
                 
-    def advance_stack(self, name, number):
+    def advance_stack(self, name):
         """
         Advance to the next element on stack
+        @param name: string, to substitute a variable name
         """
-        # TODO: perhaps make a check that we don't go beyond the stack....
-        # TODO: make use of itertools here
-        
+        print("These are the attributes that I GET:")
+        print(getattr(name, 'number'))
+        print("These are the attributes that I will want to set")
+        print(getattr(name, 'stack_sequence'))        
         
     def mouse_handler(self, message, address):
         """
