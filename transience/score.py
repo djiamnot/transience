@@ -65,6 +65,14 @@ class Element(object):
         self.show = show
         # TODO: should I initialize this?
         self.stack_sequence = []
+        self.stack = iter(self.stack_sequence)
+
+    def make_stack(self):
+        self.stack = iter(self.stack_sequence)
+        self.advance_stack()
+        
+    def  advance_stack(self):
+        self.number = self.stack.next()
 
     def delete(self):
         """

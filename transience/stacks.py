@@ -175,94 +175,103 @@ class Page(object):
         self.poems.stack_sequence = self.arrangement['poems']
         self.rhythms.stack_sequence = self.arrangement['rhythms']
         self.recitation.stack_sequence = self.arrangement['recitation']
-        self.advance_stack(self.durations)
-        self.advance_stack(self.envelopes)
-        self.advance_stack(self.glissandis)
-        self.advance_stack(self.instructions)
-        self.advance_stack(self.interactions)
-        self.advance_stack(self.jtexts)
-        self.advance_stack(self.melos)
-        self.advance_stack(self.mood)
-        self.advance_stack(self.poems)
-        self.advance_stack(self.rhythms)
-        self.advance_stack(self.recitation)
+
+        # make stacks
+        self.durations.make_stack()
+        self.envelopes.make_stack()
+        self.glissandis.make_stack()
+        self.instructions.make_stack()
+        self.interactions.make_stack()
+        self.jtexts.make_stack()
+        print("jtexts? ")
+        print(self.jtexts.stack_sequence)
+        print("JT num: ".format(self.jtexts.number))
+        self.melos.make_stack()
+        self.mood.make_stack()
+        self.poems.make_stack()
+        self.rhythms.make_stack()
+        self.recitation.make_stack()
+
+        ## # set stacks to first iteration
+        ## self.durations.advance_stack()
+        ## self.envelopes.advance_stack()
+        ## self.glissandis.advance_stack()
+        ## self.instructions.advance_stack()
+        ## self.interactions.advance_stack()
+        ## self.jtexts.advance_stack()
+        ## self.melos.advance_stack()
+        ## self.mood.advance_stack()
+        ## self.poems.advance_stack()
+        ## self.rhythms.advance_stack()
+        ## self.recitation.advance_stack()
+
 
     def next_page(self):
         # TODO:  finish this function
         if page_sequence[self.page] == 0:
-            self.advance_stack(self.envelopes)
-            self.advance_stack(self.glissandis)
-            self.advance_stack(self.rhythms)
-            self.advance_stack(self.melos)
+            self.envelopes.advance_stack()
+            self.glissandis.advance_stack()
+            self.rhythms.advance_stack()
+            self.melos.advance_stack()
         elif page_sequence[self.page] == 1:
             # TODO: Japanese/English/None text changes here
-            self.advance_stack(self.recitation)
-            self.advance_stack(self.mood)
-            self.advance_stack(self.duration)
+            self.recitation.advance_stack()
+            self.mood.advance_stack()
+            self.durations.advance_stack()
         elif page_sequence[self.page] == 2:
             # TODO: Japanese/English/None text changes here
-            self.advance_stack(self.envelopes)
-            self.advance_stack(self.glissandi)
-            self.advance_stack(self.mood)
-            self.advance_stack(self.interactions)
-            self.advance_stack(self.jtexts)
-            self.advance_stack(self.rhythms)
+            self.envelopes.advance_stack()
+            self.glissandis.advance_stack()
+            self.mood.advance_stack()
+            self.interactions.advance_stack()
+            self.jtexts.advance_stack()
+            self.rhythms.advance_stack()
         elif page_sequence[self.page] == 3:
-            self.advance_stack(self.envelopes)
-            self.advance_stack(self.glissandi)
-            self.advance_stack(self.mood)
-            self.advance_stack(self.interactions)
-            self.advance_stack(self.durations)
-            self.advance_stack(self.jtexts)
-            self.advance_stack(self.melos)
+            self.envelopes.advance_stack()
+            self.glissandis.advance_stack()
+            self.mood.advance_stack()
+            self.interactions.advance_stack()
+            self.durations.advance_stack()
+            self.jtexts.advance_stack()
+            self.melos.advance_stack()
         elif page_sequence[self.page] == 4:
-            self.advance_stack(self.recitation)
-            self.advance_stack(self.envelopes)
-            self.advance_stack(self.interactions)
-            self.advance_stack(self.rhythms)
+            self.recitation.advance_stack()
+            self.envelopes.advance_stack()
+            self.interactions.advance_stack()
+            self.rhythms.advance_stack()
         elif page_sequence[self.page] == 5:
             # TODO: Japanese/English/None text changes here
-            self.advance_stack(self.recitation)
-            self.advance_stack(self.mood)
-            self.advance_stack(self.instructions)
-            self.advance_stack(self.durations)
-            self.advance_stack(self.jtexts)
-            self.advance_stack(self.melos)
+            self.recitation.advance_stack()
+            self.mood.advance_stack()
+            self.instructions.advance_stack()
+            self.durations.advance_stack()
+            self.jtexts.advance_stack()
+            self.melos.advance_stack()
         elif page_sequence[self.page] == 6:
             # TODO: Japanese/English/None text changes here
-            self.advance_stack(self.envelopes)
-            self.advance_stack(self.glissandis)
-            self.advance_stack(self.instructions)
-            self.advance_stack(self.interactions)
-            self.advance_stack(self.rhythms)
-            self.advance_stack(self.melos)
+            self.envelopes.advance_stack()
+            self.glissandis.advance_stack()
+            self.instructions.advance_stack()
+            self.interactions.advance_stack()
+            self.rhythms.advance_stack()
+            self.melos.advance_stack()
         elif page_sequence[self.page] == 7:
-            self.advance_stack(self.recitation)
-            self.advance_stack(self.evelopes)
-            self.advance_stack(self.mood)
-            self.advance_stack(self.interactions)
-            self.advance_stack(self.durations)
-            self.advance_stack(self.jtexts)
+            self.recitation.advance_stack()
+            self.envelopes.advance_stack()
+            self.mood.advance_stack()
+            self.interactions.advance_stack()
+            self.durations.advance_stack()
+            self.jtexts.advance_stack()
         elif page_sequence[self.page] == 8:
             # TODO: Japanese/English/None text changes here
-            self.advance_stack(self.recitation)
-            self.advance_stack(self.glissandis)
-            self.advance_stack(self.mood)
-            self.advance_stack(self.instructions)
-            self.advance_stack(self.durations)
-            self.advance_stack(self.rhythms)
-            self.advance_stack(self.melos)
+            self.recitation.advance_stack()
+            self.glissandis.advance_stack()
+            self.mood.advance_stack()
+            self.instructions.advance_stack()
+            self.durations.advance_stack()
+            self.rhythms.advance_stack()
+            self.melos.advance_stack()
                 
-    def advance_stack(self, name):
-        """
-        Advance to the next element on stack
-        @param name: string, to substitute a variable name
-        """
-        seq_iter = iter(getattr(name, 'stack_sequence'))
-        num = seq_iter.next()
-        setattr(name, 'number', num)
-        print("{}'s number is {}".format(name, num))
-        
     def mouse_handler(self, message, address):
         """
         Handle mouse clicks in visible elements
@@ -273,6 +282,7 @@ class Page(object):
         print(message.getValues())
         if message.getValues()[0] == 'clicked':
             self.page = self.page_iter.next()
+            self.next_page()
             print("Current page should be: ", self.page)
             self.set_score_page()
         if message.getValues()[0] == 'quitB' and message.getValues()[1] == "clicked":
