@@ -8,3 +8,7 @@ transience.egg-info
 *.jpg
 build
 dist
+GRTAGS
+GTAGS
+GSYMS
+GPATH
