@@ -67,10 +67,12 @@ class Application(object):
                           osc.Message("/ITL/scene/text","del"))
         reactor.callLater(2.0,self.page.greet)
         reactor.callLater(12.0, self.page.set_score_page)
+        reactor.callLater(1.0, self.page.next_page)
         self.page.oscore.run()
 
     def greet(self):
         self.page.greet()
+
         
 ## if __name__ == "__main__":
 ##     app = Application()
