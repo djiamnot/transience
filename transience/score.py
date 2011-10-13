@@ -70,7 +70,7 @@ class Element(object):
         print(self.stack_sequence)
         self.stack = iter(self.stack_sequence)
 
-    def set_alpha(self, a=120):
+    def set_alpha(self, a=180):
         print("*** alpha being set on "+ self.URI)
         return osc.Message(self.makeURI(), "alpha", a)
         
@@ -80,11 +80,14 @@ class Element(object):
     def make_stack(self):
         self.stack = iter(self.stack_sequence)
         self.advance_stack()
-        self.stack = iter(self.stack_sequence)
+        #self.stack = iter(self.stack_sequence)
         
     def advance_stack(self):
-        self.number = self.stack.next()
-        print("*** {} advanced in sequence: {}".format(self.URI, self.number))
+        try:
+            self.number = self.stack.next()
+            print("*** {} advanced in sequence: {}".format(self.URI, self.number))
+        except StopIteration:
+            print("### {} Has reached the bottom of the stack".format(self.URI))
 
     def delete(self):
         """
