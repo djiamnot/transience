@@ -340,6 +340,7 @@ class Page(object):
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
             self.oscore.stop()
+        if message.getValues()[0] == 'conf' and message.getValues()[1] == "clicked":
     
     def greet(self):
         print("Entered greet")
