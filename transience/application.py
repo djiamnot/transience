@@ -53,7 +53,9 @@ class Application(object):
         reactor.callLater(0.0,self.page.oscore._send,
                           osc.Message("/ITL/scene/*","del"))
         reactor.callLater(0.02,self.page.oscore._send,
-                          osc.Message("/ITL/scene","fullscreen", 1))
+                          osc.Message("/ITL/scene","width", 2.64583))
+        reactor.callLater(0.02,self.page.oscore._send,
+                          osc.Message("/ITL/scene","height", 1.80990))
         reactor.callLater(0.01,self.page.oscore._send,
                           osc.Message("/ITL/scene","foreground"))
         t = 0.05

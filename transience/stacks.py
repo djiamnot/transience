@@ -27,82 +27,81 @@ from transience import score
 from transience import inscore
 
 
-# TODO: implement the 'X' card that will decide which elements are diplayed
-# at which time (and the elements should know in advance so that they can show
-# it)
+# These instances are hardcoded based on manual placement
+# of these elements.
 
 recitation = score.Element(
-    x = -1.08661,
-    y = -0.85,
+    x = -0.969521,
+    y = 0.853411,
     URI="recitation",
     path="recitation",
     number=1,
     scale = 1.)
 
 mood = score.Element(
-    x = -0.359580,
-    y = -0.85,
+    x = 0.989840,
+    y = -0.812772,
     URI="mood",
     path="mood",
     number=1)
 
 instructions = score.Element(
-    x = 0.446194,
-    y = -0.85,
+    x = -1.18142,
+    y = -0.804064,
     URI="instructions",
     path="instructions",
     number=1)
 
 durations = score.Element(
-    x = 1.06037,
-    y = -0.85,
+    x = 1.18433,
+    y = 0.859216,
     URI="durations",
     path="durations",
     number=1)
 
 glissandis = score.Element(
-    x = -0.616798,
-    y = -0.572178,
+    x = -0.632801,
+    y = -0.423803,
     URI="glissandis",
     path="glissandis",
     number=1,
-    scale = 0.25)
+    scale = 0.450000)
 
 interactions = score.Element(
-    x = 0.564305,
-    y = -0.561680,
+    x = -0.101597,
+    y = -0.806967,
     URI="interactions",
     path="interactions",
     number=1,
     scale = 0.5)
 
 envelopes = score.Element(
-    x = 0.0918635,
-    y = 0.136483,
+    x = 0.830189,
+    y = -0.423803,
     URI="envelopes",
     path="envelopes",
     number=1,
-    scale = 0.8)
+    scale = 1.1)
 
 melos = score.Element(
-    x = 0.186352,
-    y = 0.490814,
+    x = 0.162554,
+    y = 0.0609579,
     URI="melos",
     path="melos",
     number=1,
-    scale = 0.75)
+    scale = 0.85)
 
 rhythms = score.Element(
-    x = 0.186352,
-    y = 0.839895,
+    x = 0.174166,
+    y = 0.487663,
     URI="rhythms",
     path="rhythms",
     number=1,
-    scale = 0.75)
+    scale = 0.85)
 
 poems = score.Element(
-    x = -1.16010,
-    y = 0.154856,
+    x = -1.29173,
+    y = 0.174165,
     URI="poems",
     path="poems",
     number=101,
@@ -110,21 +109,21 @@ poems = score.Element(
 
 # TODO: deal with etexts as well!
 jtexts = score.Element(
-    x = 0.178478,
-    y = -0.244094,
+    x = 0.0812772,
+    y = 0.853411,
     URI="jtexts",
     path="jtexts",
     number=101,
-    scale = 0.8,
+    scale = 0.7,
     show = 0)
 
 etexts = score.Element(
-    x = 0.178478,
-    y = -0.244094,
+    x = 0.0812772,
+    y = 0.853411,
     URI="etexts",
     path="etexts",
     number=101,
-    scale = 0.8,
+    scale = 0.7,
     show = 0)
 
 page_sequence = [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -341,6 +340,7 @@ class Page(object):
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
             self.oscore.stop()
+        if message.getValues()[0] == 'conf' and message.getValues()[1] == "clicked":
     
     def greet(self):
         print("Entered greet")
@@ -362,8 +362,8 @@ class Page(object):
         URI = "/ITL/scene/quitB"
         txt = "QUIT"
         self.oscore._send(osc.Message(URI, "set", "txt", txt))
-        self.oscore._send(osc.Message(URI, "x", -1.2))
-        self.oscore._send(osc.Message(URI, "y", -0.90))
+        self.oscore._send(osc.Message(URI, "x", -1.45123))
+        self.oscore._send(osc.Message(URI, "y", -0.947424))
         self.oscore._send(osc.Message(URI, "xorigin", -1))
         self.oscore._send(osc.Message(URI, "yorigin", 1))
         self.oscore._send(osc.Message(URI, "scale", 2.0))
