@@ -20,10 +20,13 @@
 Transience score elements
 """
 
-from transience import inscore
+import os
 from txosc import osc
 
-import os
+from transience import inscore
+
+
+
 
 
 ABS_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))
@@ -99,7 +102,13 @@ class Element(object):
         """
         Cook the OSC address of the component relative to /ITL/scene
         """
-        return "/ITL/scene/"+self.URI
+        return "/ITL/scene/" + self.URI
+
+    def make_confURI(self):
+        """
+        Cook the OSC address of the component relative to /ITL/scene
+        """
+        return "/ITL/conf/" + self.URI
 
     def makePath(self):
         """
