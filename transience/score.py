@@ -25,13 +25,8 @@ from txosc import osc
 
 from transience import inscore
 
-
-
-
-
 ABS_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_PATH = ABS_PATH[0]+"/media/"
-
 
 # TODO: write the score
 
@@ -176,7 +171,6 @@ class Element(object):
 
     def watch_mouse_down(self):
         return osc.Message(self.makeURI(),"watch","mouseDown","127.0.0.1:7001/mouse","clicked")
-
 
 class Button(object):
 
