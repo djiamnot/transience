@@ -33,7 +33,7 @@ from transience import conf_ui
 # These instances are hardcoded based on manual placement
 # of these elements.
 
-recitation = score.Element(
+recitations = score.Element(
     x = -0.969521,
     y = 0.853411,
     URI="recitation",
@@ -165,7 +165,7 @@ class Page(object):
         self.mood = mood
         self.poems = poems
         self.rhythms = rhythms
-        self.recitation = recitation
+        self.recitations = recitations
 
         # set up the stacks
         self.durations.stack_sequence = self.arrangement['durations']
@@ -178,7 +178,7 @@ class Page(object):
         self.mood.stack_sequence = self.arrangement['mood']
         self.poems.stack_sequence = self.arrangement['poems']
         self.rhythms.stack_sequence = self.arrangement['rhythms']
-        self.recitation.stack_sequence = self.arrangement['recitation']
+        self.recitations.stack_sequence = self.arrangement['recitations']
 
         # make stacks
         self.durations.make_stack()
@@ -191,7 +191,7 @@ class Page(object):
         self.mood.make_stack()
         self.poems.make_stack()
         self.rhythms.make_stack()
-        self.recitation.make_stack()
+        self.recitations.make_stack()
 
         ## # set stacks to first iteration
         ## self.durations.advance_stack()
@@ -204,7 +204,7 @@ class Page(object):
         ## self.mood.advance_stack()
         ## self.poems.advance_stack()
         ## self.rhythms.advance_stack()
-        ## self.recitation.advance_stack()
+        ## self.recitations.advance_stack()
 
 
     def next_page(self):
@@ -220,8 +220,8 @@ class Page(object):
             self.oscore._send(self.melos.set_alpha())
         elif page_sequence[self.page] == 1:
             # TODO: Japanese/English/None text changes here
-            self.recitation.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
+            self.recitations.advance_stack()
+            self.oscore._send(self.recitations.set_alpha())
             self.mood.advance_stack()
             self.oscore._send(self.mood.set_alpha())
             self.durations.advance_stack()
@@ -255,23 +255,23 @@ class Page(object):
             self.oscore._send(self.jtexts.set_alpha())
             self.oscore._send(self.melos.set_alpha())
         elif page_sequence[self.page] == 4:
-            self.recitation.advance_stack()
+            self.recitations.advance_stack()
             self.envelopes.advance_stack()
             self.interactions.advance_stack()
             self.rhythms.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
+            self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.envelopes.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
             self.oscore._send(self.rhythms.set_alpha())
         elif page_sequence[self.page] == 5:
             # TODO: Japanese/English/None text changes here
-            self.recitation.advance_stack()
+            self.recitations.advance_stack()
             self.mood.advance_stack()
             self.instructions.advance_stack()
             self.durations.advance_stack()
             self.jtexts.advance_stack()
             self.melos.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
+            self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.mood.set_alpha())
             self.oscore._send(self.instructions.set_alpha())
             self.oscore._send(self.durations.set_alpha())
@@ -292,13 +292,13 @@ class Page(object):
             self.oscore._send(self.rhythms.set_alpha())
             self.oscore._send(self.melos.set_alpha())
         elif page_sequence[self.page] == 7:
-            self.recitation.advance_stack()
+            self.recitations.advance_stack()
             self.envelopes.advance_stack()
             self.mood.advance_stack()
             self.interactions.advance_stack()
             self.durations.advance_stack()
             self.jtexts.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
+            self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.envelopes.set_alpha())
             self.oscore._send(self.mood.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
@@ -306,14 +306,14 @@ class Page(object):
             self.oscore._send(self.jtexts.set_alpha())
         elif page_sequence[self.page] == 8:
             # TODO: Japanese/English/None text changes here
-            self.recitation.advance_stack()
+            self.recitations.advance_stack()
             self.glissandis.advance_stack()
             self.mood.advance_stack()
             self.instructions.advance_stack()
             self.durations.advance_stack()
             self.rhythms.advance_stack()
             self.melos.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
+            self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.glissandis.set_alpha())
             self.oscore._send(self.mood.set_alpha())
             self.oscore._send(self.instructions.set_alpha())
@@ -402,15 +402,15 @@ class Page(object):
         self.oscore._send(self.mood.reset_alpha())
         #self.oscore._send(self.mood.watch_mouse_enter())
 
-    def make_recitation(self):
-        #self.recitation.image()
-        self.oscore._send(self.recitation.image())
-        self.oscore._send(self.recitation.get_x())
-        self.oscore._send(self.recitation.get_y())
-        self.oscore._send(self.recitation.scale_element())
-        self.oscore._send(self.recitation.watch_mouse_down())
-        self.oscore._send(self.recitation.reset_alpha())
-        #self.oscore._send(self.recitation.watch_mouse_enter())
+    def make_recitations(self):
+        #self.recitations.image()
+        self.oscore._send(self.recitations.image())
+        self.oscore._send(self.recitations.get_x())
+        self.oscore._send(self.recitations.get_y())
+        self.oscore._send(self.recitations.scale_element())
+        self.oscore._send(self.recitations.watch_mouse_down())
+        self.oscore._send(self.recitations.reset_alpha())
+        #self.oscore._send(self.recitations.watch_mouse_enter())
 
     def make_rhythms(self):
         #self.rhythms.image()
@@ -503,15 +503,15 @@ class Page(object):
         self.oscore._send(self.poems.reset_alpha())
         #self.oscore._send(self.poems.watch_mouse_enter())
 
-    def change_recitation(self):
-        self.recitation.number = 4
-        self.oscore._send(self.recitation.image())
+    def change_recitations(self):
+        self.recitations.number = 4
+        self.oscore._send(self.recitations.image())
 
     def set_score_page(self):
         print("*** set_score_page goes here")
         ## self.instructions.number = self.instructions.stack_sequence[self.current_instructions]
         ## self.mood.number = self.mood.stack_sequence[self.current_mood]
-        ## self.recitation.number = self.recitation.stack_sequence[self.current_recitation]
+        ## self.recitations.number = self.recitations.stack_sequence[self.current_recitations]
         ## self.durations.number = self.durations.stack_sequence[self.current_durations]
         ## self.glissandis.number = self.glissandis.stack_sequence[self.current_glissandis]
         ## self.interactions.number = self.interactions.stack_sequence[self.current_interactions]
@@ -522,7 +522,7 @@ class Page(object):
         ## self.jtexts.number = self.poems.number
         ## self.etexts.nyumber = self.poems.number
         print("Mood number currently is: {}".format(self.mood.number))
-        reactor.callLater(0.01,self.make_recitation)
+        reactor.callLater(0.01,self.make_recitations)
         reactor.callLater(0.01, self.make_mood)
         reactor.callLater(0.01, self.make_instructions)
         reactor.callLater(0.01, self.make_durations)
