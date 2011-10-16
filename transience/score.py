@@ -58,6 +58,7 @@ class Element(object):
         self.y = y
         self.alpha = 255
         self.URI = URI
+        self.component = "scene/"
         self.path = MEDIA_PATH+path
         self.number = number
         self.scale = scale
@@ -97,13 +98,7 @@ class Element(object):
         """
         Cook the OSC address of the component relative to /ITL/scene
         """
-        return "/ITL/scene/" + self.URI
-
-    def make_confURI(self):
-        """
-        Cook the OSC address of the component relative to /ITL/scene
-        """
-        return "/ITL/conf/" + self.URI
+        return "/ITL/"+ self.component + self.URI
 
     def makePath(self):
         """
@@ -147,7 +142,8 @@ class Element(object):
         """
         A score element is aware of the sequence of images on stack.
         Set the class variable to a list.
-        @param list: sequence of image names (without extension)
+        @param name_seq: sequence of image names (without extension)
+        @type name_seq: list
         """
         self.stack_sequence = name_seq
         

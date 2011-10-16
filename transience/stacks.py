@@ -21,10 +21,13 @@ Transience elements combined into pages
 """
 import os
 import random
+
 from twisted.internet import reactor
 from txosc import osc
+
 from transience import score
 from transience import inscore
+from transience import conf_ui
 
 
 # These instances are hardcoded based on manual placement
@@ -340,7 +343,9 @@ class Page(object):
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
             self.oscore.stop()
-        if message.getValues()[0] == 'conf' and message.getValues()[1] == "clicked":
+        if message.getValues()[0] == 'conf_ui' and message.getValues()[1] == "clicked":
+            # Open the configuration scene
+            conf = conf_ui.ConfScreen(self.configuration, self.oscore)
     
     def greet(self):
         print("Entered greet")
@@ -369,6 +374,23 @@ class Page(object):
         self.oscore._send(osc.Message(URI, "scale", 2.0))
         self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
         self.oscore._send(osc.Message(URI,"watch","mouseUp","127.0.0.1:7001/mouse", "quitB", "clicked"))
+
+    def make_conf_button(self):
+        ## quitbutton = score.Button(x=-1., y=-1., URI="quitB", txt="Quit")
+        ## self.oscore._send(quitbutton.doit())
+        ## self.oscore._send(quitbutton.watch_mouse_down())
+        ## self.oscore._send(quitbutton.set_color(255, 0, 0))
+        URI = "/ITL/scene/conf_ui"
+        txt = "Configure Score"
+        self.oscore._send(osc.Message(URI, "set", "txt", txt))
+        self.oscore._send(osc.Message(URI, "x", 1.35123))
+        self.oscore._send(osc.Message(URI, "y", -0.947424))
+        self.oscore._send(osc.Message(URI, "xorigin", 0))
+        self.oscore._send(osc.Message(URI, "yorigin", 0))
+        self.oscore._send(osc.Message(URI, "scale", 2.0))
+        self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
+        self.oscore._send(osc.Message(URI,"watch","mouseUp",
+                                      "127.0.0.1:7001/mouse", "conf_ui", "clicked"))
 
     def make_mood(self):
         #self.mood.image()
@@ -512,3 +534,4 @@ class Page(object):
         reactor.callLater(0.01, self.make_poems)
         reactor.callLater(0.01, self.make_jtexts)
         reactor.callLater(0.01, self.make_quit_button)
+        reactor.callLater(0.01, self.make_conf_button)
