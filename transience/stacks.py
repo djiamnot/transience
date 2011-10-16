@@ -329,7 +329,7 @@ class Page(object):
         print("App received {} from {}".format(message.getValues()[0], address))
         print("Values: ")
         print(message.getValues())
-        if message.getValues()[0] == 'clicked':
+        if message.getValues()[0] == 'scene/' and message.getValues()[1] == 'clicked':
             try:
                 self.page = self.page_iter.next()
             except StopIteration:

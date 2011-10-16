@@ -21,11 +21,12 @@ Configuration screen
 """
 import os
 import random
+
 from twisted.internet import reactor
 from txosc import osc
+
 from transience import score
 from transience import inscore
-
 
 class ConfScreen(object):
     """
@@ -56,13 +57,13 @@ class ConfScreen(object):
             self.sconf._send(osc.Message("/ITL/conf", "del"))
         if message.getValues()[0] == 'save_conf' and message.getValues()[1] == "clicked":
             print("Saving current configuration")
+        if message.getValues()[0] == 'conf/' and message.getValues()[1] == "clicked":
+            print("recitation1 was clicked")
             
-            
-    
     def _init_conf_screen(self):
         self.sconf._send(osc.Message("/ITL/conf","new"))
-        self.sconf._send(osc.Message("/ITL/conf","width", 1.89583))
-        self.sconf._send(osc.Message("/ITL/conf","height", 1.34115))
+        self.sconf._send(osc.Message("/ITL/conf","width", 2.39062))
+        self.sconf._send(osc.Message("/ITL/conf","height", 1.71875))
         self.sconf._send(osc.Message("/ITL/conf/title","set","txt",
                                      "Transience Configuration"))
         self.sconf._send(osc.Message("/ITL/conf/title", "scale", 4.0))
@@ -136,20 +137,6 @@ class ConfScreen(object):
             eval("self.sconf._send(self.recitations.recitation%s.watch_mouse_down())"
                  %(str(i)))
             _x += 0.4
-        ## reactor.callLater(0.01, self.make_recitation)
-        ## reactor.callLater(0.01, self.make_mood)
-        ## reactor.callLater(0.01, self.make_instructions)
-        ## reactor.callLater(0.01, self.make_durations)
-        ## reactor.callLater(0.01, self.make_glissandis)
-        ## reactor.callLater(0.01, self.make_interactions)
-        ## reactor.callLater(0.01, self.make_envelopes)
-        ## reactor.callLater(0.01, self.make_melos)
-        ## reactor.callLater(0.01, self.make_rhythms)
-        ## reactor.callLater(0.01, self.make_poems)
-        ## reactor.callLater(0.01, self.make_jtexts)
-        ## reactor.callLater(0.01, self.make_quit_button)
-        ## reactor.callLater(0.01, self.make_cancel_button)
-        ## reactor.callLater(0.01, self.make_save_button)
 
 class ConfStrip(object):
     """

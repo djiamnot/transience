@@ -165,8 +165,17 @@ class Element(object):
     def watch_mouse_enter(self):
         return osc.Message(self.makeURI(), "watch", "mouseEnter", "127.0.0.1:7001/mouse", "mouse entered!")
 
-    def watch_mouse_down(self):
-        return osc.Message(self.makeURI(),"watch","mouseDown","127.0.0.1:7001/mouse","clicked")
+    def watch_mouse_down(self, id = self.component):
+        """
+        Set a mouseDown watch event in INScore which will send a message everytime a mouse
+        was clicked.
+        @param id: an arbitrary ID of the element that was clicked, by default component name
+        @type id: string
+        @return: OSC message to be sent to INSCore
+        @rtype: L{OSC Message<txosc.osc.Message>}
+        """
+        return osc.Message(self.makeURI(),"watch","mouseDown",
+                           "127.0.0.1:7001/mouse", id, "clicked")
 
 class Button(object):
 
