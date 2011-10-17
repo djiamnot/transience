@@ -42,7 +42,8 @@ recitations = score.Element(
     scale = 1.)
 
 moods = score.Element(
-    x = 0.989840,
+#    x = 0.989840,
+    x = 1.0,
     y = -0.812772,
     URI="moods",
     path="moods",
@@ -127,7 +128,7 @@ etexts = score.Element(
     path="etexts",
     number=101,
     scale = 0.7,
-    show = 0)
+    show = 1)
 
 page_sequence = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 # Shuffle the page sequence every time we start application.
@@ -154,6 +155,20 @@ class Page(object):
         # TODO: does this have to be a class variable?
         self.page_iter = iter(page_sequence)
         self.page = 0
+        self.elements_list = [
+            'recitations',
+            'moods',
+            'instructions',
+            'durations',
+            'glissandis',
+            'interactions',
+            'envelopes',
+            'melos',
+            'rhythms',
+            'etexts',
+            'poems',
+            'jtexts',
+            ]
         # Set up the page layout:
         self.durations = durations
         self.envelopes = envelopes
@@ -161,6 +176,7 @@ class Page(object):
         self.instructions = instructions
         self.interactions = interactions
         self.jtexts = jtexts
+        self.etexts = etexts
         self.melos = melos
         self.moods = moods
         self.poems = poems
@@ -173,10 +189,11 @@ class Page(object):
         self.glissandis.stack_sequence = self.arrangement['glissandis']
         self.instructions.stack_sequence = self.arrangement['instructions']
         self.interactions.stack_sequence = self.arrangement['interactions']
-        self.jtexts.stack_sequence = self.arrangement['jtexts']
+        self.jtexts.stack_sequence = self.arrangement['etexts'] #all poems should be the same
+        self.etexts.stack_sequence = self.arrangement['etexts']
         self.melos.stack_sequence = self.arrangement['melos']
         self.moods.stack_sequence = self.arrangement['moods']
-        self.poems.stack_sequence = self.arrangement['poems']
+        self.poems.stack_sequence = self.arrangement['etexts']
         self.rhythms.stack_sequence = self.arrangement['rhythms']
         self.recitations.stack_sequence = self.arrangement['recitations']
 
@@ -187,6 +204,7 @@ class Page(object):
         self.instructions.make_stack()
         self.interactions.make_stack()
         self.jtexts.make_stack()
+        self.etexts.make_stack()
         self.melos.make_stack()
         self.moods.make_stack()
         self.poems.make_stack()
@@ -233,12 +251,14 @@ class Page(object):
             self.moods.advance_stack()
             self.interactions.advance_stack()
             self.jtexts.advance_stack()
+            self.etexts.advance_stack()
             self.rhythms.advance_stack()
             self.oscore._send(self.envelopes.set_alpha())
             self.oscore._send(self.glissandis.set_alpha())
             self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
             self.oscore._send(self.jtexts.set_alpha())
+            self.oscore._send(self.etexts.set_alpha())
             self.oscore._send(self.rhythms.set_alpha())
         elif page_sequence[self.page] == 3:
             self.envelopes.advance_stack()
@@ -247,12 +267,14 @@ class Page(object):
             self.interactions.advance_stack()
             self.durations.advance_stack()
             self.jtexts.advance_stack()
+            self.etexts.advance_stack()
             self.melos.advance_stack()
             self.oscore._send(self.envelopes.set_alpha())
             self.oscore._send(self.glissandis.set_alpha())
             self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
             self.oscore._send(self.jtexts.set_alpha())
+            self.oscore._send(self.etexts.set_alpha())
             self.oscore._send(self.melos.set_alpha())
         elif page_sequence[self.page] == 4:
             self.recitations.advance_stack()
@@ -270,12 +292,14 @@ class Page(object):
             self.instructions.advance_stack()
             self.durations.advance_stack()
             self.jtexts.advance_stack()
+            self.etexts.advance_stack()
             self.melos.advance_stack()
             self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.instructions.set_alpha())
             self.oscore._send(self.durations.set_alpha())
             self.oscore._send(self.jtexts.set_alpha())
+            self.oscore._send(self.etexts.set_alpha())
             self.oscore._send(self.melos.set_alpha())
         elif page_sequence[self.page] == 6:
             # TODO: Japanese/English/None text changes here
@@ -298,12 +322,14 @@ class Page(object):
             self.interactions.advance_stack()
             self.durations.advance_stack()
             self.jtexts.advance_stack()
+            self.etexts.advance_stack()
             self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.envelopes.set_alpha())
             self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
             self.oscore._send(self.durations.set_alpha())
             self.oscore._send(self.jtexts.set_alpha())
+            self.oscore._send(self.etexts.set_alpha())
         elif page_sequence[self.page] == 8:
             # TODO: Japanese/English/None text changes here
             self.recitations.advance_stack()
@@ -329,7 +355,7 @@ class Page(object):
         print("App received {} from {}".format(message.getValues()[0], address))
         print("Values: ")
         print(message.getValues())
-        if message.getValues()[0] == 'scene/' and message.getValues()[1] == 'clicked':
+        if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
             try:
                 self.page = self.page_iter.next()
             except StopIteration:
@@ -343,7 +369,7 @@ class Page(object):
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
             self.oscore.stop()
-        if message.getValues()[0] == 'conf_ui' and message.getValues()[1] == "clicked":
+        if message.getValues()[0] == "conf_ui" and message.getValues()[1] == "clicked":
             # Open the configuration scene
             conf = conf_ui.ConfScreen(self.configuration, self.oscore)
     
@@ -383,8 +409,8 @@ class Page(object):
         URI = "/ITL/scene/conf_ui"
         txt = "Configure Score"
         self.oscore._send(osc.Message(URI, "set", "txt", txt))
-        self.oscore._send(osc.Message(URI, "x", 1.35123))
-        self.oscore._send(osc.Message(URI, "y", -0.947424))
+        self.oscore._send(osc.Message(URI, "x", 1.25123))
+        self.oscore._send(osc.Message(URI, "y", -0.977424))
         self.oscore._send(osc.Message(URI, "xorigin", 0))
         self.oscore._send(osc.Message(URI, "yorigin", 0))
         self.oscore._send(osc.Message(URI, "scale", 2.0))
@@ -491,7 +517,18 @@ class Page(object):
         self.oscore._send(self.jtexts.scale_element())
         self.oscore._send(self.jtexts.watch_mouse_down())
         self.oscore._send(self.jtexts.reset_alpha())
+        self.oscore._send(self.jtexts.set_show(0))
         #self.oscore._send(self.jtexts.watch_mouse_enter())
+
+    def make_etexts(self):
+        #self.jtexts.image()
+        self.oscore._send(self.etexts.image())
+        self.oscore._send(self.etexts.get_x())
+        self.oscore._send(self.etexts.get_y())
+        self.oscore._send(self.etexts.scale_element())
+        self.oscore._send(self.etexts.watch_mouse_down())
+        self.oscore._send(self.etexts.reset_alpha())
+        #self.oscore._send(self.etexts.watch_mouse_enter())
 
     def make_poems(self):
         #self.poems.image()
@@ -522,16 +559,17 @@ class Page(object):
         ## self.jtexts.number = self.poems.number
         ## self.etexts.nyumber = self.poems.number
         print("Moods number currently is: {}".format(self.moods.number))
-        reactor.callLater(0.01,self.make_recitations)
-        reactor.callLater(0.01, self.make_moods)
         reactor.callLater(0.01, self.make_instructions)
-        reactor.callLater(0.01, self.make_durations)
         reactor.callLater(0.01, self.make_glissandis)
         reactor.callLater(0.01, self.make_interactions)
+        reactor.callLater(0.01, self.make_moods)
         reactor.callLater(0.01, self.make_envelopes)
         reactor.callLater(0.01, self.make_melos)
         reactor.callLater(0.01, self.make_rhythms)
         reactor.callLater(0.01, self.make_poems)
         reactor.callLater(0.01, self.make_jtexts)
+        reactor.callLater(0.01, self.make_etexts)
         reactor.callLater(0.01, self.make_quit_button)
         reactor.callLater(0.01, self.make_conf_button)
+        reactor.callLater(0.01,self.make_recitations)
+        reactor.callLater(0.01, self.make_durations)

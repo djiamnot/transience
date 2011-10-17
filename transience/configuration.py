@@ -22,8 +22,20 @@ The Configuration class.
 """
 import random
 import os
+
 from ConfigParser import SafeConfigParser
+
 import conf_matrix
+
+def save_conf(dict):
+    config_file = os.path.expanduser("~/.transiencerc")
+    parser = SafeConfigParser()
+    for key in dict:
+        parser.add_section(key)
+        parser.set(key, 'sequence', "{}".format(dict[key]))
+
+    with open(config_file,"w") as f:
+        parser.write(f)
 
 class PrefParser(object):
     """
@@ -61,7 +73,7 @@ class PrefParser(object):
     def read_sequence(self, elems):
         """
         Read a python list formatted as string and turn it into a real
-        pythonlist
+        python list
         @param elems: string in the form of [1, 2, 3 ...]
         @return: list of chars
         """
@@ -92,8 +104,8 @@ class PrefParser(object):
             'envelopes',
             'melos',
             'rhythms',
-            'poems',
-            'jtexts',
+            #'poems',
+            'etexts',
             ]
         for element in elements:
             parser.add_section(element)

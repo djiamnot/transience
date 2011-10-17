@@ -21,12 +21,15 @@ Configuration screen
 """
 import os
 import random
+import re
 
 from twisted.internet import reactor
 from txosc import osc
 
+from transience import conf_matrix
 from transience import score
 from transience import inscore
+from transience import configuration
 
 class ConfScreen(object):
     """
@@ -43,23 +46,71 @@ class ConfScreen(object):
         self.arrangement = self.configuration.parser.elements
         self.OSCcallback = self.sconf.receiver.addCallback("/mouse",self.mouse_handler)
         self._init_conf_screen()
+        self.elements = [
+            'recitations',
+            'moods',
+            'instructions',
+            'durations',
+            'glissandis',
+            'interactions',
+            'envelopes',
+            'melos',
+            'rhythms',
+            #'poems',
+            'etexts',
+            ]
+        self.path = iter(conf_matrix.paths)
+        self.settings = {}
+        for element in self.arrangement:
+           self.settings[element] = self.arrangement[element]
+        print("Initial settings: ", self.settings)
+        # Instantiate ConfStrip classes
+        ## for element in self.arrangement:
+        ##     if element == 'poems' or element == 'jtexts':
+        ##         pass
+        ##     else:
+        ##         exec("self.{} = ConfStrip()".format(element))
 
     def mouse_handler(self, message, address):
         """
         Handle mouse clicks in visible elements
         """
-        # TODO: implement a check for visibility
-        print("App received {} from {}".format(message.getValues()[0], address))
-        print("Values: ")
-        print(message.getValues())
-        if message.getValues()[0] == 'cancel_conf' and message.getValues()[1] == "clicked":
-            print("Canceling configuration")
-            self.sconf._send(osc.Message("/ITL/conf", "del"))
-        if message.getValues()[0] == 'save_conf' and message.getValues()[1] == "clicked":
-            print("Saving current configuration")
-        if message.getValues()[0] == 'conf/' and message.getValues()[1] == "clicked":
-            print("Something on conf/ was clicked")
-            
+        if len(message.getValues()) == 2:
+            element, click = message.getValues()
+            base_element = element[:-1]
+            if element == 'cancel_conf' and click == "clicked":
+                print("Canceling configuration")
+                self.sconf._send(osc.Message("/ITL/conf", "del"))
+            if element == 'save_conf' and click == "clicked":
+                print("Saving current configuration")
+                self.save_keys()
+            if base_element in self.elements and click == "clicked":
+                print("Clicked self.{0}.{1}".format(base_element, element))
+                try:
+                    new_sequence = self.path.next()
+                except StopIteration:
+                    self.path = iter(conf_matrix.paths)
+                for stack in range(0, 5):
+                    exec("self.{0}.{0}{1}.stack_sequence = {2}"
+                         .format(base_element, stack, new_sequence))
+                    exec("self.{0}.{0}{1}.number = self.{0}.{0}{1}.stack_sequence[{1}]"
+                         .format(base_element, stack))
+                    eval("self.sconf._send(self.{0}.{0}{1}.image())"
+                     .format(base_element, stack))
+                    self.settings[base_element] = new_sequence
+
+    def save_keys(self):
+        ## for element in self.elements:
+        ##     sequence = eval("self.{0}.{0}+str(1).stack_sequence"
+        ##                     .format(element))
+        ##     self.settings[element] = sequence
+        print("Saving the following settings: ",self.settings)
+        configuration.save_conf(self.settings)
+        
+        
+    def hover_handler(self):
+        pass
+
     def _init_conf_screen(self):
         self.sconf._send(osc.Message("/ITL/conf","new"))
         self.sconf._send(osc.Message("/ITL/conf","width", 2.39062))
@@ -68,7 +119,7 @@ class ConfScreen(object):
                                      "Transience Configuration"))
         self.sconf._send(osc.Message("/ITL/conf/title", "scale", 4.0))
         self.sconf._send(osc.Message("/ITL/conf/title", "x", 0.0))
-        self.sconf._send(osc.Message("/ITL/conf/title", "y", -0.7))
+        self.sconf._send(osc.Message("/ITL/conf/title", "y", -0.9))
         self.make_save_button()
         self.make_cancel_button()
         self.set_conf_page()
@@ -111,32 +162,64 @@ class ConfScreen(object):
                                      "127.0.0.1:7001/mouse", "save_conf", "clicked"))
 
     def set_conf_page(self):
-        sequence = [1,2,3,4, 5]
-        self.recitations = ConfStrip()
-        _x = -0.9
-        _y = -0.5
+        #sequence = [1,2,3,4, 5]
+        #self.recitations = ConfStrip()
+        _y = -0.7
         _component = "conf/"
-        for i in sequence:
-            setattr(self.recitations, "recitations%s"%(str(i)), score.Element(
-                x = _x,
-                y = _y,
-                URI = "recitations"+str(i),
-                path = "recitations",
-                number = i,
-                scale = 0.7
-                ))
-            exec("self.recitations.recitations%s.component = _component"%(str(i)))
-            self.sconf._send(eval("self.recitations.{}.image()".format("recitations"+str(i))))
-            exec("self.recitations.recitations%s.stack_sequence = self.arrangement['recitations']"%(str(i)))
-            eval("self.sconf._send(self.recitations.recitations%s.get_x())"
-                 %(str(i)))
-            eval("self.sconf._send(self.recitations.recitations%s.get_y())"
-                 %(str(i)))
-            eval("self.sconf._send(self.recitations.recitations%s.scale_element())"
-                 %(str(i)))
-            eval("self.sconf._send(self.recitations.recitations%s.watch_mouse_down())"
-                 %(str(i)))
-            _x += 0.4
+        for element in self.arrangement:
+            if element == 'poems' or element == 'jtexts':
+                pass
+            else:
+                _x = -0.9
+                exec("self.{} = ConfStrip()".format(element))
+                for stack in range(0,5):
+                    setattr(eval("self.{}".format(element)), "{}{}"
+                            .format(element,str(stack)), score.Element(
+                        x = _x,
+                        y = _y,
+                        URI = element+str(stack),
+                        path = element,
+                        number = self.arrangement[element][stack],
+                        scale = self.scale_by_element(element)
+                        ))
+                    exec("self.{0}.{0}{1}.component = _component"
+                         .format(element, str(stack)))
+                    eval("self.sconf._send(self.{0}.{0}{1}.image())"
+                         .format(element, str(stack)))
+                    exec("self.{0}.{0}{1}.stack_sequence = self.arrangement['{0}']"
+                         .format(element, str(stack)))
+                    eval("self.sconf._send(self.{0}.{0}{1}.get_x())"
+                         .format(element, str(stack)))
+                    eval("self.sconf._send(self.{0}.{0}{1}.get_y())"
+                         .format(element, str(stack)))
+                    eval("self.sconf._send(self.{0}.{0}{1}.scale_element())"
+                         .format(element, str(stack)))
+                    eval("self.sconf._send(self.{0}.{0}{1}.watch_mouse_down())"
+                         .format(element, str(stack)))
+                    _x += 0.4
+                _y += 0.15
+            
+    def scale_by_element(self, element):
+        if element == 'rhythms':
+            return 0.25
+        elif element == 'melos':
+            return 0.3
+        elif element == 'interactions':
+            return 0.2
+        elif element == 'durations':
+            return 0.5
+        elif element == 'instructions':
+            return 0.5
+        elif element == 'glissandis':
+            return 0.1
+        elif element == 'moods':
+            return 0.5
+        elif element == 'envelopes':
+            return 0.3
+        elif element == 'etexts':
+            return 0.3
+        elif element == 'recitations':
+            return 0.5
 
 class ConfStrip(object):
     """
@@ -155,14 +238,5 @@ class ConfStrip(object):
         """
         
         
-    def _createStrip(self, element, sequence):
-       """
-       Dynamically create class variables representing the objects to be
-       displayed on screen
-
-       @param element: The score element
-       @param type: string
-       @param sequence: The sequence of elements on the score stack
-       @param type: list
-       """
+    
        
