@@ -21,6 +21,7 @@ Transience elements combined into pages
 """
 import os
 import random
+import sys
 
 from twisted.internet import reactor
 from txosc import osc
@@ -397,7 +398,10 @@ class Page(object):
         self.oscore._send(osc.Message(URI, "y", -0.947424))
         self.oscore._send(osc.Message(URI, "xorigin", -1))
         self.oscore._send(osc.Message(URI, "yorigin", 1))
-        self.oscore._send(osc.Message(URI, "scale", 2.0))
+        if sys.platform == "darwin":
+            self.oscore._send(osc.Message(URI, "scale", 1.0))
+        else:
+            self.oscore._send(osc.Message(URI, "scale", 2.0))
         self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
         self.oscore._send(osc.Message(URI,"watch","mouseUp","127.0.0.1:7001/mouse", "quitB", "clicked"))
 
@@ -413,7 +417,11 @@ class Page(object):
         self.oscore._send(osc.Message(URI, "y", -0.977424))
         self.oscore._send(osc.Message(URI, "xorigin", 0))
         self.oscore._send(osc.Message(URI, "yorigin", 0))
-        self.oscore._send(osc.Message(URI, "scale", 2.0))
+        if sys.platform == "darwin":
+            self.oscore._send(osc.Message(URI, "scale", 1.0))
+        else:
+            self.oscore._send(osc.Message(URI, "scale", 2.0))
+        self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
         self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
         self.oscore._send(osc.Message(URI,"watch","mouseUp",
                                       "127.0.0.1:7001/mouse", "conf_ui", "clicked"))

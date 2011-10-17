@@ -62,7 +62,10 @@ class ConfScreen(object):
         self.path = iter(conf_matrix.paths)
         self.settings = {}
         for element in self.arrangement:
-           self.settings[element] = self.arrangement[element]
+            # we remap to ints because I/O back and forth a text file
+            # turns the ints into strings...
+            self.settings[element] = map(int, self.arrangement[element])
+            print("settings as we read them in: ", self.settings)
         print("Initial settings: ", self.settings)
         # Instantiate ConfStrip classes
         ## for element in self.arrangement:
@@ -75,6 +78,7 @@ class ConfScreen(object):
         """
         Handle mouse clicks in visible elements
         """
+        new_sequence = []
         if len(message.getValues()) == 2:
             element, click = message.getValues()
             base_element = element[:-1]
@@ -171,6 +175,10 @@ class ConfScreen(object):
                 pass
             else:
                 _x = -0.9
+                # using eval/exec functionality to dynamically instantiate
+                # classes and build variables.
+                # this could have been done with class.attribute.__dict__
+                # kind of thing, not sure hwich one is more elegant...
                 exec("self.{} = ConfStrip()".format(element))
                 for stack in range(0,5):
                     setattr(eval("self.{}".format(element)), "{}{}"
