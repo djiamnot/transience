@@ -58,7 +58,7 @@ class ConfScreen(object):
         if message.getValues()[0] == 'save_conf' and message.getValues()[1] == "clicked":
             print("Saving current configuration")
         if message.getValues()[0] == 'conf/' and message.getValues()[1] == "clicked":
-            print("recitation1 was clicked")
+            print("Something on conf/ was clicked")
             
     def _init_conf_screen(self):
         self.sconf._send(osc.Message("/ITL/conf","new"))
@@ -117,24 +117,24 @@ class ConfScreen(object):
         _y = -0.5
         _component = "conf/"
         for i in sequence:
-            setattr(self.recitations, "recitation%s"%(str(i)), score.Element(
+            setattr(self.recitations, "recitations%s"%(str(i)), score.Element(
                 x = _x,
                 y = _y,
-                URI = "recitation"+str(i),
-                path = "recitation",
+                URI = "recitations"+str(i),
+                path = "recitations",
                 number = i,
                 scale = 0.7
                 ))
-            exec("self.recitations.recitation%s.component = _component"%(str(i)))
-            self.sconf._send(eval("self.recitations.{}.image()".format("recitation"+str(i))))
-            exec("self.recitations.recitation%s.stack_sequence = self.arrangement['recitation']"%(str(i)))
-            eval("self.sconf._send(self.recitations.recitation%s.get_x())"
+            exec("self.recitations.recitations%s.component = _component"%(str(i)))
+            self.sconf._send(eval("self.recitations.{}.image()".format("recitations"+str(i))))
+            exec("self.recitations.recitations%s.stack_sequence = self.arrangement['recitations']"%(str(i)))
+            eval("self.sconf._send(self.recitations.recitations%s.get_x())"
                  %(str(i)))
-            eval("self.sconf._send(self.recitations.recitation%s.get_y())"
+            eval("self.sconf._send(self.recitations.recitations%s.get_y())"
                  %(str(i)))
-            eval("self.sconf._send(self.recitations.recitation%s.scale_element())"
+            eval("self.sconf._send(self.recitations.recitations%s.scale_element())"
                  %(str(i)))
-            eval("self.sconf._send(self.recitations.recitation%s.watch_mouse_down())"
+            eval("self.sconf._send(self.recitations.recitations%s.watch_mouse_down())"
                  %(str(i)))
             _x += 0.4
 

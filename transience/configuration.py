@@ -83,8 +83,8 @@ class PrefParser(object):
         config_file = os.path.expanduser("~/.transiencerc")
         parser = SafeConfigParser()
         elements = [
-            'recitation',
-            'mood',
+            'recitations',
+            'moods',
             'instructions',
             'durations',
             'glissandis',
