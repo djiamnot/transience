@@ -29,6 +29,7 @@ from txosc import osc
 from transience import conf_matrix
 from transience import score
 from transience import inscore
+from transience import configuration
 
 class ConfScreen(object):
     """
@@ -59,12 +60,16 @@ class ConfScreen(object):
             'etexts',
             ]
         self.path = iter(conf_matrix.paths)
-        # Instantiate ConfStrip classes
+        self.settings = {}
         for element in self.arrangement:
-            if element == 'poems' or element == 'jtexts':
-                pass
-            else:
-                exec("self.{} = ConfStrip()".format(element))
+           self.settings[element] = self.arrangement[element]
+        print("Initial settings: ", self.settings)
+        # Instantiate ConfStrip classes
+        ## for element in self.arrangement:
+        ##     if element == 'poems' or element == 'jtexts':
+        ##         pass
+        ##     else:
+        ##         exec("self.{} = ConfStrip()".format(element))
 
     def mouse_handler(self, message, address):
         """
@@ -78,16 +83,31 @@ class ConfScreen(object):
                 self.sconf._send(osc.Message("/ITL/conf", "del"))
             if element == 'save_conf' and click == "clicked":
                 print("Saving current configuration")
+                self.save_keys()
             if base_element in self.elements and click == "clicked":
                 print("Clicked self.{0}.{1}".format(base_element, element))
-                for stack in range(1, 6):
-                    exec("self.{0}.{1}.stack_sequence = self.path.next()"
-                         .format(base_element, element))
-                    exec("self.{0}.{1}.number = self.{0}.{1}.stack_sequence[{2}]"
-                         .format(base_element, element, stack))
+                try:
+                    new_sequence = self.path.next()
+                except StopIteration:
+                    self.path = iter(conf_matrix.paths)
+                for stack in range(0, 5):
+                    exec("self.{0}.{0}{1}.stack_sequence = {2}"
+                         .format(base_element, stack, new_sequence))
+                    exec("self.{0}.{0}{1}.number = self.{0}.{0}{1}.stack_sequence[{1}]"
+                         .format(base_element, stack))
                     eval("self.sconf._send(self.{0}.{0}{1}.image())"
-                     .format(element, str(stack)))
-            
+                     .format(base_element, stack))
+                    self.settings[base_element] = new_sequence
+
+    def save_keys(self):
+        ## for element in self.elements:
+        ##     sequence = eval("self.{0}.{0}+str(1).stack_sequence"
+        ##                     .format(element))
+        ##     self.settings[element] = sequence
+        print("Saving the following settings: ",self.settings)
+        configuration.save_conf(self.settings)
+        
+        
     def hover_handler(self):
         pass
 
@@ -151,15 +171,15 @@ class ConfScreen(object):
                 pass
             else:
                 _x = -0.9
-                #exec("self.{} = ConfStrip()".format(element))
-                for stack in range(1,6):
+                exec("self.{} = ConfStrip()".format(element))
+                for stack in range(0,5):
                     setattr(eval("self.{}".format(element)), "{}{}"
                             .format(element,str(stack)), score.Element(
                         x = _x,
                         y = _y,
                         URI = element+str(stack),
                         path = element,
-                        number = stack,
+                        number = self.arrangement[element][stack],
                         scale = self.scale_by_element(element)
                         ))
                     exec("self.{0}.{0}{1}.component = _component"

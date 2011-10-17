@@ -113,7 +113,8 @@ class Element(object):
         URI = self.makeURI()
         path = self.makePath()
         return osc.Message(URI, "set", "img", path)
-
+        self.set_show(self.show)
+        
     def scale_element(self):
         """
         Scale the element
@@ -147,7 +148,7 @@ class Element(object):
         """
         self.stack_sequence = name_seq
         
-    def show(self, shw):
+    def set_show(self, shw):
         """
         Show or hide the element
         @param shw: int(0,1)

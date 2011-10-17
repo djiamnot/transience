@@ -27,6 +27,16 @@ from ConfigParser import SafeConfigParser
 
 import conf_matrix
 
+def save_conf(dict):
+    config_file = os.path.expanduser("~/.transiencerc")
+    parser = SafeConfigParser()
+    for key in dict:
+        parser.add_section(key)
+        parser.set(key, 'sequence', "{}".format(dict[key]))
+
+    with open(config_file,"w") as f:
+        parser.write(f)
+
 class PrefParser(object):
     """
     Parses ~/.transiencerc and extracts the elements needed for display(s)

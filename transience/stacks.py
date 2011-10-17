@@ -42,7 +42,8 @@ recitations = score.Element(
     scale = 1.)
 
 moods = score.Element(
-    x = 0.989840,
+#    x = 0.989840,
+    x = 1.0,
     y = -0.812772,
     URI="moods",
     path="moods",
@@ -408,8 +409,8 @@ class Page(object):
         URI = "/ITL/scene/conf_ui"
         txt = "Configure Score"
         self.oscore._send(osc.Message(URI, "set", "txt", txt))
-        self.oscore._send(osc.Message(URI, "x", 1.35123))
-        self.oscore._send(osc.Message(URI, "y", -0.947424))
+        self.oscore._send(osc.Message(URI, "x", 1.25123))
+        self.oscore._send(osc.Message(URI, "y", -0.977424))
         self.oscore._send(osc.Message(URI, "xorigin", 0))
         self.oscore._send(osc.Message(URI, "yorigin", 0))
         self.oscore._send(osc.Message(URI, "scale", 2.0))
@@ -516,6 +517,7 @@ class Page(object):
         self.oscore._send(self.jtexts.scale_element())
         self.oscore._send(self.jtexts.watch_mouse_down())
         self.oscore._send(self.jtexts.reset_alpha())
+        self.oscore._send(self.jtexts.set_show(0))
         #self.oscore._send(self.jtexts.watch_mouse_enter())
 
     def make_etexts(self):
@@ -557,12 +559,10 @@ class Page(object):
         ## self.jtexts.number = self.poems.number
         ## self.etexts.nyumber = self.poems.number
         print("Moods number currently is: {}".format(self.moods.number))
-        reactor.callLater(0.01,self.make_recitations)
-        reactor.callLater(0.01, self.make_moods)
         reactor.callLater(0.01, self.make_instructions)
-        reactor.callLater(0.01, self.make_durations)
         reactor.callLater(0.01, self.make_glissandis)
         reactor.callLater(0.01, self.make_interactions)
+        reactor.callLater(0.01, self.make_moods)
         reactor.callLater(0.01, self.make_envelopes)
         reactor.callLater(0.01, self.make_melos)
         reactor.callLater(0.01, self.make_rhythms)
@@ -571,3 +571,5 @@ class Page(object):
         reactor.callLater(0.01, self.make_etexts)
         reactor.callLater(0.01, self.make_quit_button)
         reactor.callLater(0.01, self.make_conf_button)
+        reactor.callLater(0.01,self.make_recitations)
+        reactor.callLater(0.01, self.make_durations)
