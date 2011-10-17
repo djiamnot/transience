@@ -21,10 +21,12 @@ Configuration screen
 """
 import os
 import random
+import re
 
 from twisted.internet import reactor
 from txosc import osc
 
+from transience import conf_matrix
 from transience import score
 from transience import inscore
 
@@ -43,22 +45,48 @@ class ConfScreen(object):
         self.arrangement = self.configuration.parser.elements
         self.OSCcallback = self.sconf.receiver.addCallback("/mouse",self.mouse_handler)
         self._init_conf_screen()
+        self.elements = [
+            'recitations',
+            'moods',
+            'instructions',
+            'durations',
+            'glissandis',
+            'interactions',
+            'envelopes',
+            'melos',
+            'rhythms',
+            #'poems',
+            'etexts',
+            ]
+        self.path = iter(conf_matrix.paths)
+        # Instantiate ConfStrip classes
+        for element in self.arrangement:
+            if element == 'poems' or element == 'jtexts':
+                pass
+            else:
+                exec("self.{} = ConfStrip()".format(element))
 
     def mouse_handler(self, message, address):
         """
         Handle mouse clicks in visible elements
         """
-        # TODO: implement a check for visibility
-        print("App received {} from {}".format(message.getValues()[0], address))
-        print("Values: ")
-        print(message.getValues())
-        if message.getValues()[0] == 'cancel_conf' and message.getValues()[1] == "clicked":
-            print("Canceling configuration")
-            self.sconf._send(osc.Message("/ITL/conf", "del"))
-        if message.getValues()[0] == 'save_conf' and message.getValues()[1] == "clicked":
-            print("Saving current configuration")
-        if message.getValues()[0] == 'conf/' and message.getValues()[1] == "clicked":
-            print("Something on conf/ was clicked")
+        if len(message.getValues()) == 2:
+            element, click = message.getValues()
+            base_element = element[:-1]
+            if element == 'cancel_conf' and click == "clicked":
+                print("Canceling configuration")
+                self.sconf._send(osc.Message("/ITL/conf", "del"))
+            if element == 'save_conf' and click == "clicked":
+                print("Saving current configuration")
+            if base_element in self.elements and click == "clicked":
+                print("Clicked self.{0}.{1}".format(base_element, element))
+                for stack in range(1, 6):
+                    exec("self.{0}.{1}.stack_sequence = self.path.next()"
+                         .format(base_element, element))
+                    exec("self.{0}.{1}.number = self.{0}.{1}.stack_sequence[{2}]"
+                         .format(base_element, element, stack))
+                    eval("self.sconf._send(self.{0}.{0}{1}.image())"
+                     .format(element, str(stack)))
             
     def hover_handler(self):
         pass
@@ -123,9 +151,8 @@ class ConfScreen(object):
                 pass
             else:
                 _x = -0.9
-                print("Creating", "self.{} = ConfStrip()".format(element))
-                exec("self.{} = ConfStrip()".format(element))
-                for stack in self.arrangement[element]:
+                #exec("self.{} = ConfStrip()".format(element))
+                for stack in range(1,6):
                     setattr(eval("self.{}".format(element)), "{}{}"
                             .format(element,str(stack)), score.Element(
                         x = _x,
@@ -191,14 +218,5 @@ class ConfStrip(object):
         """
         
         
-    def _createStrip(self, element, sequence):
-       """
-       Dynamically create class variables representing the objects to be
-       displayed on screen
-
-       @param element: The score element
-       @param type: string
-       @param sequence: The sequence of elements on the score stack
-       @param type: list
-       """
+    
        

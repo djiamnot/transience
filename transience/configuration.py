@@ -63,7 +63,7 @@ class PrefParser(object):
     def read_sequence(self, elems):
         """
         Read a python list formatted as string and turn it into a real
-        pythonlist
+        python list
         @param elems: string in the form of [1, 2, 3 ...]
         @return: list of chars
         """
