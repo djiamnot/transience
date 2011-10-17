@@ -163,7 +163,10 @@ class Element(object):
         return self.show
 
     def watch_mouse_enter(self):
-        return osc.Message(self.makeURI(), "watch", "mouseEnter", "127.0.0.1:7001/mouse", "mouse entered!")
+        return osc.Message(self.makeURI(), "watch", "mouseEnter", "127.0.0.1:7001/mouse", self.URI, "hover")
+
+        def watch_mouse_leave(self):
+        return osc.Message(self.makeURI(), "watch", "mouseLeave", "127.0.0.1:7001/mouse", self.URI, "leave")
 
     def watch_mouse_down(self):
         """
@@ -171,7 +174,7 @@ class Element(object):
         was clicked.
         """
         return osc.Message(self.makeURI(),"watch","mouseDown",
-                           "127.0.0.1:7001/mouse", self.component, "clicked")
+                           "127.0.0.1:7001/mouse", self.URI, "clicked")
 
 class Button(object):
 
