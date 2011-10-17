@@ -22,7 +22,9 @@ The Configuration class.
 """
 import random
 import os
+
 from ConfigParser import SafeConfigParser
+
 import conf_matrix
 
 class PrefParser(object):
@@ -92,8 +94,8 @@ class PrefParser(object):
             'envelopes',
             'melos',
             'rhythms',
-            'poems',
-            'jtexts',
+            #'poems',
+            'etexts',
             ]
         for element in elements:
             parser.add_section(element)
