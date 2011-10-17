@@ -1,0 +1,6 @@
+ * Implement the configuration screen
+ * Stress test that elements being higlighted actually change
+ * Implement MIDI
+ * Redo the graphic files into svg (for better programmatic control)
+ * redo text elements into html or some other native text that can be handled by iscore
+
