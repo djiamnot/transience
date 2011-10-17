@@ -20,15 +20,13 @@
 Transience score elements
 """
 
-from transience import inscore
+import os
 from txosc import osc
 
-import os
-
+from transience import inscore
 
 ABS_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_PATH = ABS_PATH[0]+"/media/"
-
 
 # TODO: write the score
 
@@ -60,6 +58,7 @@ class Element(object):
         self.y = y
         self.alpha = 255
         self.URI = URI
+        self.component = "scene/"
         self.path = MEDIA_PATH+path
         self.number = number
         self.scale = scale
@@ -99,7 +98,7 @@ class Element(object):
         """
         Cook the OSC address of the component relative to /ITL/scene
         """
-        return "/ITL/scene/"+self.URI
+        return "/ITL/"+ self.component + self.URI
 
     def makePath(self):
         """
@@ -143,7 +142,8 @@ class Element(object):
         """
         A score element is aware of the sequence of images on stack.
         Set the class variable to a list.
-        @param list: sequence of image names (without extension)
+        @param name_seq: sequence of image names (without extension)
+        @type name_seq: list
         """
         self.stack_sequence = name_seq
         
@@ -166,8 +166,12 @@ class Element(object):
         return osc.Message(self.makeURI(), "watch", "mouseEnter", "127.0.0.1:7001/mouse", "mouse entered!")
 
     def watch_mouse_down(self):
-        return osc.Message(self.makeURI(),"watch","mouseDown","127.0.0.1:7001/mouse","clicked")
-
+        """
+        Set a mouseDown watch event in INScore which will send a message everytime a mouse
+        was clicked.
+        """
+        return osc.Message(self.makeURI(),"watch","mouseDown",
+                           "127.0.0.1:7001/mouse", self.component, "clicked")
 
 class Button(object):
 

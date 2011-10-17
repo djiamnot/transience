@@ -21,28 +21,31 @@ Transience elements combined into pages
 """
 import os
 import random
+
 from twisted.internet import reactor
 from txosc import osc
+
 from transience import score
 from transience import inscore
+from transience import conf_ui
 
 
 # These instances are hardcoded based on manual placement
 # of these elements.
 
-recitation = score.Element(
+recitations = score.Element(
     x = -0.969521,
     y = 0.853411,
-    URI="recitation",
-    path="recitation",
+    URI="recitations",
+    path="recitations",
     number=1,
     scale = 1.)
 
-mood = score.Element(
+moods = score.Element(
     x = 0.989840,
     y = -0.812772,
-    URI="mood",
-    path="mood",
+    URI="moods",
+    path="moods",
     number=1)
 
 instructions = score.Element(
@@ -159,10 +162,10 @@ class Page(object):
         self.interactions = interactions
         self.jtexts = jtexts
         self.melos = melos
-        self.mood = mood
+        self.moods = moods
         self.poems = poems
         self.rhythms = rhythms
-        self.recitation = recitation
+        self.recitations = recitations
 
         # set up the stacks
         self.durations.stack_sequence = self.arrangement['durations']
@@ -172,10 +175,10 @@ class Page(object):
         self.interactions.stack_sequence = self.arrangement['interactions']
         self.jtexts.stack_sequence = self.arrangement['jtexts']
         self.melos.stack_sequence = self.arrangement['melos']
-        self.mood.stack_sequence = self.arrangement['mood']
+        self.moods.stack_sequence = self.arrangement['moods']
         self.poems.stack_sequence = self.arrangement['poems']
         self.rhythms.stack_sequence = self.arrangement['rhythms']
-        self.recitation.stack_sequence = self.arrangement['recitation']
+        self.recitations.stack_sequence = self.arrangement['recitations']
 
         # make stacks
         self.durations.make_stack()
@@ -185,10 +188,10 @@ class Page(object):
         self.interactions.make_stack()
         self.jtexts.make_stack()
         self.melos.make_stack()
-        self.mood.make_stack()
+        self.moods.make_stack()
         self.poems.make_stack()
         self.rhythms.make_stack()
-        self.recitation.make_stack()
+        self.recitations.make_stack()
 
         ## # set stacks to first iteration
         ## self.durations.advance_stack()
@@ -198,10 +201,10 @@ class Page(object):
         ## self.interactions.advance_stack()
         ## self.jtexts.advance_stack()
         ## self.melos.advance_stack()
-        ## self.mood.advance_stack()
+        ## self.moods.advance_stack()
         ## self.poems.advance_stack()
         ## self.rhythms.advance_stack()
-        ## self.recitation.advance_stack()
+        ## self.recitations.advance_stack()
 
 
     def next_page(self):
@@ -217,59 +220,59 @@ class Page(object):
             self.oscore._send(self.melos.set_alpha())
         elif page_sequence[self.page] == 1:
             # TODO: Japanese/English/None text changes here
-            self.recitation.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
-            self.mood.advance_stack()
-            self.oscore._send(self.mood.set_alpha())
+            self.recitations.advance_stack()
+            self.oscore._send(self.recitations.set_alpha())
+            self.moods.advance_stack()
+            self.oscore._send(self.moods.set_alpha())
             self.durations.advance_stack()
             self.oscore._send(self.durations.set_alpha())
         elif page_sequence[self.page] == 2:
             # TODO: Japanese/English/None text changes here
             self.envelopes.advance_stack()
             self.glissandis.advance_stack()
-            self.mood.advance_stack()
+            self.moods.advance_stack()
             self.interactions.advance_stack()
             self.jtexts.advance_stack()
             self.rhythms.advance_stack()
             self.oscore._send(self.envelopes.set_alpha())
             self.oscore._send(self.glissandis.set_alpha())
-            self.oscore._send(self.mood.set_alpha())
+            self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
             self.oscore._send(self.jtexts.set_alpha())
             self.oscore._send(self.rhythms.set_alpha())
         elif page_sequence[self.page] == 3:
             self.envelopes.advance_stack()
             self.glissandis.advance_stack()
-            self.mood.advance_stack()
+            self.moods.advance_stack()
             self.interactions.advance_stack()
             self.durations.advance_stack()
             self.jtexts.advance_stack()
             self.melos.advance_stack()
             self.oscore._send(self.envelopes.set_alpha())
             self.oscore._send(self.glissandis.set_alpha())
-            self.oscore._send(self.mood.set_alpha())
+            self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
             self.oscore._send(self.jtexts.set_alpha())
             self.oscore._send(self.melos.set_alpha())
         elif page_sequence[self.page] == 4:
-            self.recitation.advance_stack()
+            self.recitations.advance_stack()
             self.envelopes.advance_stack()
             self.interactions.advance_stack()
             self.rhythms.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
+            self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.envelopes.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
             self.oscore._send(self.rhythms.set_alpha())
         elif page_sequence[self.page] == 5:
             # TODO: Japanese/English/None text changes here
-            self.recitation.advance_stack()
-            self.mood.advance_stack()
+            self.recitations.advance_stack()
+            self.moods.advance_stack()
             self.instructions.advance_stack()
             self.durations.advance_stack()
             self.jtexts.advance_stack()
             self.melos.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
-            self.oscore._send(self.mood.set_alpha())
+            self.oscore._send(self.recitations.set_alpha())
+            self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.instructions.set_alpha())
             self.oscore._send(self.durations.set_alpha())
             self.oscore._send(self.jtexts.set_alpha())
@@ -289,30 +292,30 @@ class Page(object):
             self.oscore._send(self.rhythms.set_alpha())
             self.oscore._send(self.melos.set_alpha())
         elif page_sequence[self.page] == 7:
-            self.recitation.advance_stack()
+            self.recitations.advance_stack()
             self.envelopes.advance_stack()
-            self.mood.advance_stack()
+            self.moods.advance_stack()
             self.interactions.advance_stack()
             self.durations.advance_stack()
             self.jtexts.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
+            self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.envelopes.set_alpha())
-            self.oscore._send(self.mood.set_alpha())
+            self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.interactions.set_alpha())
             self.oscore._send(self.durations.set_alpha())
             self.oscore._send(self.jtexts.set_alpha())
         elif page_sequence[self.page] == 8:
             # TODO: Japanese/English/None text changes here
-            self.recitation.advance_stack()
+            self.recitations.advance_stack()
             self.glissandis.advance_stack()
-            self.mood.advance_stack()
+            self.moods.advance_stack()
             self.instructions.advance_stack()
             self.durations.advance_stack()
             self.rhythms.advance_stack()
             self.melos.advance_stack()
-            self.oscore._send(self.recitation.set_alpha())
+            self.oscore._send(self.recitations.set_alpha())
             self.oscore._send(self.glissandis.set_alpha())
-            self.oscore._send(self.mood.set_alpha())
+            self.oscore._send(self.moods.set_alpha())
             self.oscore._send(self.instructions.set_alpha())
             self.oscore._send(self.durations.set_alpha())
             self.oscore._send(self.rhythms.set_alpha())
@@ -326,7 +329,7 @@ class Page(object):
         print("App received {} from {}".format(message.getValues()[0], address))
         print("Values: ")
         print(message.getValues())
-        if message.getValues()[0] == 'clicked':
+        if message.getValues()[0] == 'scene/' and message.getValues()[1] == 'clicked':
             try:
                 self.page = self.page_iter.next()
             except StopIteration:
@@ -340,7 +343,9 @@ class Page(object):
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
             self.oscore.stop()
-        if message.getValues()[0] == 'conf' and message.getValues()[1] == "clicked":
+        if message.getValues()[0] == 'conf_ui' and message.getValues()[1] == "clicked":
+            # Open the configuration scene
+            conf = conf_ui.ConfScreen(self.configuration, self.oscore)
     
     def greet(self):
         print("Entered greet")
@@ -370,25 +375,42 @@ class Page(object):
         self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
         self.oscore._send(osc.Message(URI,"watch","mouseUp","127.0.0.1:7001/mouse", "quitB", "clicked"))
 
-    def make_mood(self):
-        #self.mood.image()
-        self.oscore._send(self.mood.image())
-        self.oscore._send(self.mood.get_x())
-        self.oscore._send(self.mood.get_y())
-        self.oscore._send(self.mood.scale_element())
-        self.oscore._send(self.mood.watch_mouse_down())
-        self.oscore._send(self.mood.reset_alpha())
-        #self.oscore._send(self.mood.watch_mouse_enter())
+    def make_conf_button(self):
+        ## quitbutton = score.Button(x=-1., y=-1., URI="quitB", txt="Quit")
+        ## self.oscore._send(quitbutton.doit())
+        ## self.oscore._send(quitbutton.watch_mouse_down())
+        ## self.oscore._send(quitbutton.set_color(255, 0, 0))
+        URI = "/ITL/scene/conf_ui"
+        txt = "Configure Score"
+        self.oscore._send(osc.Message(URI, "set", "txt", txt))
+        self.oscore._send(osc.Message(URI, "x", 1.35123))
+        self.oscore._send(osc.Message(URI, "y", -0.947424))
+        self.oscore._send(osc.Message(URI, "xorigin", 0))
+        self.oscore._send(osc.Message(URI, "yorigin", 0))
+        self.oscore._send(osc.Message(URI, "scale", 2.0))
+        self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
+        self.oscore._send(osc.Message(URI,"watch","mouseUp",
+                                      "127.0.0.1:7001/mouse", "conf_ui", "clicked"))
 
-    def make_recitation(self):
-        #self.recitation.image()
-        self.oscore._send(self.recitation.image())
-        self.oscore._send(self.recitation.get_x())
-        self.oscore._send(self.recitation.get_y())
-        self.oscore._send(self.recitation.scale_element())
-        self.oscore._send(self.recitation.watch_mouse_down())
-        self.oscore._send(self.recitation.reset_alpha())
-        #self.oscore._send(self.recitation.watch_mouse_enter())
+    def make_moods(self):
+        #self.moods.image()
+        self.oscore._send(self.moods.image())
+        self.oscore._send(self.moods.get_x())
+        self.oscore._send(self.moods.get_y())
+        self.oscore._send(self.moods.scale_element())
+        self.oscore._send(self.moods.watch_mouse_down())
+        self.oscore._send(self.moods.reset_alpha())
+        #self.oscore._send(self.moods.watch_mouse_enter())
+
+    def make_recitations(self):
+        #self.recitations.image()
+        self.oscore._send(self.recitations.image())
+        self.oscore._send(self.recitations.get_x())
+        self.oscore._send(self.recitations.get_y())
+        self.oscore._send(self.recitations.scale_element())
+        self.oscore._send(self.recitations.watch_mouse_down())
+        self.oscore._send(self.recitations.reset_alpha())
+        #self.oscore._send(self.recitations.watch_mouse_enter())
 
     def make_rhythms(self):
         #self.rhythms.image()
@@ -481,15 +503,15 @@ class Page(object):
         self.oscore._send(self.poems.reset_alpha())
         #self.oscore._send(self.poems.watch_mouse_enter())
 
-    def change_recitation(self):
-        self.recitation.number = 4
-        self.oscore._send(self.recitation.image())
+    def change_recitations(self):
+        self.recitations.number = 4
+        self.oscore._send(self.recitations.image())
 
     def set_score_page(self):
         print("*** set_score_page goes here")
         ## self.instructions.number = self.instructions.stack_sequence[self.current_instructions]
-        ## self.mood.number = self.mood.stack_sequence[self.current_mood]
-        ## self.recitation.number = self.recitation.stack_sequence[self.current_recitation]
+        ## self.moods.number = self.moods.stack_sequence[self.current_moods]
+        ## self.recitations.number = self.recitations.stack_sequence[self.current_recitations]
         ## self.durations.number = self.durations.stack_sequence[self.current_durations]
         ## self.glissandis.number = self.glissandis.stack_sequence[self.current_glissandis]
         ## self.interactions.number = self.interactions.stack_sequence[self.current_interactions]
@@ -499,9 +521,9 @@ class Page(object):
         ## self.poems.number = self.poems.stack_sequence[self.current_poems]
         ## self.jtexts.number = self.poems.number
         ## self.etexts.nyumber = self.poems.number
-        print("Mood number currently is: {}".format(self.mood.number))
-        reactor.callLater(0.01,self.make_recitation)
-        reactor.callLater(0.01, self.make_mood)
+        print("Moods number currently is: {}".format(self.moods.number))
+        reactor.callLater(0.01,self.make_recitations)
+        reactor.callLater(0.01, self.make_moods)
         reactor.callLater(0.01, self.make_instructions)
         reactor.callLater(0.01, self.make_durations)
         reactor.callLater(0.01, self.make_glissandis)
@@ -512,3 +534,4 @@ class Page(object):
         reactor.callLater(0.01, self.make_poems)
         reactor.callLater(0.01, self.make_jtexts)
         reactor.callLater(0.01, self.make_quit_button)
+        reactor.callLater(0.01, self.make_conf_button)
