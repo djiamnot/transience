@@ -69,12 +69,12 @@ class Element(object):
         print(self.stack_sequence)
         self.stack = iter(self.stack_sequence)
 
-    def set_colorize(self, a=0.1):
+    def set_colorize(self, a=0.25):
         print("*** alpha being set on "+ self.URI)
-        return osc.Message(self.makeURI(), "effect", "colorize", a, 0, 0, 255)
+        return osc.Message(self.makeURI(), "effect", "colorize", a, 255, 120, 0)
         
-    def reset_colorize(self):
-        return osc.Message(self.makeURI(), "effect", "none")
+    def reset_colorize(self, a=0.1):
+        return osc.Message(self.makeURI(), "effect", "colorize", a, 255, 120, 0)
     
     def make_stack(self):
         self.stack = iter(self.stack_sequence)
