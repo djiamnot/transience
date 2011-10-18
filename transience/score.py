@@ -148,12 +148,11 @@ class Element(object):
         """
         self.stack_sequence = name_seq
         
-    def set_show(self, shw):
+    def set_show(self):
         """
         Show or hide the element
-        @param shw: int(0,1)
         """
-        self.show = shw
+        #self.show = shw
         return osc.Message(self.makeURI(), "show", self.show)
 
     def get_show(self):

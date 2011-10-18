@@ -22,6 +22,7 @@ Transience elements combined into pages
 import os
 import random
 import sys
+import random
 
 from twisted.internet import reactor
 from txosc import osc
@@ -270,6 +271,7 @@ class Page(object):
             self.etexts.advance_stack()
             self.poems.advance_stack()
             self.rhythms.advance_stack()
+            self.decide_language()
             self.oscore._send(self.envelopes.set_colorize())
             self.oscore._send(self.glissandis.set_colorize())
             self.oscore._send(self.moods.set_colorize())
@@ -288,6 +290,7 @@ class Page(object):
             self.etexts.advance_stack()
             self.poems.advance_stack()
             self.melos.advance_stack()
+            self.decide_language()
             self.oscore._send(self.envelopes.set_colorize())
             self.oscore._send(self.glissandis.set_colorize())
             self.oscore._send(self.moods.set_colorize())
@@ -315,6 +318,7 @@ class Page(object):
             self.etexts.advance_stack()
             self.poems.advance_stack()
             self.melos.advance_stack()
+            self.decide_language()
             self.oscore._send(self.recitations.set_colorize())
             self.oscore._send(self.moods.set_colorize())
             self.oscore._send(self.instructions.set_colorize())
@@ -331,6 +335,7 @@ class Page(object):
             self.interactions.advance_stack()
             self.rhythms.advance_stack()
             self.melos.advance_stack()
+            self.decide_language()
             self.oscore._send(self.envelopes.set_colorize())
             self.oscore._send(self.glissandis.set_colorize())
             self.oscore._send(self.instructions.set_colorize())
@@ -349,6 +354,7 @@ class Page(object):
             self.jtexts.advance_stack()
             self.etexts.advance_stack()
             self.poems.advance_stack()
+            self.decide_language()
             self.oscore._send(self.recitations.set_colorize())
             self.oscore._send(self.envelopes.set_colorize())
             self.oscore._send(self.moods.set_colorize())
@@ -368,6 +374,7 @@ class Page(object):
             self.poems.advance_stack()
             self.jtexts.advance_stack()
             self.etexts.advance_stack()
+            self.decide_language()
             self.oscore._send(self.recitations.set_colorize())
             self.oscore._send(self.glissandis.set_colorize())
             self.oscore._send(self.moods.set_colorize())
@@ -379,6 +386,19 @@ class Page(object):
             self.oscore._send(self.etexts.set_colorize())
             self.oscore._send(self.jtexts.set_colorize())
                 
+    def decide_language(self):
+        choice = random.randint(0, 2)
+        print("The choice is: ", choice)
+        if choice == 0:
+            self.etexts.show = 0
+            self.jtexts.show = 0
+        elif choice == 1:
+            self.etexts.show = 1
+            self.jtexts.show = 0
+        else:
+            self.etexts.show = 0
+            self.jtexts.show = 1
+        
     def mouse_handler(self, message, address):
         """
         Handle mouse clicks in visible elements
@@ -556,7 +576,7 @@ class Page(object):
         self.oscore._send(self.jtexts.scale_element())
         self.oscore._send(self.jtexts.watch_mouse_down())
         self.oscore._send(self.jtexts.reset_colorize())
-        self.oscore._send(self.jtexts.set_show(0))
+        self.oscore._send(self.jtexts.set_show())
         #self.oscore._send(self.jtexts.watch_mouse_enter())
 
     def make_etexts(self):
@@ -567,6 +587,7 @@ class Page(object):
         self.oscore._send(self.etexts.scale_element())
         self.oscore._send(self.etexts.watch_mouse_down())
         self.oscore._send(self.etexts.reset_colorize())
+        self.oscore._send(self.etexts.set_show())
         #self.oscore._send(self.etexts.watch_mouse_enter())
 
     def make_poems(self):
