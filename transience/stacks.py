@@ -104,6 +104,15 @@ rhythms = score.Element(
     number=1,
     scale = 0.85)
 
+blank = score.Element(
+    x = 0.0812772,
+    y = 0.853411,
+    URI="blank",
+    path="blank",
+    number=0,
+    scale = 0.7,
+    show = 1)
+
 poems = score.Element(
     x = -1.29173,
     y = 0.174165,
@@ -130,6 +139,7 @@ etexts = score.Element(
     number=101,
     scale = 0.7,
     show = 1)
+
 
 page_sequence = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 # Shuffle the page sequence every time we start application.
@@ -176,6 +186,7 @@ class Page(object):
         self.glissandis = glissandis
         self.instructions = instructions
         self.interactions = interactions
+        self.blank = blank
         self.jtexts = jtexts
         self.etexts = etexts
         self.melos = melos
@@ -568,6 +579,16 @@ class Page(object):
         self.oscore._send(self.poems.reset_colorize())
         #self.oscore._send(self.poems.watch_mouse_enter())
 
+    def make_blank(self):
+        #self.blank.image()
+        self.oscore._send(self.blank.image())
+        self.oscore._send(self.blank.get_x())
+        self.oscore._send(self.blank.get_y())
+        self.oscore._send(self.blank.scale_element())
+        self.oscore._send(self.blank.watch_mouse_down())
+        self.oscore._send(self.blank.reset_colorize())
+        #self.oscore._send(self.blank.watch_mouse_enter())
+
     def change_recitations(self):
         self.recitations.number = 4
         self.oscore._send(self.recitations.image())
@@ -598,6 +619,7 @@ class Page(object):
         reactor.callLater(0.01, self.make_envelopes)
         reactor.callLater(0.01, self.make_melos)
         reactor.callLater(0.01, self.make_rhythms)
+        reactor.callLater(0.01, self.make_blank)
         reactor.callLater(0.01, self.make_poems)
         reactor.callLater(0.01, self.make_jtexts)
         reactor.callLater(0.01, self.make_etexts)
