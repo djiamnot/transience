@@ -80,15 +80,15 @@ class ConfScreen(object):
         """
         new_sequence = []
         if len(message.getValues()) == 2:
-            element, click = message.getValues()
+            element, state = message.getValues()
             base_element = element[:-1]
-            if element == 'cancel_conf' and click == "clicked":
+            if element == 'cancel_conf' and state == "clicked":
                 print("Canceling configuration")
                 self.sconf._send(osc.Message("/ITL/conf", "del"))
-            if element == 'save_conf' and click == "clicked":
+            if element == 'save_conf' and state == "clicked":
                 print("Saving current configuration")
                 self.save_keys()
-            if base_element in self.elements and click == "clicked":
+            if base_element in self.elements and state == "clicked":
                 print("Clicked self.{0}.{1}".format(base_element, element))
                 try:
                     new_sequence = self.path.next()
@@ -102,6 +102,9 @@ class ConfScreen(object):
                     eval("self.sconf._send(self.{0}.{0}{1}.image())"
                      .format(base_element, stack))
                     self.settings[base_element] = new_sequence
+            if base_element in self.elements and state == "hover":
+                print("Hovering over: ", element)
+                
 
     def save_keys(self):
         ## for element in self.elements:
