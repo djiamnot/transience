@@ -84,3 +84,4 @@ def kill_transience():
     # kill it!
     subprocess.Popen(["kill", "-9", output.split()[0]])
     # TODO: do test on darwin!
+    # TODO: find a way of doing this without suiciding!
