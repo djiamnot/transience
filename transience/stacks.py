@@ -130,7 +130,7 @@ jtexts = score.Element(
     path="jtexts",
     number=101,
     scale = 1.,
-    show = 0)
+    show = 1)
 
 etexts = score.Element(
     x = -0.313498,
@@ -271,14 +271,14 @@ class Page(object):
             self.etexts.advance_stack()
             self.poems.advance_stack()
             self.rhythms.advance_stack()
-            self.decide_language()
+#            self.decide_language()
             self.oscore._send(self.envelopes.set_colorize())
             self.oscore._send(self.glissandis.set_colorize())
             self.oscore._send(self.moods.set_colorize())
             self.oscore._send(self.interactions.set_colorize())
             self.oscore._send(self.jtexts.set_colorize())
             self.oscore._send(self.etexts.set_colorize())
-            self.oscore._send(self.poems.set_colorize())
+            #self.oscore._send(self.poems.set_colorize())
             self.oscore._send(self.rhythms.set_colorize())
         elif page_sequence[self.page] == 3:
             self.envelopes.advance_stack()
@@ -290,14 +290,14 @@ class Page(object):
             self.etexts.advance_stack()
             self.poems.advance_stack()
             self.melos.advance_stack()
-            self.decide_language()
+#            self.decide_language()
             self.oscore._send(self.envelopes.set_colorize())
             self.oscore._send(self.glissandis.set_colorize())
             self.oscore._send(self.moods.set_colorize())
             self.oscore._send(self.interactions.set_colorize())
             self.oscore._send(self.jtexts.set_colorize())
             self.oscore._send(self.etexts.set_colorize())
-            self.oscore._send(self.poems.set_colorize())
+            #self.oscore._send(self.poems.set_colorize())
             self.oscore._send(self.melos.set_colorize())
         elif page_sequence[self.page] == 4:
             self.recitations.advance_stack()
@@ -318,14 +318,13 @@ class Page(object):
             self.etexts.advance_stack()
             self.poems.advance_stack()
             self.melos.advance_stack()
-            self.decide_language()
             self.oscore._send(self.recitations.set_colorize())
             self.oscore._send(self.moods.set_colorize())
             self.oscore._send(self.instructions.set_colorize())
             self.oscore._send(self.durations.set_colorize())
             self.oscore._send(self.jtexts.set_colorize())
             self.oscore._send(self.etexts.set_colorize())
-            self.oscore._send(self.poems.set_colorize())
+            #self.oscore._send(self.poems.set_colorize())
             self.oscore._send(self.melos.set_colorize())
         elif page_sequence[self.page] == 6:
             # TODO: Japanese/English/None text changes here
@@ -335,14 +334,14 @@ class Page(object):
             self.interactions.advance_stack()
             self.rhythms.advance_stack()
             self.melos.advance_stack()
-            self.decide_language()
+#            self.decide_language()
             self.oscore._send(self.envelopes.set_colorize())
             self.oscore._send(self.glissandis.set_colorize())
             self.oscore._send(self.instructions.set_colorize())
             self.oscore._send(self.interactions.set_colorize())
             self.oscore._send(self.rhythms.set_colorize())
             self.oscore._send(self.melos.set_colorize())
-            self.oscore._send(self.poems.set_colorize())
+            #self.oscore._send(self.poems.set_colorize())
             self.oscore._send(self.etexts.set_colorize())
             self.oscore._send(self.jtexts.set_colorize())
         elif page_sequence[self.page] == 7:
@@ -354,7 +353,7 @@ class Page(object):
             self.jtexts.advance_stack()
             self.etexts.advance_stack()
             self.poems.advance_stack()
-            self.decide_language()
+#            self.decide_language()
             self.oscore._send(self.recitations.set_colorize())
             self.oscore._send(self.envelopes.set_colorize())
             self.oscore._send(self.moods.set_colorize())
@@ -374,7 +373,6 @@ class Page(object):
             self.poems.advance_stack()
             self.jtexts.advance_stack()
             self.etexts.advance_stack()
-            self.decide_language()
             self.oscore._send(self.recitations.set_colorize())
             self.oscore._send(self.glissandis.set_colorize())
             self.oscore._send(self.moods.set_colorize())
@@ -382,22 +380,24 @@ class Page(object):
             self.oscore._send(self.durations.set_colorize())
             self.oscore._send(self.rhythms.set_colorize())
             self.oscore._send(self.melos.set_colorize())
-            self.oscore._send(self.poems.set_colorize())
+            #self.oscore._send(self.poems.set_colorize())
             self.oscore._send(self.etexts.set_colorize())
             self.oscore._send(self.jtexts.set_colorize())
+        #self.decide_language()
                 
     def decide_language(self):
         choice = random.randint(0, 2)
         print("The choice is: ", choice)
         if choice == 0:
-            self.etexts.show = 0
-            self.jtexts.show = 0
+            pass
+            #self.oscore._send(self.etexts.reset_colorize())
+            #self.oscore._send(self.jtexts.reset_colorize())
         elif choice == 1:
-            self.etexts.show = 1
-            self.jtexts.show = 0
+            #self.oscore._send(self.etexts.reset_colorize())
+            self.oscore._send(self.jtexts.set_colorize(a=0.25, rgb=[0,120,0]))
         else:
-            self.etexts.show = 0
-            self.jtexts.show = 1
+            #self.oscore._send(self.jtexts.reset_colorize())
+            self.oscore._send(self.etexts.set_colorize(a=0.25, rgb=[0,120,0]))
         
     def mouse_handler(self, message, address):
         """
@@ -427,7 +427,7 @@ class Page(object):
     
     def greet(self):
         print("Entered greet")
-        reactor.callLater(0.1,self._hello)
+        reactor.callLater(0.01,self._hello)
 
     def _hello(self):
         self.oscore._send(osc.Message("/ITL/scene/*","del"))
@@ -454,7 +454,7 @@ class Page(object):
             self.oscore._send(osc.Message(URI, "scale", 1.0))
         else:
             self.oscore._send(osc.Message(URI, "scale", 2.0))
-        self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
+        self.oscore._send(osc.Message(URI, "color", 100, 100, 100))
         self.oscore._send(osc.Message(URI,"watch","mouseUp","127.0.0.1:7001/mouse", "quitB", "clicked"))
 
     def make_conf_button(self):
@@ -473,8 +473,7 @@ class Page(object):
             self.oscore._send(osc.Message(URI, "scale", 1.0))
         else:
             self.oscore._send(osc.Message(URI, "scale", 2.0))
-        self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
-        self.oscore._send(osc.Message(URI, "color", 255, 0, 0))
+        self.oscore._send(osc.Message(URI, "color", 100, 100, 100))
         self.oscore._send(osc.Message(URI,"watch","mouseUp",
                                       "127.0.0.1:7001/mouse", "conf_ui", "clicked"))
 
@@ -649,3 +648,4 @@ class Page(object):
         reactor.callLater(0.01, self.make_conf_button)
         reactor.callLater(0.01,self.make_recitations)
         reactor.callLater(0.01, self.make_durations)
+        reactor.callLater(2.0, self.decide_language)
