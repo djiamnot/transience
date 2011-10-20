@@ -36,7 +36,7 @@
      fit-margin-bottom="0.3"
      inkscape:window-width="951"
      inkscape:window-height="658"
-     inkscape:window-x="0"
+     inkscape:window-x="18"
      inkscape:window-y="44"
      inkscape:window-maximized="0">
     <sodipodi:guide
@@ -190,17 +190,21 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-73.23125,-195.29375)"
-     sodipodi:insensitive="true">
+     transform="translate(-73.23125,-195.29375)">
     <path
        style="fill:none;stroke:#ffffff;stroke-width:12.10000038;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 176.65382,333.07647 -100.000004,0 0,-131.42857 100.000004,0 0,42.14285"
        id="path2997"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#ffffff;stroke-width:5.85599995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow2LstartJ);marker-end:none"
+       style="fill:none;stroke:#ffffff;stroke-width:5.856;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
        d="m 249.122,282.36218 -147.03961,0"
        id="path4969"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       d="m 173.90134,259.78214 0,45 81.80268,-21.42857 z"
+       id="path9233"
        inkscape:connector-curvature="0" />
   </g>
 </svg>

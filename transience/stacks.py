@@ -141,7 +141,6 @@ etexts = score.Element(
     scale = 1.0,
     show = 1)
 
-
 page_sequence = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 # Shuffle the page sequence every time we start application.
 random.shuffle(page_sequence)
@@ -237,6 +236,7 @@ class Page(object):
         ## self.rhythms.advance_stack()
         ## self.recitations.advance_stack()
 
+        
 
     def next_page(self):
         """
@@ -437,6 +437,18 @@ class Page(object):
         #def _stop():
         #    reactor.stop()
         #reactor.callLater(20.0,_stop)
+
+    def make_icons(self):
+        enter_path = score.MEDIA_PATH+"icons/enter.svg"
+        exit_path = score.MEDIA_PATH+"icons/exit.svg"
+        self.oscore._send(osc.Message("/ITL/scene/enter", "set", "svgf", enter_path))
+        self.oscore._send(osc.Message("/ITL/scene/enter", "x", -1.25))
+        self.oscore._send(osc.Message("/ITL/scene/enter", "y", -0.8))
+        self.oscore._send(osc.Message("/ITL/scene/enter", "scale", 0.4))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "set", "svgf", exit_path))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "x", 1.42525))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "y", 0.949202))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "scale", 0.2))
 
     def make_quit_button(self):
         ## quitbutton = score.Button(x=-1., y=-1., URI="quitB", txt="Quit")
@@ -649,3 +661,4 @@ class Page(object):
         reactor.callLater(0.01,self.make_recitations)
         reactor.callLater(0.01, self.make_durations)
         reactor.callLater(2.0, self.decide_language)
+        reactor.callLater(0.02, self.make_icons)
