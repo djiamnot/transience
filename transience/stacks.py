@@ -36,7 +36,7 @@ from transience import conf_ui
 # of these elements.
 
 recitations = score.Element(
-    x = -0.969521,
+    x = -0.914369,
     y = 0.853411,
     URI="recitations",
     path="recitations",
@@ -45,78 +45,78 @@ recitations = score.Element(
 
 moods = score.Element(
 #    x = 0.989840,
-    x = 1.0,
-    y = -0.812772,
+    x = 1.18142,
+    y = -0.757620,
     URI="moods",
     path="moods",
     number=1)
 
 instructions = score.Element(
-    x = -1.18142,
-    y = -0.804064,
+    x = -0.830189,
+    y = -0.757620,
     URI="instructions",
     path="instructions",
     number=1)
 
 durations = score.Element(
-    x = 1.18433,
-    y = 0.859216,
+    x = 1.19013,
+    y = 0.853411,
     URI="durations",
     path="durations",
     number=1)
 
 glissandis = score.Element(
-    x = -0.632801,
-    y = -0.423803,
+    x = -0.542816,
+    y = -0.365747,
     URI="glissandis",
     path="glissandis",
     number=1,
-    scale = 0.450000)
+    scale = 1.0)
 
 interactions = score.Element(
-    x = -0.101597,
-    y = -0.806967,
+    x = 0.101597,
+    y = -0.757620,
     URI="interactions",
     path="interactions",
     number=1,
-    scale = 0.5)
+    scale = 1.0)
 
 envelopes = score.Element(
-    x = 0.830189,
-    y = -0.423803,
+    x = 0.801161,
+    y = -0.365747,
     URI="envelopes",
     path="envelopes",
     number=1,
-    scale = 1.1)
+    scale = 1.)
 
 melos = score.Element(
-    x = 0.162554,
-    y = 0.0609579,
+    x = 0.179971,
+    y = 0.110305,
     URI="melos",
     path="melos",
     number=1,
     scale = 0.85)
 
 rhythms = score.Element(
-    x = 0.174166,
-    y = 0.487663,
+    x = 0.162554,
+    y = 0.522496,
     URI="rhythms",
     path="rhythms",
     number=1,
     scale = 0.85)
 
-blank = score.Element(
-    x = 0.0812772,
-    y = 0.853411,
-    URI="blank",
-    path="blank",
-    number=0,
-    scale = 0.7,
-    show = 1)
+## blank = score.Element(
+##     x = 0.0812772,
+##     y = 0.853411,
+##     URI="blank",
+##     path="blank",
+##     number=0,
+##     scale = 0.7,
+##     show = 1)
 
 poems = score.Element(
-    x = -1.29173,
-    y = 0.174165,
+    x = -1.32366,
+    y = 0.185776,
     URI="poems",
     path="poems",
     number=101,
@@ -124,21 +124,21 @@ poems = score.Element(
 
 # TODO: deal with etexts as well!
 jtexts = score.Element(
-    x = 0.0812772,
+    x = 0.542816,
     y = 0.853411,
     URI="jtexts",
     path="jtexts",
     number=101,
-    scale = 0.7,
+    scale = 1.,
     show = 0)
 
 etexts = score.Element(
-    x = 0.0812772,
+    x = -0.313498,
     y = 0.853411,
     URI="etexts",
     path="etexts",
     number=101,
-    scale = 0.7,
+    scale = 1.0,
     show = 1)
 
 
@@ -187,7 +187,7 @@ class Page(object):
         self.glissandis = glissandis
         self.instructions = instructions
         self.interactions = interactions
-        self.blank = blank
+        #self.blank = blank
         self.jtexts = jtexts
         self.etexts = etexts
         self.melos = melos
@@ -433,6 +433,7 @@ class Page(object):
         self.oscore._send(osc.Message("/ITL/scene/*","del"))
         self.oscore._send(osc.Message("/ITL/scene/text","set","txt","Transience\nby Sandeep Bhagwati"))
         self.oscore._send(osc.Message("/ITL/scene/text", "scale", 4.0))
+        self.oscore._send(osc.Message("/ITL/scene/text", "color", 100, 100, 100))
         #def _stop():
         #    reactor.stop()
         #reactor.callLater(20.0,_stop)
@@ -640,7 +641,7 @@ class Page(object):
         reactor.callLater(0.01, self.make_envelopes)
         reactor.callLater(0.01, self.make_melos)
         reactor.callLater(0.01, self.make_rhythms)
-        reactor.callLater(0.01, self.make_blank)
+        #reactor.callLater(0.01, self.make_blank)
         reactor.callLater(0.01, self.make_poems)
         reactor.callLater(0.01, self.make_jtexts)
         reactor.callLater(0.01, self.make_etexts)
