@@ -166,6 +166,7 @@ class Page(object):
         # TODO: does this have to be a class variable?
         self.page_iter = iter(page_sequence)
         self.page = 0
+        self.page_count = 0
         self.elements_list = [
             'recitations',
             'moods',
@@ -383,7 +384,6 @@ class Page(object):
             #self.oscore._send(self.poems.set_colorize())
             self.oscore._send(self.etexts.set_colorize())
             self.oscore._send(self.jtexts.set_colorize())
-        #self.decide_language()
                 
     def decide_language(self):
         choice = random.randint(0, 2)
@@ -408,6 +408,19 @@ class Page(object):
         print("Values: ")
         print(message.getValues())
         if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
+            if self.page_count == 0:
+                self.durations.make_stack()
+                self.envelopes.make_stack()
+                self.glissandis.make_stack()
+                self.instructions.make_stack()
+                self.interactions.make_stack()
+                self.jtexts.make_stack()
+                self.etexts.make_stack()
+                self.melos.make_stack()
+                self.moods.make_stack()
+                self.poems.make_stack()
+                self.rhythms.make_stack()
+                self.recitations.make_stack()
             try:
                 self.page = self.page_iter.next()
             except StopIteration:
@@ -416,7 +429,8 @@ class Page(object):
                 #self.page_iter = iter(page_sequence)
             self.set_score_page()
             reactor.callLater(1.0,self.next_page)
-            print("Current page should be: ", self.page)
+            print("Current page is: ", self.page_count)
+            self.page_count += 1
         if message.getValues()[0] == 'quitB' and message.getValues()[1] == "clicked":
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
