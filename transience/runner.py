@@ -72,3 +72,15 @@ def is_running(process):
     if re.search(process, s):
         return True
     return False
+
+def kill_transience():
+    """
+    Kill a (potentially) dangling transience process. Running more than one
+    transience process may have unpredictible side-effects.
+    """
+    pslist = subprocess.Popen(["ps","x"], stdout = subprocess.PIPE)
+    trans_app = subprocess.Popen(["grep", "x"], stdin = pslist.stdout, stdout = subprocess.PIPE)
+    output = trans_app.communicate()[0]
+    # kill it!
+    subprocess.Popen(["kill", "-9", output.split()[0]])
+    # TODO: do test on darwin!
