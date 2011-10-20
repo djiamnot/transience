@@ -32,7 +32,7 @@ MEDIA_PATH = ABS_PATH[0]+"/media/"
 
 class Element(object):
     """
-    This the instance of the Transience score element.  
+    This the instance of the Transience score image element.  
     """
 
     def __init__(self, x=0.0, y=0.0, URI="", path = "", number=1, scale=1., show=1):
@@ -100,19 +100,34 @@ class Element(object):
         """
         return "/ITL/"+ self.component + self.URI
 
-    def makePath(self):
+    def makeImgPath(self):
         """
         Cook the path to the image file
         """
         return self.path + "/" + str(self.number) + ".png"
+
+    def makeHTMLPath(self):
+        """
+        Cook the path to the image file
+        """
+        return self.path + "/" + str(self.number) + ".html"
 
     def image(self):
         """
         Cook the OSC message to create an image in INSCore
         """
         URI = self.makeURI()
-        path = self.makePath()
+        path = self.makeImgPath()
         return osc.Message(URI, "set", "img", path)
+        self.set_show(self.show)
+
+    def htmlf(self):
+        """
+        Cook OSC message to create html element for INScore
+        """
+        URI = self.makeURI()
+        path = self.makeHTMLPath()
+        return osc.Message(URI, "set", "htmlf", path)
         self.set_show(self.show)
         
     def scale_element(self):
