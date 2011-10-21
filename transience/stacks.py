@@ -36,74 +36,80 @@ from transience import conf_ui
 # of these elements.
 
 recitations = score.Element(
-    x = -0.914369,
-    y = 0.853411,
+    x = 0.0202312,
+    y = -0.308,
     URI="recitations",
     path="recitations",
     number=1,
-    scale = 1.)
+    scale = 1.325)
 
 moods = score.Element(
 #    x = 0.989840,
-    x = 1.18142,
-    y = -0.757620,
+    x = 1.018,
+    y = -0.644509,
     URI="moods",
     path="moods",
-    number=1)
+    number=1,
+    scale = 0.95
+    )
 
 instructions = score.Element(
-    x = -0.830189,
-    y = -0.757620,
+    x = -0.852601,
+    y = -0.643509,
     URI="instructions",
     path="instructions",
-    number=1)
+    number=1,
+    scale = 1.04
+    )
 
 durations = score.Element(
-    x = 1.19013,
-    y = 0.853411,
+    x = 0.849711,
+    y = 0.852601,
     URI="durations",
     path="durations",
-    number=1)
+    number=1,
+    scale = 1
+    )
 
 glissandis = score.Element(
-    x = -0.542816,
-    y = -0.365747,
+    x = -0.713873,
+    y = -0.306358,
     URI="glissandis",
     path="glissandis",
     number=1,
-    scale = 1.0)
+    scale = 0.715)
 
 interactions = score.Element(
-    x = 0.101597,
-    y = -0.757620,
+    x = 0.005,
+    y = -0.642628,
     URI="interactions",
     path="interactions",
     number=1,
-    scale = 1.0)
+    scale = 0.87)
 
 envelopes = score.Element(
-    x = 0.801161,
-    y = -0.365747,
+    x = 0.895954,
+    y = -0.309249,
     URI="envelopes",
     path="envelopes",
     number=1,
-    scale = 1.)
+    scale = 0.755)
 
 melos = score.Element(
-    x = 0.179971,
-    y = 0.110305,
+    x = 0.164740,
+    y = 0.111,
     URI="melos",
     path="melos",
     number=1,
     scale = 0.85)
 
 rhythms = score.Element(
-    x = 0.162554,
-    y = 0.522496,
+    x = 0.164740,
+    y = 0.523121,
     URI="rhythms",
     path="rhythms",
     number=1,
-    scale = 0.85)
+    scale = 0.856)
 
 ## blank = score.Element(
 ##     x = 0.0812772,
@@ -124,8 +130,8 @@ poems = score.Element(
 
 # TODO: deal with etexts as well!
 jtexts = score.Element(
-    x = 0.542816,
-    y = 0.853411,
+    x = 0.135838,
+    y = 0.852601,
     URI="jtexts",
     path="jtexts",
     number=101,
@@ -133,8 +139,8 @@ jtexts = score.Element(
     show = 1)
 
 etexts = score.Element(
-    x = -0.313498,
-    y = 0.853411,
+    x = -0.721,
+    y = 0.852601,
     URI="etexts",
     path="etexts",
     number=101,
@@ -456,13 +462,13 @@ class Page(object):
         enter_path = score.MEDIA_PATH+"icons/enter.svg"
         exit_path = score.MEDIA_PATH+"icons/exit.svg"
         self.oscore._send(osc.Message("/ITL/scene/enter", "set", "svgf", enter_path))
-        self.oscore._send(osc.Message("/ITL/scene/enter", "x", -1.25))
-        self.oscore._send(osc.Message("/ITL/scene/enter", "y", -0.8))
+        self.oscore._send(osc.Message("/ITL/scene/enter", "x", -1.33237))
+        self.oscore._send(osc.Message("/ITL/scene/enter", "y", -0.780347))
         self.oscore._send(osc.Message("/ITL/scene/enter", "scale", 0.4))
         self.oscore._send(osc.Message("/ITL/scene/exit", "set", "svgf", exit_path))
-        self.oscore._send(osc.Message("/ITL/scene/exit", "x", 1.42525))
-        self.oscore._send(osc.Message("/ITL/scene/exit", "y", 0.949202))
-        self.oscore._send(osc.Message("/ITL/scene/exit", "scale", 0.2))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "x", 1.32948))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "y", 0.843931))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "scale", 0.4))
 
     def make_quit_button(self):
         ## quitbutton = score.Button(x=-1., y=-1., URI="quitB", txt="Quit")
