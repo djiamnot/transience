@@ -68,18 +68,24 @@ class Element(object):
         print("Score Element {} Sequence".format(self.URI))
         print(self.stack_sequence)
         self.stack = iter(self.stack_sequence)
+        self.stack_empty = False
 
     def set_color(self, r, g, b):
         return osc.Message(self.makeURI(), "color", r, g, b)
     
     def set_colorize(self, a=0.25, rgb = [255,120,0]):
         print("*** alpha being set on "+ self.URI)
-        return osc.Message(self.makeURI(), "effect", "colorize", a, rgb[0], rgb[1], rgb[2])
+        if not self.stack_empty:
+            return osc.Message(self.makeURI(), "effect", "colorize", a,
+                               rgb[0], rgb[1], rgb[2])
+        else:
+            return self.reset_colorize()
         
     def reset_colorize(self, a=0.1):
         return osc.Message(self.makeURI(), "effect", "colorize", a, 255, 120, 0)
     
     def make_stack(self):
+        self.stack_empty = False
         self.stack = iter(self.stack_sequence)
         self.advance_stack()
         #self.stack = iter(self.stack_sequence)
@@ -90,6 +96,8 @@ class Element(object):
             print("*** {} advanced in sequence: {}".format(self.URI, self.number))
         except StopIteration:
             print("### {} Has reached the bottom of the stack".format(self.URI))
+            self.stack_empty = True
+            
 
     def delete(self):
         """
