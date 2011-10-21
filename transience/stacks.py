@@ -415,32 +415,30 @@ class Page(object):
         self.oscore._send(osc.Message("/ITL/scene/count","set", "txt",
                                       "Page: {}".format(self.page_count+1)))
         self.oscore._send(osc.Message("/ITL/scene/count","color", 100, 100, 100))
-        self.oscore._send(osc.Message("/ITL/scene/count","x", 1.2))
-        self.oscore._send(osc.Message("/ITL/scene/count","y", 1.1))
+        self.oscore._send(osc.Message("/ITL/scene/count","x", 1.3))
+        self.oscore._send(osc.Message("/ITL/scene/count","y", 0.97))
         self.oscore._send(osc.Message("/ITL/scene/count","scale", 1.8))
 
     def mouse_handler(self, message, address):
         """
         Handle mouse clicks in visible elements
         """
-        # TODO: implement a check for visibility
-        print("App received {} from {}".format(message.getValues()[0], address))
-        print("Values: ")
-        print(message.getValues())
         self.display_count()
         if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
             if self.page_count == 0:
-            try:
-                self.page = self.page_iter.next()
-                self.make_all_stacks()
-            except StopIteration:
-                print("||||||||| END OF PIECE |||||||||")
-                self.oscore._send(osc.Message("/ITL/scene/*","del"))
+                try:
+                    self.page = self.page_iter.next()
+                    self.make_all_stacks()
+                except StopIteration:
+                    print("||||||||| END OF PIECE |||||||||")
+                    self.oscore._send(osc.Message("/ITL/scene/*","del"))
                 #self.page_iter = iter(page_sequence)
             self.set_score_page()
             reactor.callLater(1.0,self.next_page)
+            reactor.callLater(1.1,self.grab_screen)
             print("Current page is: ", self.page_count)
             self.page_count += 1
+            self.page = self.page_iter.next()
         if message.getValues()[0] == 'quitB' and message.getValues()[1] == "clicked":
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
@@ -448,7 +446,11 @@ class Page(object):
         if message.getValues()[0] == "conf_ui" and message.getValues()[1] == "clicked":
             # Open the configuration scene
             conf = conf_ui.ConfScreen(self.configuration, self.oscore)
-    
+    def grab_screen(self):
+        self.oscore._send(osc.Message(
+            "/ITL/scene","export",
+            "/tmp/Transience_p{}.png".format(self.page_count)))
+        
     def greet(self):
         print("Entered greet")
         reactor.callLater(0.01,self._hello)
