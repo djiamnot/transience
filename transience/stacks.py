@@ -89,7 +89,7 @@ interactions = score.Element(
 
 envelopes = score.Element(
     x = 0.895954,
-    y = -0.309249,
+    y = -0.308249,
     URI="envelopes",
     path="envelopes",
     number=1,
@@ -216,19 +216,7 @@ class Page(object):
         self.rhythms.stack_sequence = self.arrangement['rhythms']
         self.recitations.stack_sequence = self.arrangement['recitations']
 
-        # make stacks
-        self.durations.make_stack()
-        self.envelopes.make_stack()
-        self.glissandis.make_stack()
-        self.instructions.make_stack()
-        self.interactions.make_stack()
-        self.jtexts.make_stack()
-        self.etexts.make_stack()
-        self.melos.make_stack()
-        self.moods.make_stack()
-        self.poems.make_stack()
-        self.rhythms.make_stack()
-        self.recitations.make_stack()
+        self.make_all_stacks()
 
         ## # set stacks to first iteration
         ## self.durations.advance_stack()
@@ -243,7 +231,22 @@ class Page(object):
         ## self.rhythms.advance_stack()
         ## self.recitations.advance_stack()
 
-        
+    def make_all_stacks(self):
+        """
+        Make all stacks
+        """
+        self.durations.make_stack()
+        self.envelopes.make_stack()
+        self.glissandis.make_stack()
+        self.instructions.make_stack()
+        self.interactions.make_stack()
+        self.jtexts.make_stack()
+        self.etexts.make_stack()
+        self.melos.make_stack()
+        self.moods.make_stack()
+        self.poems.make_stack()
+        self.rhythms.make_stack()
+        self.recitations.make_stack()
 
     def next_page(self):
         """
@@ -392,19 +395,30 @@ class Page(object):
             self.oscore._send(self.jtexts.set_colorize())
                 
     def decide_language(self):
+        """
+        Show English or Japanese text or none, accoridng to random choice.
+        If it is to be japanese, show both. Else show either only english or nothing.
+        """
         choice = random.randint(0, 2)
         print("The choice is: ", choice)
         if choice == 0:
-            pass
-            #self.oscore._send(self.etexts.reset_colorize())
-            #self.oscore._send(self.jtexts.reset_colorize())
+            self.etexts.show = 0
+            self.jtexts.show = 0
         elif choice == 1:
-            #self.oscore._send(self.etexts.reset_colorize())
-            self.oscore._send(self.jtexts.set_colorize(a=0.25, rgb=[0,120,0]))
+            self.etexts.show = 1
+            self.jtexts.show = 0
         else:
-            #self.oscore._send(self.jtexts.reset_colorize())
-            self.oscore._send(self.etexts.set_colorize(a=0.25, rgb=[0,120,0]))
-        
+            self.etexts.show = 1
+            self.jtexts.show = 1
+
+    def display_count(self):
+        self.oscore._send(osc.Message("/ITL/scene/count","set", "txt",
+                                      "Page: {}".format(self.page_count+1)))
+        self.oscore._send(osc.Message("/ITL/scene/count","color", 100, 100, 100))
+        self.oscore._send(osc.Message("/ITL/scene/count","x", 1.2))
+        self.oscore._send(osc.Message("/ITL/scene/count","y", 1.1))
+        self.oscore._send(osc.Message("/ITL/scene/count","scale", 1.8))
+
     def mouse_handler(self, message, address):
         """
         Handle mouse clicks in visible elements
@@ -413,22 +427,12 @@ class Page(object):
         print("App received {} from {}".format(message.getValues()[0], address))
         print("Values: ")
         print(message.getValues())
+        self.display_count()
         if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
             if self.page_count == 0:
-                self.durations.make_stack()
-                self.envelopes.make_stack()
-                self.glissandis.make_stack()
-                self.instructions.make_stack()
-                self.interactions.make_stack()
-                self.jtexts.make_stack()
-                self.etexts.make_stack()
-                self.melos.make_stack()
-                self.moods.make_stack()
-                self.poems.make_stack()
-                self.rhythms.make_stack()
-                self.recitations.make_stack()
             try:
                 self.page = self.page_iter.next()
+                self.make_all_stacks()
             except StopIteration:
                 print("||||||||| END OF PIECE |||||||||")
                 self.oscore._send(osc.Message("/ITL/scene/*","del"))
@@ -664,7 +668,6 @@ class Page(object):
         ## self.poems.number = self.poems.stack_sequence[self.current_poems]
         ## self.jtexts.number = self.poems.number
         ## self.etexts.nyumber = self.poems.number
-        print("Moods number currently is: {}".format(self.moods.number))
         reactor.callLater(0.01, self.make_instructions)
         reactor.callLater(0.01, self.make_glissandis)
         reactor.callLater(0.01, self.make_interactions)
