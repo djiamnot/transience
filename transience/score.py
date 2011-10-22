@@ -32,7 +32,7 @@ MEDIA_PATH = ABS_PATH[0]+"/media/"
 
 class Element(object):
     """
-    This the instance of the Transience score element.  
+    This the instance of the Transience score image element.  
     """
 
     def __init__(self, x=0.0, y=0.0, URI="", path = "", number=1, scale=1., show=1):
@@ -68,15 +68,24 @@ class Element(object):
         print("Score Element {} Sequence".format(self.URI))
         print(self.stack_sequence)
         self.stack = iter(self.stack_sequence)
+        self.stack_empty = False
 
-    def set_colorize(self, a=0.25):
+    def set_color(self, r, g, b):
+        return osc.Message(self.makeURI(), "color", r, g, b)
+    
+    def set_colorize(self, a=0.25, rgb = [255,120,0]):
         print("*** alpha being set on "+ self.URI)
-        return osc.Message(self.makeURI(), "effect", "colorize", a, 255, 120, 0)
+        if not self.stack_empty:
+            return osc.Message(self.makeURI(), "effect", "colorize", a,
+                               rgb[0], rgb[1], rgb[2])
+        else:
+            return self.reset_colorize()
         
     def reset_colorize(self, a=0.1):
         return osc.Message(self.makeURI(), "effect", "colorize", a, 255, 120, 0)
     
     def make_stack(self):
+        self.stack_empty = False
         self.stack = iter(self.stack_sequence)
         self.advance_stack()
         #self.stack = iter(self.stack_sequence)
@@ -87,6 +96,8 @@ class Element(object):
             print("*** {} advanced in sequence: {}".format(self.URI, self.number))
         except StopIteration:
             print("### {} Has reached the bottom of the stack".format(self.URI))
+            self.stack_empty = True
+            
 
     def delete(self):
         """
@@ -100,19 +111,34 @@ class Element(object):
         """
         return "/ITL/"+ self.component + self.URI
 
-    def makePath(self):
+    def makeImgPath(self):
         """
         Cook the path to the image file
         """
         return self.path + "/" + str(self.number) + ".png"
+
+    def makeHTMLPath(self):
+        """
+        Cook the path to the image file
+        """
+        return self.path + "/" + str(self.number) + ".html"
 
     def image(self):
         """
         Cook the OSC message to create an image in INSCore
         """
         URI = self.makeURI()
-        path = self.makePath()
+        path = self.makeImgPath()
         return osc.Message(URI, "set", "img", path)
+        self.set_show(self.show)
+
+    def htmlf(self):
+        """
+        Cook OSC message to create html element for INScore
+        """
+        URI = self.makeURI()
+        path = self.makeHTMLPath()
+        return osc.Message(URI, "set", "htmlf", path)
         self.set_show(self.show)
         
     def scale_element(self):

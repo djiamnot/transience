@@ -1,0 +1,15 @@
+# draw text on top of the image
+for i in *.png; do convert $i -fill white -font Helvetica -pointsize 24 -gravity North -annotate +0 'Interactions' t$i; done
+
+# and by APPENDING to the image (+swap appends on top rather than bottom)
+for i in *.png; do convert $i -background black -fill white -font Helvetica -pointsize 24 +swap -gravity Center label:'Interactions' -append t$i; done
+
+for i in *.png; do convert $i -background black -fill white -font Helvetica -pointsize 24 label:'Interactions' +swap -gravity Center  -append $i; done
+# add a splice
+for i in *.png; do convert $i -splice x12 $i; done
+# chohp a splice
+for i in *.png; do convert $i -chop x12 $i; done
+
+for i in *.png; do convert $i -background black -fill white -font Helvetica -pointsize 24 label:'Glissandi (for each note)' +swap -gravity Center  -append $i; done
+for i in *.png; do convert $i -splice x12 $i; done
+for i in *.png; do convert $i -bordercolor white -border 1x1 $i; done
