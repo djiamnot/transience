@@ -158,6 +158,7 @@ class ConfScreen(object):
         pass
 
     def _init_conf_screen(self):
+        self.sconf._send(osc.Message("/ITL/conf/*","del"))
         self.sconf._send(osc.Message("/ITL/conf","new"))
         self.sconf._send(osc.Message("/ITL/conf","width", 2.39062))
         self.sconf._send(osc.Message("/ITL/conf","height", 1.71875))
@@ -166,6 +167,7 @@ class ConfScreen(object):
         self.sconf._send(osc.Message("/ITL/conf/title", "scale", 4.0))
         self.sconf._send(osc.Message("/ITL/conf/title", "x", 0.0))
         self.sconf._send(osc.Message("/ITL/conf/title", "y", -0.9))
+        self.sconf._send(osc.Message("/ITL/conf","color", 100, 100, 100))
         self.make_save_button()
         self.make_cancel_button()
         self.make_next_button()
@@ -244,7 +246,7 @@ class ConfScreen(object):
         self.sconf._send(osc.Message("/ITL/conf/help", "xorigin", -1.))
         self.sconf._send(osc.Message("/ITL/conf/help", "yorigin", -1.))
         self.sconf._send(osc.Message("/ITL/conf/help", "x", 0.3))
-        self.sconf._send(osc.Message("/ITL/conf/help", "y", -0.7))
+        self.sconf._send(osc.Message("/ITL/conf/help", "y", -0.8))
         self.sconf._send(osc.Message("/ITL/conf/help", "scale", 1.3))
         for stack in range(0,5):
             setattr(eval("self.{}".format(element)), "{}{}"
