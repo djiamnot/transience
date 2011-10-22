@@ -228,8 +228,8 @@ class ConfScreen(object):
     def set_conf_strip(self, index):
         #sequence = [1,2,3,4, 5]
         #self.recitations = ConfStrip()
-        _y = -0.5
-        _x = -0.5
+        _y = -0.55
+        _x = -0.55
         _component = "conf/"
         for i in self.elements:
             self.sconf._send(osc.Message("/ITL/conf/"+i+"*", "del"))
@@ -241,8 +241,10 @@ class ConfScreen(object):
         # kind of thing, not sure hwich one is more elegant...
         exec("self.{} = ConfStrip()".format(element))
         self.sconf._send(osc.Message("/ITL/conf/help", "set", "htmlf", score.MEDIA_PATH+"doc/"+element+".html"))
-        self.sconf._send(osc.Message("/ITL/conf/help", "x", 0.8))
-        self.sconf._send(osc.Message("/ITL/conf/help", "y", 0.0))
+        self.sconf._send(osc.Message("/ITL/conf/help", "xorigin", -1.))
+        self.sconf._send(osc.Message("/ITL/conf/help", "yorigin", -1.))
+        self.sconf._send(osc.Message("/ITL/conf/help", "x", 0.3))
+        self.sconf._send(osc.Message("/ITL/conf/help", "y", -0.7))
         self.sconf._send(osc.Message("/ITL/conf/help", "scale", 1.3))
         for stack in range(0,5):
             setattr(eval("self.{}".format(element)), "{}{}"
@@ -258,6 +260,11 @@ class ConfScreen(object):
                  .format(element, str(stack)))
             eval("self.sconf._send(self.{0}.{0}{1}.image())"
                  .format(element, str(stack)))
+            # TODO: it would be nice to control the placement by left corner's origin but for some reason
+            # this situation below interferes with the cycling of stack arrangements in *some of the components*,
+            # not all! Mystery that begs to be solved but mayble a little later.
+            ## self.sconf._send(osc.Message("/ITL/conf/{}{}".format(element, str(stack)), "xorigin", -1.))
+            ## self.sconf._send(osc.Message("/ITL/conf/{}{}".format(element, str(stack)), "yorigin", -1.))
             exec("self.{0}.{0}{1}.stack_sequence = self.arrangement['{0}']"
                  .format(element, str(stack)))
             eval("self.sconf._send(self.{0}.{0}{1}.get_x())"
@@ -276,9 +283,9 @@ class ConfScreen(object):
             
     def scale_by_element(self, element):
         if element == 'rhythms':
-            return 0.5
+            return 0.55
         elif element == 'melos':
-            return 0.5
+            return 0.55
         elif element == 'interactions':
             return 0.8
         elif element == 'durations':
@@ -290,7 +297,7 @@ class ConfScreen(object):
         elif element == 'moods':
             return 1.0
         elif element == 'envelopes':
-            return 0.5
+            return 0.6
         elif element == 'etexts':
             return 1.0
         elif element == 'recitations':
