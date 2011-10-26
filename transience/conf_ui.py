@@ -151,6 +151,7 @@ class ConfScreen(object):
         ##                     .format(element))
         ##     self.settings[element] = sequence
         print("Saving the following settings: ",self.settings)
+        configuration.save_backup_conf()
         configuration.save_conf(self.settings)
         
         
