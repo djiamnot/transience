@@ -27,6 +27,7 @@ from transience import inscore
 
 ABS_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_PATH = ABS_PATH[0]+"/media/"
+print("The absolute path is: {}".format(ABS_PATH))
 
 # TODO: write the score
 
