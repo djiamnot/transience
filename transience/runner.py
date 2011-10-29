@@ -33,6 +33,7 @@ import subprocess
 import re
 
 DESCRIPTION = "Python control application for Transience score"
+ABS_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0]
 
 def run():
     """
@@ -51,7 +52,11 @@ def run():
     # Find out if INScore is already running
     # TODO: implement for MacOSX (and Windows?)
     if not is_running("INScoreViewer"):
-        subprocess.Popen(['INScoreViewer'])
+        if sys.platform == 'linux2':
+            subprocess.Popen(['INScoreViewer'])
+        if sys.platform == "darwin":
+            score_app = ABS_PATH+"/INScoreViewer.app"
+            subprocess.Popen(["open", score_app])
     else:
         print("INScore already running, not doing anything.")
 
