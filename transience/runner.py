@@ -50,12 +50,10 @@ def run():
         config.osc_send_port = options.osc_send_port
     # Find out if INScore is already running
     # TODO: implement for MacOSX (and Windows?)
-    if sys.platform == 'linux2':
-        if not is_running("INScoreViewer"):
-            subprocess.Popen(['INScoreViewer'])
-
-        else:
-            print("INScore already running, not doing anything.")
+    if not is_running("INScoreViewer"):
+        subprocess.Popen(['INScoreViewer'])
+    else:
+        print("INScore already running, not doing anything.")
 
     # delay the applications start because INScoreViewer sends some
     # non-osc messages at the beginning and twisted/txosc bails (although
@@ -79,7 +77,7 @@ def kill_transience():
     transience process may have unpredictible side-effects.
     """
     pslist = subprocess.Popen(["ps","x"], stdout = subprocess.PIPE)
-    trans_app = subprocess.Popen(["grep", "x"], stdin = pslist.stdout, stdout = subprocess.PIPE)
+    trans_app = subprocess.Popen(["grep", "INScoreViewer"], stdin = pslist.stdout, stdout = subprocess.PIPE)
     output = trans_app.communicate()[0]
     # kill it!
     subprocess.Popen(["kill", "-9", output.split()[0]])
