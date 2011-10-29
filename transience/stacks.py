@@ -423,22 +423,7 @@ class Page(object):
         """
         Handle mouse clicks in visible elements
         """
-        self.display_count()
-        if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
-            if self.page_count == 0:
-                try:
-                    self.page = self.page_iter.next()
-                    self.make_all_stacks()
-                except StopIteration:
-                    print("||||||||| END OF PIECE |||||||||")
-                    self.oscore._send(osc.Message("/ITL/scene/*","del"))
-                #self.page_iter = iter(page_sequence)
-            self.set_score_page()
-            reactor.callLater(1.0,self.next_page)
-            reactor.callLater(1.1,self.grab_screen)
-            print("Current page is: ", self.page_count)
-            self.page_count += 1
-            self.page = self.page_iter.next()
+        self.iterate_page(message)
         if message.getValues()[0] == 'quitB' and message.getValues()[1] == "clicked":
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
@@ -446,6 +431,29 @@ class Page(object):
         if message.getValues()[0] == "conf_ui" and message.getValues()[1] == "clicked":
             # Open the configuration scene
             conf = conf_ui.ConfScreen(self.configuration, self.oscore)
+
+    def iterate_page(self, message):
+        if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
+            if self.page_count == 0:
+                self.page_iter = iter(page_sequence)
+                self.page = self.page_iter.next()
+                self.make_all_stacks()
+            try:
+                self.page = self.page_iter.next()
+                self.set_score_page()
+                reactor.callLater(1.0,self.next_page)
+                reactor.callLater(1.1,self.grab_screen)
+                self.display_count()
+                print("Current page is: ", self.page_count)
+                self.page_count += 1
+            except StopIteration:
+                print("||||||||| END OF PIECE |||||||||")
+                self.page_count += 1
+                self.display_count()
+                #self.oscore._send(osc.Message("/ITL/scene/*","del"))
+                self.page_iter = iter(page_sequence)
+                self.page_count = 0
+
     def grab_screen(self):
         self.oscore._send(osc.Message(
             "/ITL/scene","export",

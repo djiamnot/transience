@@ -27,6 +27,7 @@ from transience import inscore
 
 ABS_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_PATH = ABS_PATH[0]+"/media/"
+print("The absolute path is: {}".format(ABS_PATH))
 
 # TODO: write the score
 
@@ -96,7 +97,8 @@ class Element(object):
             print("*** {} advanced in sequence: {}".format(self.URI, self.number))
         except StopIteration:
             print("### {} Has reached the bottom of the stack".format(self.URI))
-            self.stack_empty = True
+            #self.stack_empty = True
+            self.make_stack()
             
 
     def delete(self):
