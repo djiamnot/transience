@@ -22,6 +22,8 @@ The Configuration class.
 """
 import random
 import os
+import shutil
+import time
 
 from ConfigParser import SafeConfigParser
 
@@ -33,10 +35,22 @@ def save_conf(dict):
     for key in dict:
         parser.add_section(key)
         parser.set(key, 'sequence', "{}".format(dict[key]))
-
     with open(config_file,"w") as f:
         parser.write(f)
 
+def save_backup_conf(directory="/var/tmp/transcience"):
+    file_name = time.strftime("transiencerc-%Y%m%d-%H:%M:%S")
+    if not os.path.exists(directory):
+        try:
+            os.makedirs(directory)
+        except OSError, e:
+            print(e)
+    full_path = os.path.join(directory, file_name)
+    try:
+        shutil.copy2(os.path.expanduser("~/.transiencerc"), full_path)
+    except Error, e:
+        print(e)
+        
 class PrefParser(object):
     """
     Parses ~/.transiencerc and extracts the elements needed for display(s)
