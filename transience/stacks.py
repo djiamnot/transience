@@ -36,74 +36,80 @@ from transience import conf_ui
 # of these elements.
 
 recitations = score.Element(
-    x = -0.914369,
-    y = 0.853411,
+    x = 0.0202312,
+    y = -0.308,
     URI="recitations",
     path="recitations",
     number=1,
-    scale = 1.)
+    scale = 1.325)
 
 moods = score.Element(
 #    x = 0.989840,
-    x = 1.18142,
-    y = -0.757620,
+    x = 1.018,
+    y = -0.644509,
     URI="moods",
     path="moods",
-    number=1)
+    number=1,
+    scale = 0.95
+    )
 
 instructions = score.Element(
-    x = -0.830189,
-    y = -0.757620,
+    x = -0.852601,
+    y = -0.643509,
     URI="instructions",
     path="instructions",
-    number=1)
+    number=1,
+    scale = 1.04
+    )
 
 durations = score.Element(
-    x = 1.19013,
-    y = 0.853411,
+    x = 0.849711,
+    y = 0.852601,
     URI="durations",
     path="durations",
-    number=1)
+    number=1,
+    scale = 1
+    )
 
 glissandis = score.Element(
-    x = -0.542816,
-    y = -0.365747,
+    x = -0.713873,
+    y = -0.306358,
     URI="glissandis",
     path="glissandis",
     number=1,
-    scale = 1.0)
+    scale = 0.715)
 
 interactions = score.Element(
-    x = 0.101597,
-    y = -0.757620,
+    x = 0.005,
+    y = -0.642628,
     URI="interactions",
     path="interactions",
     number=1,
-    scale = 1.0)
+    scale = 0.87)
 
 envelopes = score.Element(
-    x = 0.801161,
-    y = -0.365747,
+    x = 0.895954,
+    y = -0.308249,
     URI="envelopes",
     path="envelopes",
     number=1,
-    scale = 1.)
+    scale = 0.755)
 
 melos = score.Element(
-    x = 0.179971,
-    y = 0.110305,
+    x = 0.164740,
+    y = 0.111,
     URI="melos",
     path="melos",
     number=1,
     scale = 0.85)
 
 rhythms = score.Element(
-    x = 0.162554,
-    y = 0.522496,
+    x = 0.164740,
+    y = 0.523121,
     URI="rhythms",
     path="rhythms",
     number=1,
-    scale = 0.85)
+    scale = 0.856)
 
 ## blank = score.Element(
 ##     x = 0.0812772,
@@ -124,8 +130,8 @@ poems = score.Element(
 
 # TODO: deal with etexts as well!
 jtexts = score.Element(
-    x = 0.542816,
-    y = 0.853411,
+    x = 0.135838,
+    y = 0.852601,
     URI="jtexts",
     path="jtexts",
     number=101,
@@ -133,8 +139,8 @@ jtexts = score.Element(
     show = 1)
 
 etexts = score.Element(
-    x = -0.313498,
-    y = 0.853411,
+    x = -0.721,
+    y = 0.852601,
     URI="etexts",
     path="etexts",
     number=101,
@@ -210,19 +216,7 @@ class Page(object):
         self.rhythms.stack_sequence = self.arrangement['rhythms']
         self.recitations.stack_sequence = self.arrangement['recitations']
 
-        # make stacks
-        self.durations.make_stack()
-        self.envelopes.make_stack()
-        self.glissandis.make_stack()
-        self.instructions.make_stack()
-        self.interactions.make_stack()
-        self.jtexts.make_stack()
-        self.etexts.make_stack()
-        self.melos.make_stack()
-        self.moods.make_stack()
-        self.poems.make_stack()
-        self.rhythms.make_stack()
-        self.recitations.make_stack()
+        self.make_all_stacks()
 
         ## # set stacks to first iteration
         ## self.durations.advance_stack()
@@ -237,7 +231,22 @@ class Page(object):
         ## self.rhythms.advance_stack()
         ## self.recitations.advance_stack()
 
-        
+    def make_all_stacks(self):
+        """
+        Make all stacks
+        """
+        self.durations.make_stack()
+        self.envelopes.make_stack()
+        self.glissandis.make_stack()
+        self.instructions.make_stack()
+        self.interactions.make_stack()
+        self.jtexts.make_stack()
+        self.etexts.make_stack()
+        self.melos.make_stack()
+        self.moods.make_stack()
+        self.poems.make_stack()
+        self.rhythms.make_stack()
+        self.recitations.make_stack()
 
     def next_page(self):
         """
@@ -386,51 +395,35 @@ class Page(object):
             self.oscore._send(self.jtexts.set_colorize())
                 
     def decide_language(self):
+        """
+        Show English or Japanese text or none, accoridng to random choice.
+        If it is to be japanese, show both. Else show either only english or nothing.
+        """
         choice = random.randint(0, 2)
         print("The choice is: ", choice)
         if choice == 0:
-            pass
-            #self.oscore._send(self.etexts.reset_colorize())
-            #self.oscore._send(self.jtexts.reset_colorize())
+            self.etexts.show = 0
+            self.jtexts.show = 0
         elif choice == 1:
-            #self.oscore._send(self.etexts.reset_colorize())
-            self.oscore._send(self.jtexts.set_colorize(a=0.25, rgb=[0,120,0]))
+            self.etexts.show = 1
+            self.jtexts.show = 0
         else:
-            #self.oscore._send(self.jtexts.reset_colorize())
-            self.oscore._send(self.etexts.set_colorize(a=0.25, rgb=[0,120,0]))
-        
+            self.etexts.show = 1
+            self.jtexts.show = 1
+
+    def display_count(self):
+        self.oscore._send(osc.Message("/ITL/scene/count","set", "txt",
+                                      "Page: {}".format(self.page_count+1)))
+        self.oscore._send(osc.Message("/ITL/scene/count","color", 100, 100, 100))
+        self.oscore._send(osc.Message("/ITL/scene/count","x", 1.3))
+        self.oscore._send(osc.Message("/ITL/scene/count","y", 0.97))
+        self.oscore._send(osc.Message("/ITL/scene/count","scale", 1.8))
+
     def mouse_handler(self, message, address):
         """
         Handle mouse clicks in visible elements
         """
-        # TODO: implement a check for visibility
-        print("App received {} from {}".format(message.getValues()[0], address))
-        print("Values: ")
-        print(message.getValues())
-        if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
-            if self.page_count == 0:
-                self.durations.make_stack()
-                self.envelopes.make_stack()
-                self.glissandis.make_stack()
-                self.instructions.make_stack()
-                self.interactions.make_stack()
-                self.jtexts.make_stack()
-                self.etexts.make_stack()
-                self.melos.make_stack()
-                self.moods.make_stack()
-                self.poems.make_stack()
-                self.rhythms.make_stack()
-                self.recitations.make_stack()
-            try:
-                self.page = self.page_iter.next()
-            except StopIteration:
-                print("||||||||| END OF PIECE |||||||||")
-                self.oscore._send(osc.Message("/ITL/scene/*","del"))
-                #self.page_iter = iter(page_sequence)
-            self.set_score_page()
-            reactor.callLater(1.0,self.next_page)
-            print("Current page is: ", self.page_count)
-            self.page_count += 1
+        self.iterate_page(message)
         if message.getValues()[0] == 'quitB' and message.getValues()[1] == "clicked":
             print("Quit invoked!  Going for sys.exit")
             self.oscore._send(osc.Message("/ITL", "quit"))
@@ -438,7 +431,34 @@ class Page(object):
         if message.getValues()[0] == "conf_ui" and message.getValues()[1] == "clicked":
             # Open the configuration scene
             conf = conf_ui.ConfScreen(self.configuration, self.oscore)
-    
+
+    def iterate_page(self, message):
+        if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
+            if self.page_count == 0:
+                self.page_iter = iter(page_sequence)
+                self.page = self.page_iter.next()
+                self.make_all_stacks()
+            try:
+                self.page = self.page_iter.next()
+                self.set_score_page()
+                reactor.callLater(1.0,self.next_page)
+                reactor.callLater(1.1,self.grab_screen)
+                self.display_count()
+                print("Current page is: ", self.page_count)
+                self.page_count += 1
+            except StopIteration:
+                print("||||||||| END OF PIECE |||||||||")
+                self.page_count += 1
+                self.display_count()
+                #self.oscore._send(osc.Message("/ITL/scene/*","del"))
+                self.page_iter = iter(page_sequence)
+                self.page_count = 0
+
+    def grab_screen(self):
+        self.oscore._send(osc.Message(
+            "/ITL/scene","export",
+            "/tmp/Transience_p{}.png".format(self.page_count)))
+        
     def greet(self):
         print("Entered greet")
         reactor.callLater(0.01,self._hello)
@@ -456,13 +476,13 @@ class Page(object):
         enter_path = score.MEDIA_PATH+"icons/enter.svg"
         exit_path = score.MEDIA_PATH+"icons/exit.svg"
         self.oscore._send(osc.Message("/ITL/scene/enter", "set", "svgf", enter_path))
-        self.oscore._send(osc.Message("/ITL/scene/enter", "x", -1.25))
-        self.oscore._send(osc.Message("/ITL/scene/enter", "y", -0.8))
+        self.oscore._send(osc.Message("/ITL/scene/enter", "x", -1.33237))
+        self.oscore._send(osc.Message("/ITL/scene/enter", "y", -0.780347))
         self.oscore._send(osc.Message("/ITL/scene/enter", "scale", 0.4))
         self.oscore._send(osc.Message("/ITL/scene/exit", "set", "svgf", exit_path))
-        self.oscore._send(osc.Message("/ITL/scene/exit", "x", 1.42525))
-        self.oscore._send(osc.Message("/ITL/scene/exit", "y", 0.949202))
-        self.oscore._send(osc.Message("/ITL/scene/exit", "scale", 0.2))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "x", 1.32948))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "y", 0.843931))
+        self.oscore._send(osc.Message("/ITL/scene/exit", "scale", 0.4))
 
     def make_quit_button(self):
         ## quitbutton = score.Button(x=-1., y=-1., URI="quitB", txt="Quit")
@@ -658,7 +678,6 @@ class Page(object):
         ## self.poems.number = self.poems.stack_sequence[self.current_poems]
         ## self.jtexts.number = self.poems.number
         ## self.etexts.nyumber = self.poems.number
-        print("Moods number currently is: {}".format(self.moods.number))
         reactor.callLater(0.01, self.make_instructions)
         reactor.callLater(0.01, self.make_glissandis)
         reactor.callLater(0.01, self.make_interactions)
