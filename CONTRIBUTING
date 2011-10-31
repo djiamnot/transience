@@ -1,0 +1,35 @@
+Some development notes about the Transience project
+
+The release process
+-------------------
+
+Update the documentation if needed:
+
+ * scripts/transience
+ * README
+
+Make sure the version number is the next release's:
+
+ * transience/__init__.py
+
+Run the unit tests:
+
+ * trial transience
+
+Update the release notes:
+
+
+Update the ChangeLog:
+
+ * git log --pretty=medium log > ChangeLog
+
+Create the tag and a tarball:
+
+ * make sure you are in the right branch. 
+ * Commit any change
+ * git tag 0.2.0
+
+Increase the version number (not yet released):
+
+ * transience/__init__.py
+ * NEWS: move the contents of the old RELEASE file to NEWS
