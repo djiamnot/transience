@@ -1,0 +1,22 @@
+Transience 0.2.4 2011-10-31
+---------------------------
+
+This is a bugfix release
+    
+    * Bugs corrected:
+
+        * The score wraps back to page 1
+    
+Transience 0.2.3 2011-10-29
+---------------------------
+
+    This is the first official release
+
+    * Bugs:
+
+        * The page counter counts beyond Page 9
+        * No back-stepping
+    
+    * New features:
+
+        * INScoreViewer is now boundled with the software and is automatically luanched.

@@ -50,27 +50,10 @@ class Application(object):
         print("*** Running Transience version {}".format(__version__))
         #self.set_score_page(self.current_page)
         self.page = stacks.Page(configuration)
-        reactor.callLater(0.0,self.page.oscore._send,
-                          osc.Message("/ITL/scene/*","del"))
-        reactor.callLater(0.02,self.page.oscore._send,
-                          osc.Message("/ITL/scene","width", 2.64583))
-        reactor.callLater(0.02,self.page.oscore._send,
-                          osc.Message("/ITL/scene","height", 1.80990))
-        reactor.callLater(0.01,self.page.oscore._send,
-                          osc.Message("/ITL/scene","foreground"))
-        t = 0.05
-        for i in range(0,100):
-            reactor.callLater(
-                t,
-                self.page.oscore._send,
-                osc.Message("/ITL/scene","color", 100-i, 100-i, 100-i, 255))
-            t += 0.05
-        reactor.callLater(12.0,self.page.oscore._send,
-                          osc.Message("/ITL/scene/text","del"))
-        reactor.callLater(0.01,self.page.greet)
-        reactor.callLater(12.0, self.page.set_score_page)
-        reactor.callLater(1.0, self.page.next_page)
-        self.page.oscore.run()
+                #reactor.callLater(0.01,self.page.greet)
+        #reactor.callLater(12.0, self.page.set_score_page)
+        #reactor.callLater(1.0, self.page.next_page)
+        #self.page.oscore.run()
 
     def greet(self):
         self.page.greet()

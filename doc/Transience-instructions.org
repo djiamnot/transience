@@ -1,0 +1,52 @@
+#+INFOJS_OPT: view:showall toc:nil
+#+STYLE: <link rel="stylesheet" type="text/css" href="http://matralab.hexagram.ca/includes/style.css" />
+#+TITLE: Transience - interactive score
+** Intro
+
+This is a short set of instructions on how to run the interactive score software for Transience by Sandeep Bhagwati.
+The software actually consists of 2 different applications: 
+
+- Transience: developed at Matralab by myself (Michal Seta).
+- INScore: developed by Grame and Dominique Fober: http://inscore.sourceforge.net/
+
+INScore is a stand-alone application that acts as simple canvas on
+which one can draw, type and write music by means of OSC
+([[http://opensoundcontrol.org/introduction-osc][Open Sound Control]]) messages and Transience is a [[http://www.python.org][Python]] application that is
+designed to render Transience score on INScore's canvas. 
+
+** Installing in Mac OS
+   You may download Transience from here:
+   http://matralab.hexagram.ca/~mseta/transience/ 
+
+   Unpack the .zip archive anywhere on your hard-drive and you can run it in the usual wya, by double-clicking the application icon.
+
+   INScore is actually embedded in the current version of Transience. This may change in the future but for now, simply running Transience will launch INScoreViewer and he user will see and interact with INScoreViewer. Please keep in mind one imporant point:
+
+   - Transience must be quit with the "QUIT" button (grey-colored text, actually) located in the upper left corner of the score window. 
+      - This is *very* important because Transience application is running as a background process (i.e. it is not visible) and it communicates with INScoreViewer via sockets. The socets use specific ports for communication and if INScoreViewer window is closed with the "x" icon on the title bar or via Command-Q, Transience does not know about it and it will continue its opration. This will result in errors when trying to start it again. This behaviour will be fixed in the next few days.
+** Operation
+   For those of you have seen the paper version of the score, the screen version will look less familiar. First of all, the "X" and "TEXT?" cards are not present. They are still represented in the score but in different ways, which are explained below. The Japanese and English text have also changed their behaviour. And the layout is different, it has been optimised by Sandeep in order to benefit the fact that some information is not represented any more with "cards" and to improve the reading flow.
+
+*** The changes from the original, paper version
+    - the "X" card is replaced by a system of highlights of elements. The order is randomly generated every time the application is run.
+    - The "TEXT?" elements, is also replaced by a software random function. The rules are as follows: if you see only English text, use the english language, if you see both English and Japanese versions, use the Japanese (English is there only to help to understand the poem). If you see no poems, do not read any.
+
+   Advancing to the following pages is done by clicking on any of the images on the screen (MIDI pedal control wil be implemented in the final version). The first click will simply repeat the first page (this is the *real* first page) but this time with some of the elements highlighted with a lighter shade of brown. The highlighted elements will be replaced by their next counterparts on the next "page". The score has a total of 9 pages and after the 9th page the score will restart at page 1 with the same page sequence except for the choices of Japanese/English/None texts (I am not sure whether this should be considered a feature or a bug...)
+
+*** Score configuration
+    Although the "X" and "TEXT?" cards' order is generated randomly, the other cards are under your control. The very first time you run the score, the software will generate a random score for you (which is still a valid Transience score). It will write this configuration into a hidden file in your home directory (the file is named .transiencerc). That file will contain all the information to retrieve exactly the same order of cards every time (but remember that the English/Japanese/None text instructions as well as which elements change from one page to another are generated randomly for you).
+
+    Should you want to change the score configuration, which used to be done by following the "rombic matrices" document, you can do so now with the configuration screen. Click the "Configure score" text in the upper right corner and you will be presented with a new window. The window allows you to change the oder of cards in each of the "stacks". Figuring out the the path on the rombing matrix is not necessary anymore, all possible paths are already pre-computed. You will see only 5 cards, arranged in one of the possible configurations. By clicking on any of the cards, the sequence of cards will change to the next possible configuration. Click on the "Next element -->" text to reconfigure other elements until you have configured each stack to your liking.
+    
+    Clicking "SAVE" will save a new .transiencerc which will now be the default everytime you run Transience. The previous version will be backed up (in /var/tmp/transience directory, timestamped with the date and time of the backup).
+
+    Clicking "CANCEL" will do nothing, it will simply close the configuration window.
+
+** Installing on Linux:
+   Although Transience has been developped on Linux, there is no Linux package yet as MacOS packaging was given priority. If you need to use Transience on Linux, please communicate with me (mis@artnegine.ca) and I will send you instructions on how to get going.
+
+** Outro
+
+There are probably some problems with the application, please try it for yourself and get familiar with the score layout and the overall functionnality. Please, do not hesitate to communicate any ideas or notes concerning the layout, design or the functionality of this software.
+
+Sandeep Bhagwati - sandeep.bhagwati@gmail.com, Michal Seta - mis@artengine.ca
