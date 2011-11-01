@@ -9,7 +9,7 @@ Update the documentation if needed:
  * README
  * doc/Transience-instructions.org
    - export to html
-   - scp Transience-instructions hexagram:Sites/transience/README.html
+   - scp doc/Transience-instructions.html hexagram:Sites/transience/README.html
 
 Make sure the version number is the next release's:
 
