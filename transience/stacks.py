@@ -208,7 +208,8 @@ class Page(object):
         self.glissandis.stack_sequence = self.arrangement['glissandis']
         self.instructions.stack_sequence = self.arrangement['instructions']
         self.interactions.stack_sequence = self.arrangement['interactions']
-        self.jtexts.stack_sequence = self.arrangement['etexts'] #all poems should be the same
+        #all poems should be the same
+        self.jtexts.stack_sequence = self.arrangement['etexts'] 
         self.etexts.stack_sequence = self.arrangement['etexts']
         self.melos.stack_sequence = self.arrangement['melos']
         self.moods.stack_sequence = self.arrangement['moods']
@@ -217,6 +218,10 @@ class Page(object):
         self.recitations.stack_sequence = self.arrangement['recitations']
 
         self.make_all_stacks()
+        self.greet()
+        reactor.callLater(12.0, self.set_score_page)
+        reactor.callLater(1.0, self.next_page)
+        self.oscore.run()
 
         ## # set stacks to first iteration
         ## self.durations.advance_stack()
@@ -435,24 +440,42 @@ class Page(object):
     def iterate_page(self, message):
         if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
             if self.page_count == 0:
-                self.page_iter = iter(page_sequence)
                 self.page = self.page_iter.next()
                 self.make_all_stacks()
-            try:
-                self.page = self.page_iter.next()
+                #self.set_score_page()
+                self.page_iter = iter(page_sequence)
+                reactor.callLater(1.0,self.next_page)
+            if self.page_count < 8:
+                try:
+                    if self.page_count != 0:
+                        self.page = self.page_iter.next()
+                    self.set_score_page()
+                    reactor.callLater(1.0,self.next_page)
+                    reactor.callLater(1.1,self.grab_screen)
+                    self.display_count()
+                    print("Current page is: ", self.page_count)
+                    self.page_count += 1
+                except StopIteration:
+                    print("||||||||| END OF PIECE |||||||||")
+                    #self.page_count += 1
+                    #self.display_count()
+                    #self.oscore._send(osc.Message("/ITL/scene/*","del"))
+                    #self.page_iter = iter(page_sequence)
+                    self.page_count = 0
+                    self.make_all_stacks()
+                    self.page_iter = iter(page_sequence)
+                    reactor.callLater(1.0,self.next_page)
+            else:
+                #self.page = self.page_iter.next()
                 self.set_score_page()
                 reactor.callLater(1.0,self.next_page)
                 reactor.callLater(1.1,self.grab_screen)
                 self.display_count()
-                print("Current page is: ", self.page_count)
-                self.page_count += 1
-            except StopIteration:
-                print("||||||||| END OF PIECE |||||||||")
-                self.page_count += 1
-                self.display_count()
-                #self.oscore._send(osc.Message("/ITL/scene/*","del"))
-                self.page_iter = iter(page_sequence)
+                self.oscore._send(osc.Message("/ITL/scene/count",
+                                    "color", 255, 100, 100))
                 self.page_count = 0
+
+
 
     def grab_screen(self):
         self.oscore._send(osc.Message(
@@ -461,6 +484,23 @@ class Page(object):
         
     def greet(self):
         print("Entered greet")
+        reactor.callLater(0.0,self.oscore._send,
+                          osc.Message("/ITL/scene/*","del"))
+        reactor.callLater(0.02,self.oscore._send,
+                          osc.Message("/ITL/scene","width", 2.64583))
+        reactor.callLater(0.02,self.oscore._send,
+                          osc.Message("/ITL/scene","height", 1.80990))
+        reactor.callLater(0.01,self.oscore._send,
+                          osc.Message("/ITL/scene","foreground"))
+        t = 0.05
+        for i in range(0,100):
+            reactor.callLater(
+                t,
+                self.oscore._send,
+                osc.Message("/ITL/scene","color", 100-i, 100-i, 100-i, 255))
+            t += 0.05
+        reactor.callLater(12.0,self.oscore._send,
+                          osc.Message("/ITL/scene/text","del"))
         reactor.callLater(0.01,self._hello)
 
     def _hello(self):
@@ -695,3 +735,4 @@ class Page(object):
         reactor.callLater(0.01, self.make_durations)
         reactor.callLater(2.0, self.decide_language)
         reactor.callLater(0.02, self.make_icons)
+

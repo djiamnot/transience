@@ -89,7 +89,7 @@ class Element(object):
         self.stack_empty = False
         self.stack = iter(self.stack_sequence)
         self.advance_stack()
-        #self.stack = iter(self.stack_sequence)
+        self.stack = iter(self.stack_sequence)
         
     def advance_stack(self):
         try:
