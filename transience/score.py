@@ -89,7 +89,7 @@ class Element(object):
         self.stack_empty = False
         self.stack = iter(self.stack_sequence)
         self.advance_stack()
-        #self.stack = iter(self.stack_sequence)
+        self.stack = iter(self.stack_sequence)
         
     def advance_stack(self):
         try:
@@ -97,7 +97,8 @@ class Element(object):
             print("*** {} advanced in sequence: {}".format(self.URI, self.number))
         except StopIteration:
             print("### {} Has reached the bottom of the stack".format(self.URI))
-            self.stack_empty = True
+            #self.stack_empty = True
+            self.make_stack()
             
 
     def delete(self):
