@@ -1,0 +1,1063 @@
+commit ef202c1591a317f93e54a00bcd2a2c39b471f2c2
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Sat Oct 29 16:42:10 2011 -0400
+
+    Launches INScore if run from CLI and INScoreViewer.app present in the same directory
+
+commit 21d9f331fd2af5b1e4da4b5e5f760b685a160d85
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Sat Oct 29 16:22:07 2011 -0400
+
+    checks for INScoreViewer process on both Mac and Linux and returns proper status
+
+commit adced95ac9112819610886f441858af760aea8bb
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 26 21:14:53 2011 -0400
+
+    Print current working directory
+
+commit 78fe545b77e3b87443fd054d2ddf253798416c08
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Sat Oct 22 16:45:35 2011 -0400
+
+    updated the html files to look good on darwin
+
+commit c8aae108e04be5603cd9955fff6fc4ce5834101b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 26 09:42:22 2011 -0400
+
+    Revert "updated the html files to look good on darwin"
+    
+    This reverts commit c978add04ba06f019c0256fde8c4ce2d60877fe8.
+
+commit 1edcaa03779abfa888a3eb32491218537de21fe4
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 26 09:33:04 2011 -0400
+
+    we save a backup of a previous configuration in /var/tmp/transience
+
+commit c978add04ba06f019c0256fde8c4ce2d60877fe8
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Sat Oct 22 16:45:35 2011 -0400
+
+    updated the html files to look good on darwin
+
+commit fd569e6fd5b944a23a64ee9ecefb242d7accad2c
+Merge: ceaaa6b 650516a
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Sat Oct 22 16:32:24 2011 -0400
+
+    Merge branch 'develop' of github.com:djiamnot/transience into develop
+
+commit 650516ad0baf4235dcbd17079ce91259801dbf39
+Merge: 68470e0 764904b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 22 15:58:58 2011 -0400
+
+    Merge branch 'documentation' into develop
+
+commit 764904b814a1939a7fa1b418dd047861c8270f8d
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 22 15:58:17 2011 -0400
+
+    Created documentation html files
+
+commit 68470e01d344c058232f925dfed9421d178a68cc
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 22 15:57:50 2011 -0400
+
+    Tweaked the conf ui
+
+commit ef6c45c734b37bbc5ca49897f388f767bf6543b7
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 22 12:39:43 2011 -0400
+
+    Conf screen looks and behaves correctly. Documentation missing
+
+commit ab5904cf1d13927ebbabab421f37970d7db48929
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 22 05:18:03 2011 -0400
+
+    configuration has been redesigned to deal with one elements stack at a time but including element's description in the same window. Not all docs are finished
+
+commit 942415b57fb605578a5e03176b2dd027ff6fbab9
+Merge: e06fee3 18b7c00
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 22 04:41:08 2011 -0400
+
+    Merge branch 'documentation' into conf-screen
+
+commit e06fee359d3eda597033bf20d8919ad5bd126a0f
+Merge: 8b47e99 cba3e16
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 22 01:42:02 2011 -0400
+
+    Merge branch 'develop' into magnification
+
+commit 8b47e998ecbd88273cb4ee3530d51fbc290ab400
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 22 01:31:31 2011 -0400
+
+    no change, really
+
+commit 18b7c0007fbb49bb8234ab60377d559f4a9e15a5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 12:23:44 2011 -0400
+
+    recitations/playing techniques help html file added
+
+commit cba3e16618bb54d2b0ebe9041ab7ce87f60fec6f
+Merge: f75750c bd117fd
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 02:51:57 2011 -0400
+
+    Merge branch 'release-0.2.2' into develop
+
+commit bd117fdd409422dd738636973f7096980c146c39
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 02:49:31 2011 -0400
+
+    bumped version number to 0.2.2
+
+commit f75750ce55d7b970b4bd75f3abfdb016987eb073
+Merge: 5dba9e4 5812f81
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 02:43:42 2011 -0400
+
+    Merge branch 'stack-sequence-fix' into develop
+
+commit 5812f8186b38af1140746013bb985d55e1ebc853
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 02:43:00 2011 -0400
+
+    Each page progresses correctly through the stack.
+
+commit 5dba9e47b7f635988ad8031971685b4af3af8d16
+Merge: dfae5bf 9489995
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 01:51:52 2011 -0400
+
+    Merge branch 'language-fix' into develop
+
+commit 9489995943f782fb5eb28d66efe4c6b619a1d3a5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 01:51:26 2011 -0400
+
+    languages are fixed
+
+commit dfae5bf6b7ffc001858a15f79e234541c6ece485
+Merge: f3bf530 0a34308
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 00:38:33 2011 -0400
+
+    Merge branch 'correct_layout' into develop
+
+commit 0a34308ba2e6cda98bc2687494364943c4d148d5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 21 00:37:12 2011 -0400
+
+    Layout redone as per SB instrauctions.
+
+commit 5eff232315e91721d251a0c8bf67ca18556b591c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 20 10:45:47 2011 -0400
+
+    on the right track?
+
+commit f3bf530be32b05255e5eee55d174804557e430cb
+Merge: 71cb7a6 1905aa6
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 20 10:28:47 2011 -0400
+
+    Merge branch 'score_icons' into develop
+
+commit 1905aa612fd0166827ca12dff98df5b0801b472d
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 20 10:28:02 2011 -0400
+
+    icons in place
+
+commit 40c5dacce871a5ebb3393e8cb78c8619fb9ad89a
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 20 08:43:20 2011 -0400
+
+    Entrance and exit icons
+
+commit 71cb7a62a6ac63ca306c9c941a67df28ee2150df
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 20 08:09:14 2011 -0400
+
+    contains some useful one-liners of convert (imagemagick)
+
+commit 5786916a26bd1ab1dd3d27b97f58e8758c1eae72
+Merge: 8837730 be8a935
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 20 03:37:48 2011 -0400
+
+    Merge branch 'layout' into develop
+
+commit be8a935829cfb026d2ea806d24f1ecb16d3c6aea
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 20 03:36:32 2011 -0400
+
+    Layout at final stage, green indicators for language of poetry
+
+commit 36b58a0a40b6d223385f5f503166674600532e6e
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 20 02:29:45 2011 -0400
+
+    zeroing in on layout
+
+commit 8837730d57ad8fa6ac3f3db335cf3a4341ac2892
+Merge: 1712683 711ff43
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 19 22:58:22 2011 -0400
+
+    Merge branch 'process-mngm' into develop
+
+commit 711ff43e8c2202d6bd8a66330a115dd2a64a30ef
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 19 22:57:44 2011 -0400
+
+    additional comment
+
+commit 7909cf3d4711bef253672526e6dce26ea48ac850
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 19 22:56:22 2011 -0400
+
+    kill transience process... but unused for now.
+
+commit 268d7b6fa218e6b64583a9d3693006290f60b121
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 19 13:33:17 2011 -0400
+
+    added mthods for handling HTML files
+
+commit 032220144ede00ce6fe5552eb8573075cee85ea6
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 19 11:18:02 2011 -0400
+
+    Started magnification code
+
+commit 1712683b4ee6c008200a7a85844190ef6e525db0
+Merge: 4c45095 7a05b83
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 18 10:11:55 2011 -0400
+
+    Merge branch 'poem-language' into develop
+
+commit 7a05b83846ee2704470cb82ccffea6def35f7701
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 18 10:11:30 2011 -0400
+
+    The poems change between languages and blank according to a random function
+
+commit ef7ade239207c84fe1fffb6a861ddedf4625b02b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 18 09:44:06 2011 -0400
+
+    added the blank poem place-holder
+
+commit 1670793829ff8cb21fc7d83c1991bfcfee13b79d
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 18 09:34:57 2011 -0400
+
+    Japanese (ornament) poem now follows the actual poem being displayed. Documented 2 methods.
+
+commit 4c45095c5024632fa6832680dba5333719c882f6
+Merge: 86365ad ceccc13
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 18 09:08:01 2011 -0400
+
+    Merge branch 'change-color' into develop
+
+commit ceccc13e2448a3c747986088e685645844e3d5cc
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 18 08:25:06 2011 -0400
+
+    colorized in shades of brown
+
+commit 86365ad2165c02adc74cf6b9e149f0463db2fa2a
+Merge: 6ee09c7 4fbef01
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 18 01:33:56 2011 -0400
+
+    Merge branch 'proper-hilite' into develop
+
+commit 4fbef010fc9577df61f5d4e085f4dfaaca3a310e
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 18 01:33:19 2011 -0400
+
+    changed alpha to colorize
+
+commit ceaaa6bc38df39d4957858ddba4c16776a59c98c
+Merge: d899df6 6ee09c7
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 19:57:45 2011 -0400
+
+    Merge branch 'develop'
+
+commit 6ee09c7a47d7fef444ad69c38d387c23abcdcda1
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 19:57:08 2011 -0400
+
+    bumped micro version
+
+commit d899df6ac8f9216b232596860e403920536ddaae
+Merge: 6065dc9 2250638
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 19:56:04 2011 -0400
+
+    Merge branch 'develop'
+
+commit 225063872533ef94218c8c9fb7663b8f05e76a9c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 19:52:30 2011 -0400
+
+    Fixed the string/int confusion in the things being loaded from the resource file.
+
+commit 42c1851901bad52ca9f370162059136d62c05fbf
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Oct 17 19:43:26 2011 -0400
+
+    Scaling text buttons differently on a darwin
+
+commit 6065dc95e49c3ed475b28354786ee3d22fe3e7eb
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 12:53:27 2011 -0400
+
+    bumped a version
+
+commit baf623fbfcdec79b583f1ce15e2fd252b02d1179
+Merge: 28e97a9 7a5519b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 12:50:14 2011 -0400
+
+    Merge branch 'conf-ui-WIP'
+
+commit 7a5519bad805dbe577a73d41a41d87ca31659c6b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 12:49:12 2011 -0400
+
+    completely implemented configuration saving.
+
+commit 58f6f4ddea6b75bd9afc3ca2868d03505f8168ea
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 09:22:35 2011 -0400
+
+    attempt at element strips switching. In progress, not working yet
+
+commit b787d9b923f7bd6bc9b611c0dfda3a5ace061cce
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 01:13:25 2011 -0400
+
+    Displaying english texts now
+
+commit a58bfcf0c6839917924b1801984efe9b62b50dff
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 01:13:06 2011 -0400
+
+    fixed indentation that was generating an error
+
+commit 606c8cf7bdc3dac5c9917c67bf283c2b1732a886
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 01:12:24 2011 -0400
+
+    UI looks ok now
+
+commit f24b00e1b065b9c2a1c7a52521e4934c2f2003a7
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 01:11:20 2011 -0400
+
+    separated imports
+
+commit ef4a1420313999fbccfa2156c642c53cd0d004e0
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 17 00:18:15 2011 -0400
+
+    Redefined mouse actions (report per element) and added hover and leave actions
+
+commit 28e97a918092b01879cfaf5cebab148b6cef9e3e
+Merge: 0babade 80a6e8f
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sun Oct 16 22:50:49 2011 -0400
+
+    Merge branch 'conf-ui'
+
+commit 0babade279522cf40ffd2eae0a2f9afceefdf06f
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sun Oct 16 22:50:19 2011 -0400
+
+    Started a TODO file.
+
+commit 80a6e8f8e8989b768c76a2c5f8e6984a4a00ee69
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sun Oct 16 22:46:46 2011 -0400
+
+    Some refactoring done, all stack contents are renamed uniformly to plurals
+
+commit 6d3144a41fc05c6c7b0ac78b074c016c278845b9
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sun Oct 16 19:27:19 2011 -0400
+
+    redefined watch_mous_down
+
+commit 816ba54f62306af41d393c7ee89c01d48e79b1a6
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sun Oct 16 19:14:39 2011 -0400
+
+    Separated clicks for score and conf window, refined click messages
+
+commit 1a1c4353bbe110d809137f059372de4f7f7cfbb9
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sun Oct 16 00:27:37 2011 -0400
+
+    An initial solution for the dynamic generation of strips on the conf screen
+
+commit 8aba4f861a3ff032a9da51242151a91602868eb3
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sun Oct 16 00:26:55 2011 -0400
+
+    Another, different test of setattr.
+
+commit 7b3b523822f250e7b90c4884433e4b82623ff5f9
+Merge: 915b7b0 c504436
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 14 09:20:14 2011 -0400
+
+    Merge branch 'master' into conf-ui
+
+commit c504436f6ed26042310dc96a6bb49b2d905d857d
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 14 09:19:27 2011 -0400
+
+    react to clicking on the configuration button
+
+commit e6ac7bff3b54708e81fe11e76408c2904725fbcf
+Merge: ac710b4 12cfef2
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 14 03:23:59 2011 -0400
+
+    Merge branch 'master' into hilights
+
+commit 12cfef2b05f0d45e7af2e5a1f5801d5995cc6100
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 14 03:23:31 2011 -0400
+
+    redesigned the layout of the score to be closer to what was discussed
+
+commit 915b7b06c88f35ab3deea268a9a8ca749491a549
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 14 01:53:26 2011 -0400
+
+    beginnig of configuration UI, not working yet
+
+commit a4946c3aea1240f239044d4c1897c104b5e1f62a
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 14 00:57:53 2011 -0400
+
+    removed unnecessary empty lines
+
+commit cd9154c7344aa33a7939c6520d64925cf16cf917
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 14 00:57:13 2011 -0400
+
+    Added a method for the configuration URI and changed import order
+
+commit ac710b45af9897edb5d799904b9f5449031b8917
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Oct 13 02:00:01 2011 -0400
+
+    Hilite the elements that will chage next.
+
+commit 6b3db74441952f753a426d919516e90dea1a944a
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 12 21:27:33 2011 -0400
+
+    Beginning of hilites of elements that will change (only envelope ATM).  light clean up.
+
+commit bc4fb9a925774121e97fe694ce51923c010f43c3
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 12 11:22:41 2011 -0400
+
+    added gtags generated files into ignore list
+
+commit d2f0cee3ec7f24b48e3a3887607b01e048e00795
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 12 03:08:39 2011 -0400
+
+    utility scripts.  renaming files according to a map
+
+commit 0b306128a43b8da1a6a6a18fc6b08b7c3b7e3347
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 12 03:06:59 2011 -0400
+
+    a couple of prototypes.  One for dynamic generation/substitution of class variables and a little use for iter().next()
+
+commit c021c38ba10cd8976b99c3948c5f9f63e1832f75
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 12 02:43:46 2011 -0400
+
+    cycling through pages (and element stacks) work ok.
+
+commit d4cf03c4550bbb5738fc525ce08c9ec4a437a9d7
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 11 03:43:44 2011 -0400
+
+    almost got the stacks...
+
+commit 7dce3efc95064f8d635039dbe3fe72d2f15e907e
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 11 02:17:52 2011 -0400
+
+    advance_stack defined and corresponding lists are set
+
+commit 20e62be41e2b2d023491b128d5306e2a99100bb2
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Oct 11 02:17:21 2011 -0400
+
+    stack_sequence should be initialized as a list
+
+commit 7bbc44e1f155191e27f422b660321033759dde2c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 10 14:33:55 2011 -0400
+
+    redesigning of the stacks in progress.  not working yet but pushing anyways for backup...
+
+commit 023bd3fccc7cdded08c4cfc0ea16be51cdcf0b42
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 10 11:02:14 2011 -0400
+
+    Some comments.  This class' changes for caught in the previous commit
+
+commit a5f17e7bfcbc932c372d5020363fd983460de872
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 10 11:00:12 2011 -0400
+
+    an attempt at a stack manipulation with pop().  Abandoned but keeping for history
+
+commit bedf53b3ab2c0fa8e5129e35591950d170edec25
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 7 14:19:06 2011 -0400
+
+    we do not need a current page anymore as the ensemble of stacks defines what the page is
+
+commit 26b744b48ec463de37533696b215817bfb9b2383
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 7 14:04:04 2011 -0400
+
+    Each element is now controlled individually via its assigned variable
+
+commit 4e6b0ec5940f900e42240b8514dce72dae77c9cf
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Oct 7 10:11:54 2011 -0400
+
+    Reconfigured the setup into stacks, changed startup to go from black to grey
+
+commit a41c63165aef7f52b4e5fa3099019b4876679aed
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 5 00:55:00 2011 -0400
+
+    Configuration consists now of sequence of elements (stacks)
+
+commit 9d348b5303af6338e5c51c8aeeef274d9d75783c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Oct 5 00:54:50 2011 -0400
+
+    changed order of imports to conform to the Style Guide
+
+commit 6f5ea41b449d91d94dd2cc8c0483ce32b575f75f
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 3 12:55:50 2011 -0400
+
+    Refactoring done, application separated into stacks and pages.  No known errors.
+
+commit 77082ebf4cc1d430ac386fe880b7b402156be453
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Sep 29 01:04:32 2011 -0400
+
+    Refactored page related elements from application and placed all in stacks
+
+commit eff9d69d7b66dc966c617746b915dcc288aba1d8
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 28 23:35:18 2011 -0400
+
+    removed some prints
+
+commit aa3c00f1c022d839345ec8036312d40bd06ce364
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 28 09:47:18 2011 -0400
+
+    import from ...
+
+commit f845ee29c21803b2c853fb1624ae8983904494e5
+Merge: 29eb9a0 2209cb1
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Sep 24 18:04:07 2011 -0400
+
+    Merge branch 'master' of github.com:djiamnot/transience into conf-matrix
+
+commit 29eb9a04f9be2cb76051e897d102b7cab2953dd7
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Sep 24 18:03:22 2011 -0400
+
+    conf_matrix does not need to be a class
+
+commit 2209cb16e90262b92d6758e86d8318841d8c7132
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Fri Sep 23 18:37:28 2011 -0400
+
+    Reverted to darwin compiulation with manual placement of media folder inside the site-packages.zip file
+
+commit d98268a941d73ef78a9361adb90c5621074ea093
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 23 02:53:20 2011 -0400
+
+    configuration matrix class
+
+commit b430aea25e8b822242379d5e958959aaa1a20a58
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 23 01:06:12 2011 -0400
+
+    Removed copy-past side-effect
+
+commit b3164998d2ca5af0afe7c0dcb7b9fec22c510690
+Merge: 88878c4 f8799dc
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Wed Sep 21 00:30:32 2011 -0400
+
+    Merge branch 'master' of github.com:djiamnot/transience
+
+commit f8799dc3b425be61dc222ebfd239381564bdcf1d
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 21 00:26:13 2011 -0400
+
+    fixed a typo
+
+commit 589307daee87fdd8b30f7986644be6784c5c1425
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 13:59:44 2011 -0400
+
+    added shear effect but commented out...  TODO: remove it # Please enter the commit message for your changes. Lines starting
+
+commit 88878c4ac2ec666814dd95afa2c4cc7edacf718a
+Merge: 159c86b 2f84709
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Tue Sep 20 11:01:30 2011 -0400
+
+    Merge branch 'master' of github.com:djiamnot/transience
+
+commit 2f847099403452497c60cf5d5fab3a342ce1d1da
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 10:58:59 2011 -0400
+
+    implemented a quit button
+
+commit c1933f0a4c6a2d5b6c050fae858633f32cc38a55
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 10:02:41 2011 -0400
+
+    handler for quit message
+
+commit b29899f950ff76016fdfa0894ceeee8bc643b07b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 10:02:25 2011 -0400
+
+    clarified a comment
+
+commit 4bf9c2d525d74aeb830c72247d452771b51f8766
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 09:59:32 2011 -0400
+
+    stop method should exit python gracefully
+
+commit 159c86bf2ad392fbe012158d7507a85ec2e5698f
+Merge: a31a764 2535a52
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Tue Sep 20 09:49:30 2011 -0400
+
+    Merge branch 'master' of github.com:djiamnot/transience
+
+commit 2535a523a87709e0649c845e9e6695c72d2fa466
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 09:18:15 2011 -0400
+
+    added a short comment
+
+commit 6adfbe9864beacc764bfb289851be1b32e883481
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 09:17:48 2011 -0400
+
+    Delay execution of application to avoid catching some strange exceptions due to INScoreViewer starting
+
+commit 4a937b53aead25844d7b539aae23c918de6f6c89
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 09:09:56 2011 -0400
+
+    Experimental page advancer
+
+commit 9c84221da0008d47fdb460187c1812f04a73064c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 09:08:46 2011 -0400
+
+    Added fallback method for unknown osc messages, mouse_handler method is kinda useless now
+
+commit 301c525e872a5f0e7f775ce2e2e895c66cc8525c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 20 09:06:08 2011 -0400
+
+    Added method for watch mouseDown
+
+commit a31a764f98d6164e6bc7cf43f0259d7e65cd0346
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Sep 19 21:37:07 2011 -0400
+
+    improved buiild_darwin script to copy media into the right location
+
+commit 5a803cb0d95def5d9abe524980ea1ec80bbab943
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Sep 19 21:00:38 2011 -0400
+
+    added a comma
+
+commit 54d48112ba1d826f4b86ba818ac3f3d169e45938
+Merge: 56f2bc2 26bd962
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Sep 19 20:57:39 2011 -0400
+
+    Merge branch 'master' of github.com:djiamnot/transience
+    
+    Conflicts:
+    	setup_darwin.py
+
+commit 26bd9621e4341e0b6982470d578464ddf1a24200
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Sep 19 20:56:49 2011 -0400
+
+    added loader_files directive
+
+commit 56f2bc2741bebea6132a04d2178d5243d4cf4e2a
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Sep 19 20:56:30 2011 -0400
+
+    added a comma
+
+commit 47f42a77e9497e5c7e13831863ac8045212304dc
+Merge: 0ec4e78 a15cdb0
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Sep 19 20:38:09 2011 -0400
+
+    Merge branch 'master' of github.com:djiamnot/transience
+
+commit 0ec4e78c903c69fcce27da8d32b70d8e403b17e4
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Sep 19 20:37:42 2011 -0400
+
+    removed the zip line
+
+commit a15cdb0dda951be4cfcceaa35a3c6f0b77844e65
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Sep 19 20:36:56 2011 -0400
+
+    added data_files directive to the setup
+
+commit 6c5bc472a5a0a609ca4c5bc6c43ef8614a526414
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Sep 19 11:15:05 2011 -0400
+
+    Possibility of choosing page number to play
+
+commit 600d209b0d7969ad7131dff2ef98a0528e256ced
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Sep 19 11:14:21 2011 -0400
+
+    expose PrefParser instance contents to the world + random configuration only generates poem number 101
+
+commit e6abf95195078f685ec0018adf92ae1858982f9e
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sun Sep 18 13:28:40 2011 -0400
+
+    Add media filder to archives.  Can't seem to get py2app to do it properly.
+
+commit e73d26921be30f7f8d9a593b55e15eae6ce1bdfa
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 16 23:23:44 2011 -0400
+
+    ignore dist and build directories
+
+commit 5507cfe97b4ec23486289d2c73c3f0a964d7ba1c
+Merge: c016bbf a8bc4a9
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 16 19:05:04 2011 -0400
+
+    Merge branch 'master' of github.com:djiamnot/transience
+
+commit c016bbf2bb9c660d244b273ff25a62f590c308d7
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 16 19:04:29 2011 -0400
+
+    First setup
+
+commit f8e577e8f3f1a0b1d0bf80681c31ae0a486a7d69
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 16 19:03:41 2011 -0400
+
+    necessary for Darwin
+
+commit c8780565f4ca77392c97a1c98287a1b8cae85ddc
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 16 19:00:56 2011 -0400
+
+    Necessary files for packaging on Darwin
+
+commit a8bc4a96114d8e9120596d312ec35c809e4aa1ea
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Fri Sep 16 18:19:51 2011 -0400
+
+    no need for INScore configuration section
+
+commit 5f4b00bcc96194e50b6f25dfd1ba4ffe4304856d
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 16 11:12:47 2011 -0400
+
+    some comments
+
+commit ae2c614dc1aad9835100c64339979bcd857f7106
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 16 02:02:21 2011 -0400
+
+    Check for running INScore and run one if not already running (linux)
+
+commit 3af1e387946f33c099de843129fafdf56449fd25
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 16 00:19:13 2011 -0400
+
+    removed some unnecessary printed messages
+
+commit 1c4609db069bc00e3eb7fefaa3a78e11500884f5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Sep 15 10:43:56 2011 -0400
+
+    added jtexts to the layout.  Rough placing of elements
+
+commit 348a362936c4091b18ed7716d7806857deb592f5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Sep 15 01:55:22 2011 -0400
+
+    added scale attribute/method.  scaled some images. cleaned some whitespace
+
+commit 4f57c4552aa553f702d756561a33e1c0d637966a
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Sep 15 01:38:50 2011 -0400
+
+    loading all images
+
+commit 048c8b471052fc8ee9269ebaec17733b524888f5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 14 15:09:16 2011 -0400
+
+    responds to mouseEnter event.
+
+commit 53eeba33992e68505352b8d155b82bdff38a3bf5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 14 15:08:56 2011 -0400
+
+    added a method to watch mouse event (enter) in an element
+
+commit 610c49edb3ca24f3546f1e87cd51b46d7752b885
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 14 15:08:16 2011 -0400
+
+    added OSC callbacks
+
+commit 2c98d55eff7354655770f9a2ed5a3639d72a9f69
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 14 09:14:06 2011 -0400
+
+    remove trailing whitespace
+
+commit 5a66a36afe1898338841050203e5edbc85ae5530
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 14 09:11:06 2011 -0400
+
+    Protoype behaving correctly with recitation element present and changing on demand
+
+commit ae7c455ffede441057a8d1f60cc71ffc90e5cd6a
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 14 09:10:06 2011 -0400
+
+    Completed basic functionality of score.Transience class
+
+commit a28804236639d4fde16cbcb5137bfa2f4e731fd5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 13 20:46:28 2011 -0400
+
+    score classes but will not use
+
+commit 8f70d8266b8e2c7ed7438d3c941123eb6f8fa0ee
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 13 00:50:23 2011 -0400
+
+    Added a media directory and README with instructions
+
+commit 87c101d4414703882afaf6c1fa60513018033b55
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Sep 13 00:38:07 2011 -0400
+
+    added graphic files to ignore list
+
+commit e5e57f50f46c6004b693de2cff4665999cedcbf1
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Sep 12 10:50:59 2011 -0400
+
+    Prototype. refactored and split into separate classes.
+
+commit 9867b7819c278de29d53a4e16a62421b8b293aa8
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Sep 8 00:56:39 2011 -0400
+
+    added inscore port to configuration
+
+commit d285e95aa5f1f1f1c55f2306deb0c96487e107d1
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Sep 8 00:40:56 2011 -0400
+
+    refactored imports
+
+commit f68a1b2893142ef304ed75a427ffe3e32f0f1bd0
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 7 09:28:56 2011 -0400
+
+    no real change
+
+commit 6ec39b15894be8b55f38bf8226cfad36469e690c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 7 08:50:51 2011 -0400
+
+    a score stab (notthing there)
+
+commit d8a94b6f5b5a05c9d936f01312037931cef11121
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 7 08:50:15 2011 -0400
+
+    inscore module, for OSC communication with inscore
+
+commit b37d43c56c9303c51d708dd96b68833466cba841
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 7 08:49:32 2011 -0400
+
+    Refactoring:  moved PrefParser class from application.py to configuration.py
+
+commit 1a4c379c427d3945dd4ab975cf0918f57658123b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 7 08:48:43 2011 -0400
+
+    refactoring: removed PrefParser class (moved to configuration.py)
+
+commit 670181cb82e09ee81d19f7eff5461805544b64e9
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Sep 7 08:47:14 2011 -0400
+
+    more ignore items
+
+commit 45f83c907d8a2be7075f56a5bb0867779cb9d82a
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 2 11:14:41 2011 -0400
+
+    demo with larger text size
+
+commit 6b471e4ae1330bb6bc35217acdfc3cac85f1fd6f
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Sep 2 00:54:18 2011 -0400
+
+    prototype inscore
+
+commit b93772e1d15fa382ab405864a599f28d487ee448
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Thu Sep 1 08:51:18 2011 -0400
+
+    parses the ini file and/or creates one if it does not exist
+
+commit 2f5bbd97e38cd7e870afe1abefb345b5a403c97f
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Thu Sep 1 08:50:24 2011 -0400
+
+    does the right thing
+
+commit 997e3902e99db9f434d1db5e42915399bc0f0e97
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Wed Aug 31 00:58:58 2011 -0400
+
+    simple configuration - default.  needs to be expanded
+
+commit 7bc3c45b397fc04e37d7ac9d7a607a5b0648110e
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Wed Aug 31 00:57:56 2011 -0400
+
+    removed cached .pyc
+
+commit 968e99c7c074ad3b505008cc87f46a72a8f94ed2
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Wed Aug 31 00:57:16 2011 -0400
+
+    ignore swap files
+
+commit add5d678f118f48374e48e7f28aa18a85d9b58c9
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Wed Aug 31 00:57:01 2011 -0400
+
+    removed the temporary swap file
+
+commit 1b39ed53fa4aba5994ba5297e4c967e9b8a8bf5d
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Wed Aug 31 00:55:51 2011 -0400
+
+    prototype of configure file parser/setter
+
+commit 90ae6131ccf29d17ae5421dcd1b7fb63afc655df
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Wed Aug 31 00:52:53 2011 -0400
+
+    some search and replace
+
+commit abcb69707fc5515bc512fe29dd87b92a230e5b78
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Wed Aug 31 00:51:49 2011 -0400
+
+    removed whitespace
+
+commit a8686a2449c676aec6820a64a2f45728587e05c8
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Aug 29 22:35:31 2011 -0400
+
+    added *.pyc to ignored files
+
+commit 9523940359ba4f111f2bef320a637637d9c6a6b3
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Aug 29 22:35:06 2011 -0400
+
+    added runner
+
+commit 5d9816888916f04667fe74c2b514cd37cc09e4cc
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Aug 29 22:20:35 2011 -0400
+
+    bootstrap some more
+
+commit d4e311fa386998eb3de24749fd94f86b05449faf
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Aug 29 21:07:51 2011 -0400
+
+    bootstrapped barebones
+
+commit 13ddf7c26fc665b2b7c33ff9025f41e12b3c4450
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Aug 29 20:52:07 2011 -0400
+
+    added some info to README
+
+commit 22ef323739fa8efe117a5db2ad5ae30fd8cac28b
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Mon Aug 29 20:40:40 2011 -0400
+
+    first commit
