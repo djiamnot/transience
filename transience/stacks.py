@@ -21,8 +21,9 @@ Transience elements combined into pages
 """
 import os
 import random
-import sys
 import random
+import sys
+import time
 
 from twisted.internet import reactor
 from txosc import osc
@@ -173,6 +174,7 @@ class Page(object):
         self.page_iter = iter(page_sequence)
         self.page = 0
         self.page_count = 0
+        self.screen_grab_directory = "/tmp/transience"
         self.elements_list = [
             'recitations',
             'moods',
@@ -221,6 +223,8 @@ class Page(object):
         self.greet()
         reactor.callLater(12.0, self.set_score_page)
         reactor.callLater(1.0, self.next_page)
+        reactor.callLater(0.1, self.set_screen_grab_dir)
+        reactor.callLater(14.1, self.grab_screen)
         self.oscore.run()
 
         ## # set stacks to first iteration
@@ -474,14 +478,31 @@ class Page(object):
                 self.oscore._send(osc.Message("/ITL/scene/count",
                                     "color", 255, 100, 100))
                 self.page_count = 0
+                self.set_screen_grab_dir()
+
 
 
 
     def grab_screen(self):
+        print("The screen grab dir is: {}".format(self.screen_grab_directory))
+        full_screen_grab_path = self.screen_grab_directory + "/page"+str(self.page_count + 1)
         self.oscore._send(osc.Message(
             "/ITL/scene","export",
-            "/tmp/Transience_p{}.png".format(self.page_count)))
-        
+            "{}.png".format(full_screen_grab_path)))
+
+    def set_screen_grab_dir(self):
+        #self.screen_grab_directory = "/tmp/"+time.strftime(
+        #                                    "transience-%Y%m%d-%H.%M.%S")
+        final_dir = time.strftime("transience-%Y%m%d-%H.%M.%S")
+        self.screen_grab_directory = os.path.join("/tmp", final_dir)
+        if not os.path.exists(self.screen_grab_directory):
+            try:
+                os.makedirs(self.screen_grab_directory)
+                print("Created a directory: {}".format(self.screen_grab_directory))
+            except OSError, e:
+                print(e)
+
+
     def greet(self):
         print("Entered greet")
         reactor.callLater(0.0,self.oscore._send,
