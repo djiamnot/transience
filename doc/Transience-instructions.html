@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>Transience - interactive score</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2011-10-31 22:53:19 EDT"/>
+<meta name="generated" content="2011-11-07 22:24:42 EST"/>
 <meta name="author" content="Michal"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -96,14 +96,19 @@ org_html_manager.setup();  // activate after the parameters are set
 <ul>
 <li><a href="#sec-1">1 Intro </a></li>
 <li><a href="#sec-2">2 Installing in Mac OS </a></li>
-<li><a href="#sec-3">3 Operation </a>
+<li><a href="#sec-3">3 Operation </a></li>
+<li><a href="#sec-4">4 Saving score pages </a>
 <ul>
-<li><a href="#sec-3_1">3.1 The changes from the original, paper version </a></li>
-<li><a href="#sec-3_2">3.2 Score configuration </a></li>
+<li><a href="#sec-4_1">4.1 The changes from the original, paper version </a></li>
+<li><a href="#sec-4_2">4.2 Score configuration </a></li>
 </ul>
 </li>
-<li><a href="#sec-4">4 Installing on Linux: </a></li>
-<li><a href="#sec-5">5 Outro </a></li>
+<li><a href="#sec-5">5 Installing on Linux: </a></li>
+<li><a href="#sec-6">6 Outro </a>
+<ul>
+<li><a href="#sec-6_1">6.1 To do </a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -169,12 +174,32 @@ This is <b>very</b> important because Transience application is running as a bac
 
 <p>For those of you have seen the paper version of the score, the screen version will look less familiar. First of all, the "X" and "TEXT?" cards are not present. They are still represented in the score but in different ways, which are explained below. The Japanese and English text have also changed their behaviour. And the layout is different, it has been optimised by Sandeep in order to benefit the fact that some information is not represented any more with "cards" and to improve the reading flow.
 </p>
+</div>
 
 </div>
 
-<div id="outline-container-3_1" class="outline-4">
-<h4 id="sec-3_1"><span class="section-number-4">3.1</span> The changes from the original, paper version </h4>
-<div class="outline-text-4" id="text-3_1">
+<div id="outline-container-4" class="outline-3">
+<h3 id="sec-4"><span class="section-number-3">4</span> Saving score pages </h3>
+<div class="outline-text-3" id="text-4">
+
+<p>The score pages are automatically saved every time the score page is changed. The pages are saved as .png image in a temporary directory (/tmp) with a name such as this: transience-20111107-18.32.17 (transience followed by date and time of creation). On some systems ( such as MacOS X) the /tmp directory may be invisible. If You're on a Mac, one easy way to open it in finder is by typing the following command into the Terminal (the Terminal program can be found in the Applications/Utilities folder or simply by typing "terminator" into the search box in the Finder's menu bar)
+</p>
+
+
+<pre class="src src-bash">open /tmp
+</pre>
+
+
+
+<p>
+One may then use the saved score page sets to replay exactly the same page sequence with an image viewer (as a slideshow) without resorting to use the Transience software. <b>Important</b>: the /tmp directory is erased after a reboot so please copy any interesting configurations into some directory in your user-space. This is a design decision to avoid cluttering up your personal folders with lots of data but the location may change in the future.
+</p>
+
+</div>
+
+<div id="outline-container-4_1" class="outline-4">
+<h4 id="sec-4_1"><span class="section-number-4">4.1</span> The changes from the original, paper version </h4>
+<div class="outline-text-4" id="text-4_1">
 
 <ul>
 <li>
@@ -192,9 +217,9 @@ The "TEXT?" elements, is also replaced by a software random function. The rules 
 
 </div>
 
-<div id="outline-container-3_2" class="outline-4">
-<h4 id="sec-3_2"><span class="section-number-4">3.2</span> Score configuration </h4>
-<div class="outline-text-4" id="text-3_2">
+<div id="outline-container-4_2" class="outline-4">
+<h4 id="sec-4_2"><span class="section-number-4">4.2</span> Score configuration </h4>
+<div class="outline-text-4" id="text-4_2">
 
 <p>Although the "X" and "TEXT?" cards' order is generated randomly, the other cards are under your control. The very first time you run the score, the software will generate a random score for you (which is still a valid Transience score). It will write this configuration into a hidden file in your home directory (the file is named .transiencerc). That file will contain all the information to retrieve exactly the same order of cards every time (but remember that the English/Japanese/None text instructions as well as which elements change from one page to another are generated randomly for you).
 </p>
@@ -212,9 +237,9 @@ Clicking "CANCEL" will do nothing, it will simply close the configuration window
 
 </div>
 
-<div id="outline-container-4" class="outline-3">
-<h3 id="sec-4"><span class="section-number-3">4</span> Installing on Linux: </h3>
-<div class="outline-text-3" id="text-4">
+<div id="outline-container-5" class="outline-3">
+<h3 id="sec-5"><span class="section-number-3">5</span> Installing on Linux: </h3>
+<div class="outline-text-3" id="text-5">
 
 <p>Although Transience has been developped on Linux, there is no Linux package yet as MacOS packaging was given priority. If you need to use Transience on Linux, please communicate with me (mis@artnegine.ca) and I will send you instructions on how to get going.
 </p>
@@ -222,22 +247,39 @@ Clicking "CANCEL" will do nothing, it will simply close the configuration window
 
 </div>
 
-<div id="outline-container-5" class="outline-3">
-<h3 id="sec-5"><span class="section-number-3">5</span> Outro </h3>
-<div class="outline-text-3" id="text-5">
+<div id="outline-container-6" class="outline-3">
+<h3 id="sec-6"><span class="section-number-3">6</span> Outro </h3>
+<div class="outline-text-3" id="text-6">
 
 
-<p>
-There are probably some problems with the application, please try it for yourself and get familiar with the score layout and the overall functionnality. Please, do not hesitate to communicate any ideas or notes concerning the layout, design or the functionality of this software.
+
+</div>
+
+<div id="outline-container-6_1" class="outline-4">
+<h4 id="sec-6_1"><span class="section-number-4">6.1</span> To do </h4>
+<div class="outline-text-4" id="text-6_1">
+
+<ul>
+<li>
+<b>[<span style="visibility:hidden;">X</span>]</b> MIDI pedal control
+</li>
+<li>
+<b>[<span style="visibility:hidden;">X</span>]</b> Automatic generation of score session for synchronising with recordings
+
+</li>
+</ul>
+
+<p>There are probably some problems with the application, please try it for yourself and get familiar with the score layout and the overall functionnality. Please, do not hesitate to communicate any ideas or notes concerning the layout, design or the functionality of this software.
 </p>
 <p>
 Sandeep Bhagwati - sandeep.bhagwati@gmail.com, Michal Seta - mis@artengine.ca
 </p></div>
 </div>
+</div>
 <div id="postamble">
 <p class="author"> Author: Michal
 </p>
-<p class="date"> Date: 2011-10-31 22:53:19 EDT</p>
+<p class="date"> Date: 2011-11-07 22:24:42 EST</p>
 <p class="creator">HTML generated by org-mode 7.01trans in emacs 23</p>
 </div>
 </div>
