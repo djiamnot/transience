@@ -76,10 +76,11 @@ class PrefParser(object):
             print("Section: {}".format(section_name))
             #print("   Options: {}".format(parser.options(section_name)))
             for name, value in parser.items(section_name):
-                # TODO: should use a dictionary for these but the dicts could
-                # be wrapped in an array of dicts.
                 print ("      {} : {}".format(name, value))
-                element[section_name] = self.read_sequence(value)
+                if section_name == 'midi':
+                    element[section_name] = int(value)
+                else:
+                    element[section_name] = self.read_sequence(value)
             print("Element is %s: "%(element))
             self.elements = element
         print("Contents of elements: ", self.elements)
@@ -124,7 +125,8 @@ class PrefParser(object):
         for element in elements:
             parser.add_section(element)
             parser.set(element, 'sequence', "{}".format(path[random.randint(0,4)]))
-            
+        parser.add_section('midi')
+        parser.set('midi', 'device', '-1')
         with open(config_file,"w") as f:
             parser.write(f)
 

@@ -21,8 +21,9 @@ Transience elements combined into pages
 """
 import os
 import random
-import sys
 import random
+import sys
+import time
 
 from twisted.internet import reactor
 from txosc import osc
@@ -30,6 +31,7 @@ from txosc import osc
 from transience import score
 from transience import inscore
 from transience import conf_ui
+from transience import midi
 
 
 # These instances are hardcoded based on manual placement
@@ -173,6 +175,7 @@ class Page(object):
         self.page_iter = iter(page_sequence)
         self.page = 0
         self.page_count = 0
+        self.screen_grab_directory = "/tmp/transience"
         self.elements_list = [
             'recitations',
             'moods',
@@ -221,8 +224,18 @@ class Page(object):
         self.greet()
         reactor.callLater(12.0, self.set_score_page)
         reactor.callLater(1.0, self.next_page)
-        self.oscore.run()
+        reactor.callLater(0.1, self.set_screen_grab_dir)
+        reactor.callLater(14.1, self.grab_screen)
 
+        if self.arrangement['midi'] > -1:
+            self.midi_manager = midi.MidiIn(self.arrangement['midi'])
+            self.midi_manager.register_callback(self._cb_midi_event)
+            try:
+                self.midi_manager.start()
+            except midi.NotConnectedError, e:
+                print("Could not setup MIDI device %d" % ())
+
+        self.oscore.run()
         ## # set stacks to first iteration
         ## self.durations.advance_stack()
         ## self.envelopes.advance_stack()
@@ -235,6 +248,22 @@ class Page(object):
         ## self.poems.advance_stack()
         ## self.rhythms.advance_stack()
         ## self.recitations.advance_stack()
+    
+    def _cb_midi_event(self, event):
+        """
+        Called when a MIDI event occurs
+        """
+        MIDI_CTRL = 176
+        if event[0][0] == MIDI_CTRL:
+            if event[0][2] > 0:
+                print("MIDI pedal down")
+                self.set_score_page()
+                reactor.callLater(1.0,self.next_page)
+                reactor.callLater(1.1,self.grab_screen)
+                self.display_count()
+                print("Current page is: ", self.page_count)
+                self.page_count += 1
+
 
     def make_all_stacks(self):
         """
@@ -474,14 +503,31 @@ class Page(object):
                 self.oscore._send(osc.Message("/ITL/scene/count",
                                     "color", 255, 100, 100))
                 self.page_count = 0
+                self.set_screen_grab_dir()
+
 
 
 
     def grab_screen(self):
+        print("The screen grab dir is: {}".format(self.screen_grab_directory))
+        full_screen_grab_path = self.screen_grab_directory + "/page"+str(self.page_count + 1)
         self.oscore._send(osc.Message(
             "/ITL/scene","export",
-            "/tmp/Transience_p{}.png".format(self.page_count)))
-        
+            "{}.png".format(full_screen_grab_path)))
+
+    def set_screen_grab_dir(self):
+        #self.screen_grab_directory = "/tmp/"+time.strftime(
+        #                                    "transience-%Y%m%d-%H.%M.%S")
+        final_dir = time.strftime("transience-%Y%m%d-%H.%M.%S")
+        self.screen_grab_directory = os.path.join("/tmp", final_dir)
+        if not os.path.exists(self.screen_grab_directory):
+            try:
+                os.makedirs(self.screen_grab_directory)
+                print("Created a directory: {}".format(self.screen_grab_directory))
+            except OSError, e:
+                print(e)
+
+
     def greet(self):
         print("Entered greet")
         reactor.callLater(0.0,self.oscore._send,
