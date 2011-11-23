@@ -126,7 +126,7 @@ class PrefParser(object):
             parser.add_section(element)
             parser.set(element, 'sequence', "{}".format(path[random.randint(0,4)]))
         parser.add_section('midi')
-        parser.set('midi', 'device', '1')
+        parser.set('midi', 'device', '-1')
         with open(config_file,"w") as f:
             parser.write(f)
 

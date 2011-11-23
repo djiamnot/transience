@@ -227,12 +227,13 @@ class Page(object):
         reactor.callLater(0.1, self.set_screen_grab_dir)
         reactor.callLater(14.1, self.grab_screen)
 
-        self.midi_manager = midi.MidiIn(self.arrangement['midi'])
-        self.midi_manager.register_callback(self._cb_midi_event)
-        try:
-            self.midi_manager.start()
-        except midi.NotConnectedError, e:
-            print("Could not setup MIDI device %d" % ())
+        if self.arrangement['midi'] > -1:
+            self.midi_manager = midi.MidiIn(self.arrangement['midi'])
+            self.midi_manager.register_callback(self._cb_midi_event)
+            try:
+                self.midi_manager.start()
+            except midi.NotConnectedError, e:
+                print("Could not setup MIDI device %d" % ())
 
         self.oscore.run()
         ## # set stacks to first iteration
