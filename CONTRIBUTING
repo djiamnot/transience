@@ -9,7 +9,7 @@ Update the documentation if needed:
  * README
  * doc/Transience-instructions.org
    - export to html
-   - scp doc/Transience-instructions.html hexagram:Sites/transience/README.html
+   - scp doc/Transience-instructions.html hexconcordia:Sites/transience/README.html
 
 Make sure the version number is the next release's:
 
@@ -24,7 +24,7 @@ Update the release notes:
 
 Update the ChangeLog:
 
- * git log --pretty=medium log > ChangeLog
+ * git log --pretty=medium > ChangeLog
 
 Create the tag and a tarball:
 

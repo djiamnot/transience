@@ -1,3 +1,143 @@
+commit 42000674adf36f520bbeb1eb0ab335a71f543abb
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 03:34:14 2011 -0500
+
+    Default midi device is -1, so Transience ignores and does not try to parse MIDI
+
+commit 7a469f6f0b534194263ee6283b980357e6185926
+Merge: 34b6202 7870b0c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 03:15:56 2011 -0500
+
+    Merge branch 'midi' into develop
+
+commit 7870b0cd684450e84e4bf0c10637ee0432a2a8c4
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 03:13:20 2011 -0500
+
+    MIDI device can be selected through the configurationfile.
+
+commit 965fe44da10fb7a5694c2abfaa850b38fc89a3d5
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 02:36:22 2011 -0500
+
+    MIDI (hardcoded to device ID 7) changes pages correctly
+
+commit 54b8bbc52d2de543f0ef7dba9fea385e9d4fc44d
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 02:35:36 2011 -0500
+
+    Working MIDI class
+
+commit e2a4c9567b35f0b3e5ec784d620e61c1031bc811
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 01:52:55 2011 -0500
+
+    A working midi input class with callbacks
+
+commit c8d977006f1b03a40eccd3dbb66e547a7e1cd560
+Author: Michal Seta <mis@artengine.ca>
+Date:   Fri Nov 18 20:43:58 2011 -0500
+
+    MIDI prototype
+
+commit 34b6202e7be88a7604ca88b687aa92dc74c10245
+Author: Michal Seta <mis@artengine.ca>
+Date:   Tue Nov 15 13:41:58 2011 -0500
+
+    Late commit of the updated documentation that was done on Novemeber 7
+
+commit 1dfbcb3caf3b750a90fbc20712083faa59ef9108
+Merge: 6f81fbf c9036d0
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Nov 3 00:42:46 2011 -0400
+
+    Merge branch 'image-save' into develop
+
+commit c9036d0b1f85700e36d737d905489e231f51d7a1
+Author: Michal Seta <mis@artengine.ca>
+Date:   Thu Nov 3 00:40:56 2011 -0400
+
+    Pages are being saved into /tmp subdirectories named after date and time of creation at the beginning of each page
+    sequence
+
+commit 6f81fbfe00bc8b79320d21f0820c7ff7151cd08d
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 23:03:29 2011 -0400
+
+    Release 0.2.4
+
+commit 61096c08ab6da00e80bb2a32ac876a650bfcb61f
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 23:02:58 2011 -0400
+
+    updated generic files
+
+commit 028bd74196f9d05157c3c9100f9061fc97a6b52c
+Merge: 9e67cb6 702ae07
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 22:47:52 2011 -0400
+
+    Merge branch 'develop' of github.com:djiamnot/transience into develop
+
+commit 9e67cb60c9f60925b0ebdc2296dd539a4d3ead23
+Merge: a2b730c 4a1fd41
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 22:47:02 2011 -0400
+
+    Merge branch 'sequence_bug' into develop
+
+commit 4a1fd414dbb9501f780f3bf6b79a41c8d546858c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 22:46:06 2011 -0400
+
+    Pages advance properly and wrap around
+
+commit 14da4bc0c01802226953085610b492531e17ca4e
+Merge: 5eff232 3c9ef80
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 19:47:57 2011 -0400
+
+    Merge branch 'bugfixes-notworking' into sequence_bug
+
+commit 3c9ef8021bbef9453d45239431b83ff8530d99cb
+Merge: ffc580c a2b730c
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 19:45:23 2011 -0400
+
+    Merge branch 'develop' into bugfixes-notworking
+
+commit a2b730c9f146ca23bb8112db894e5625e4753364
+Merge: 78fe545 797dc2f
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 19:43:03 2011 -0400
+
+    Merge branch 'documentation' into develop
+
+commit 797dc2f3a2515495dee133ed9665a73de1c6380e
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 19:23:59 2011 -0400
+
+    updated instructions in cheatsheet
+
+commit 1744313760108dd4a1ec94b008c59dfdc0a1b00b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 19:21:53 2011 -0400
+
+    added org-mode file with installation instructions
+
+commit a9e4064595a32f2ffa23c83372630ab7f183961b
+Author: Michal Seta <mis@artengine.ca>
+Date:   Mon Oct 31 19:17:19 2011 -0400
+
+    Added release chetsheet
+
+commit 702ae07428038195a3d7bf1da422f633a99bfe3b
+Author: Michal Seta <djiamnot@gmail.com>
+Date:   Sat Oct 29 17:16:56 2011 -0400
+
+    added NEWS and Changelog files
+
 commit ef202c1591a317f93e54a00bcd2a2c39b471f2c2
 Author: Michal Seta <djiamnot@gmail.com>
 Date:   Sat Oct 29 16:42:10 2011 -0400
@@ -9,6 +149,12 @@ Author: Michal Seta <djiamnot@gmail.com>
 Date:   Sat Oct 29 16:22:07 2011 -0400
 
     checks for INScoreViewer process on both Mac and Linux and returns proper status
+
+commit ffc580c4707078155361b697d4e927805438f6f1
+Author: Michal Seta <mis@artengine.ca>
+Date:   Sat Oct 29 11:25:17 2011 -0400
+
+    Added util re: bak-teration, attempt at bugfix
 
 commit adced95ac9112819610886f441858af760aea8bb
 Author: Michal Seta <mis@artengine.ca>
