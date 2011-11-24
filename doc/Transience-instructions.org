@@ -1,6 +1,16 @@
 #+INFOJS_OPT: view:showall toc:nil
 #+STYLE: <link rel="stylesheet" type="text/css" href="http://matralab.hexagram.ca/includes/style.css" />
 #+TITLE: Transience - interactive score
+*Version 0.2.8*
+
+*Important: before running version 0.2.8, please do delete .transiencerc file from your home directory.*
+
+Open the Terminal application and type (or copy and paste the following):
+   #+srcname: open_tmp
+     #+begin_src bash
+       rm ~/.transiencerc
+     #+end_src
+
 ** Intro
 
 This is a short set of instructions on how to run the interactive score software for Transience by Sandeep Bhagwati.
