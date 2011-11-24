@@ -43,7 +43,7 @@ class MidiIn(object):
         for i in range(self.num_of_devices):
             subsys, name, inp, outp, opened = pypm.GetDeviceInfo(i)
             self.midi_devices.append([i, name, inp, opened])
-            print("Index:{} Name:{} Opened?: {}".format(i, name, opened))
+            print("Index:{} Name:{} Input:{} Opened?: {}".format(i, name, inp, opened))
         return self.midi_devices
 
     def select_midi_device(self):
