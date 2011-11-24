@@ -1,3 +1,15 @@
+Transience 0.2.7 2011-11-23
+---------------------------
+
+    * Bugs fixed:
+      * MIDI control wrap around pages
+
+
+Transience 0.2.6 2011-11-23
+---------------------------
+
+    * Implemented MIDI control
+
 Transience 0.2.4 2011-10-31
 ---------------------------
 

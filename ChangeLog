@@ -1,3 +1,22 @@
+commit 46abaf1d9d48ac20c8537b2d34996ddfd7337273
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 22:21:54 2011 -0500
+
+    Refactored so that MIDI control behaves correctly
+
+commit b36c8962af2ae0f690f8c94af0f9a9f39d456dd3
+Merge: 4200067 5f2914a
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 03:53:28 2011 -0500
+
+    Merge branch 'release-0.2.6' into develop
+
+commit 5f2914a80903b31d4ea149c0db993eaf64a57806
+Author: Michal Seta <mis@artengine.ca>
+Date:   Wed Nov 23 03:51:24 2011 -0500
+
+    Release 0.2.6
+
 commit 42000674adf36f520bbeb1eb0ab335a71f543abb
 Author: Michal Seta <mis@artengine.ca>
 Date:   Wed Nov 23 03:34:14 2011 -0500
