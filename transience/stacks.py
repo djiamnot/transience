@@ -256,13 +256,14 @@ class Page(object):
         MIDI_CTRL = 176
         if event[0][0] == MIDI_CTRL:
             if event[0][2] > 0:
-                print("MIDI pedal down")
-                self.set_score_page()
-                reactor.callLater(1.0,self.next_page)
-                reactor.callLater(1.1,self.grab_screen)
-                self.display_count()
-                print("Current page is: ", self.page_count)
-                self.page_count += 1
+                self.handle_page_turn()
+                #print("MIDI pedal down")
+                #self.set_score_page()
+                #reactor.callLater(1.0,self.next_page)
+                #reactor.callLater(1.1,self.grab_screen)
+                #self.display_count()
+                #print("Current page is: ", self.page_count)
+                #self.page_count += 1
 
 
     def make_all_stacks(self):
@@ -468,45 +469,45 @@ class Page(object):
 
     def iterate_page(self, message):
         if message.getValues()[0] in self.elements_list and message.getValues()[1] == 'clicked':
-            if self.page_count == 0:
-                self.page = self.page_iter.next()
-                self.make_all_stacks()
-                #self.set_score_page()
-                self.page_iter = iter(page_sequence)
-                reactor.callLater(1.0,self.next_page)
-            if self.page_count < 8:
-                try:
-                    if self.page_count != 0:
-                        self.page = self.page_iter.next()
-                    self.set_score_page()
-                    reactor.callLater(1.0,self.next_page)
-                    reactor.callLater(1.1,self.grab_screen)
-                    self.display_count()
-                    print("Current page is: ", self.page_count)
-                    self.page_count += 1
-                except StopIteration:
-                    print("||||||||| END OF PIECE |||||||||")
-                    #self.page_count += 1
-                    #self.display_count()
-                    #self.oscore._send(osc.Message("/ITL/scene/*","del"))
-                    #self.page_iter = iter(page_sequence)
-                    self.page_count = 0
-                    self.make_all_stacks()
-                    self.page_iter = iter(page_sequence)
-                    reactor.callLater(1.0,self.next_page)
-            else:
-                #self.page = self.page_iter.next()
+            self.handle_page_turn()
+            
+    def handle_page_turn(self):
+        if self.page_count == 0:
+            self.page = self.page_iter.next()
+            self.make_all_stacks()
+            #self.set_score_page()
+            self.page_iter = iter(page_sequence)
+            reactor.callLater(1.0,self.next_page)
+        if self.page_count < 8:
+            try:
+                if self.page_count != 0:
+                    self.page = self.page_iter.next()
                 self.set_score_page()
                 reactor.callLater(1.0,self.next_page)
                 reactor.callLater(1.1,self.grab_screen)
                 self.display_count()
-                self.oscore._send(osc.Message("/ITL/scene/count",
-                                    "color", 255, 100, 100))
+                print("Current page is: ", self.page_count)
+                self.page_count += 1
+            except StopIteration:
+                print("||||||||| END OF PIECE |||||||||")
+                #self.page_count += 1
+                #self.display_count()
+                #self.oscore._send(osc.Message("/ITL/scene/*","del"))
+                #self.page_iter = iter(page_sequence)
                 self.page_count = 0
-                self.set_screen_grab_dir()
-
-
-
+                self.make_all_stacks()
+                self.page_iter = iter(page_sequence)
+                reactor.callLater(1.0,self.next_page)
+        else:
+            #self.page = self.page_iter.next()
+            self.set_score_page()
+            reactor.callLater(1.0,self.next_page)
+            reactor.callLater(1.1,self.grab_screen)
+            self.display_count()
+            self.oscore._send(osc.Message("/ITL/scene/count",
+                                "color", 255, 100, 100))
+            self.page_count = 0
+            self.set_screen_grab_dir()
 
     def grab_screen(self):
         print("The screen grab dir is: {}".format(self.screen_grab_directory))
