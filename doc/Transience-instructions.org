@@ -1,6 +1,9 @@
 #+INFOJS_OPT: view:showall toc:nil
 #+STYLE: <link rel="stylesheet" type="text/css" href="http://matralab.hexagram.ca/includes/style.css" />
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS: [article,letterpaper,10pt]
 #+TITLE: Transience - interactive score
+#+AUTHOR: Michal Seta
 ** Intro
 
 This is a short set of instructions on how to run the interactive score software for Transience by Sandeep Bhagwati.
@@ -51,7 +54,6 @@ designed to render Transience score on INScore's canvas.
     Clicking "SAVE" will save a new .transiencerc which will now be the default everytime you run Transience. The previous version will be backed up (in /var/tmp/transience directory, timestamped with the date and time of the backup).
 
     Clicking "CANCEL" will do nothing, it will simply close the configuration window.
-
 ** Installing on Linux:
    Although Transience has been developped on Linux, there is no Linux package yet as MacOS packaging was given priority. If you need to use Transience on Linux, please communicate with me (mis@artnegine.ca) and I will send you instructions on how to get going.
 
