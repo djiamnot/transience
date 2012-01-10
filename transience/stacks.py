@@ -175,7 +175,8 @@ class Page(object):
         self.page_iter = iter(page_sequence)
         self.page = 0
         self.page_count = 0
-        self.screen_grab_directory = "/tmp/transience"
+        # TODO: make sure that such directory exists on MacOS and is writable
+        self.screen_grab_directory = "/var/tmp/transience"
         self.elements_list = [
             'recitations',
             'moods',
