@@ -51,9 +51,9 @@ def run():
         config.osc_send_port = options.osc_send_port
     # Find out if INScore is already running
     # TODO: implement for MacOSX (and Windows?)
-    if not is_running("INScoreViewer"):
+    if not is_running("INScoreViewer") or not is_running("inscoreviewer"):
         if sys.platform == 'linux2':
-            subprocess.Popen(['INScoreViewer'])
+            subprocess.Popen(['inscoreviewer'])
         if sys.platform == "darwin":
             score_app = ABS_PATH+"/INScoreViewer.app"
             subprocess.Popen(["open", score_app])
