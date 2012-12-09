@@ -12,7 +12,7 @@ import transience
 setup(
     name="transience",
     version=transience.__version__,
-    description="Python interface to jack audio connection kit",
+    description="Python program to run Transience by Sandeep Bhagwati with INScore",
     author="Michal Seta",
     author_email="djiamnot@gmail.com",
     url="http://github.com/djiamnot/transience",
