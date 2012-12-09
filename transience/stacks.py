@@ -253,10 +253,10 @@ class Page(object):
         """
         Called when a MIDI event occurs
         """
-        MIDI_CTRL = 176
+        MIDI_CTRL = 192
         if event[0][0] == MIDI_CTRL:
-            if event[0][2] > 0:
-                self.handle_page_turn()
+            #if event[0][2] > 0:
+            self.handle_page_turn()
                 #print("MIDI pedal down")
                 #self.set_score_page()
                 #reactor.callLater(1.0,self.next_page)

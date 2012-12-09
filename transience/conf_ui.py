@@ -63,8 +63,9 @@ class ConfScreen(object):
         for element in self.arrangement:
             # we remap to ints because I/O back and forth a text file
             # turns the ints into strings...
-            self.settings[element] = map(int, self.arrangement[element])
-            print("settings as we read them in: ", self.settings)
+            if element in self.elements:
+                self.settings[element] = map(int, self.arrangement[element])
+                print("settings as we read them in: ", self.settings)
         print("Initial settings: ", self.settings)
         self._set_osc_callbacks()
         self._scale = 0
