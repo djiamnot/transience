@@ -16,9 +16,10 @@ designed to render Transience score on INScore's canvas.
 
 ** Installing in Mac OS
    You may download Transience from here:
-   http://matralab.hexagram.ca/~mseta/transience/ 
+   http://hexagram.ca/hex-mseta/transience/Transience_0.2.8.zip
 
-   Unpack the .zip archive anywhere on your hard-drive and you can run it in the usual wya, by double-clicking the application icon.
+   Unpack the .zip archive anywhere on your hard-drive and you can run
+   it in the usual way, by double-clicking the application icon. Accept to open in the warning about the application being downloaded from the internet.
 
    INScore is actually embedded in the current version of Transience. This may change in the future but for now, simply running Transience will launch INScoreViewer and he user will see and interact with INScoreViewer. Please keep in mind one imporant point:
 
@@ -58,9 +59,13 @@ designed to render Transience score on INScore's canvas.
 ** Outro
 
 *** To do
-    - [ ] MIDI pedal control
-    - [ ] Automatic generation of score session for synchronising with recordings
+    - [X] MIDI pedal control
+    - [X] Automatic generation of score session for synchronising with recordings
 
-There are probably some problems with the application, please try it for yourself and get familiar with the score layout and the overall functionnality. Please, do not hesitate to communicate any ideas or notes concerning the layout, design or the functionality of this software.
+Please, do not hesitate to communicate any issues or
+notes concerning the layout, design or the functionality of this
+software.
 
-Sandeep Bhagwati - sandeep.bhagwati@gmail.com, Michal Seta - mis@artengine.ca
+Sandeep Bhagwati - sandeep.bhagwati@gmail.com
+
+Michal Seta - mis@artengine.ca
