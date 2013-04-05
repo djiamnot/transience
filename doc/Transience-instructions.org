@@ -1,12 +1,12 @@
 #+INFOJS_OPT: view:showall toc:nil
-#+STYLE: <link rel="stylesheet" type="text/css" href="http://matralab.hexagram.ca/includes/style.css" />
-#+TITLE: Transience - interactive score
+#+STYLE: <link rel="stylesheet" type="text/css" href="style.css" />
+#+TITLE: Transience - dynamic score
 ** Intro
 
 This is a short set of instructions on how to run the interactive score software for Transience by Sandeep Bhagwati.
 The software actually consists of 2 different applications: 
 
-- Transience: developed at Matralab by myself (Michal Seta).
+- Transience: developed at Matralab by Michal Seta.
 - INScore: developed by Grame and Dominique Fober: http://inscore.sourceforge.net/
 
 INScore is a stand-alone application that acts as simple canvas on
