@@ -1,6 +1,4 @@
-TRANSIENCE
-==========
-
+* TRANSIENCE
 Comprovisation by Sandeep Bhagwati.
 
 This repository contains some software to help display the composition on screen. Useless to most people.
