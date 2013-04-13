@@ -3,5 +3,6 @@ Comprovisation by Sandeep Bhagwati.
 
 This repository contains some software to help display the composition on screen. Useless to most people.
 
-Copyright (c) Matralab 
-Copyright (c) Michal Seta <djiamnot@gmail.com>
+(c) Matralab 
+
+(c) Michal Seta <djiamnot@gmail.com>
