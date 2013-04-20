@@ -4,8 +4,8 @@ transience.egg-info
 *.*~
 .*
 #*.*#
-*.png
-*.jpg
+#*.png
+#*.jpg
 build
 dist
 GRTAGS
