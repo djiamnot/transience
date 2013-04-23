@@ -434,7 +434,7 @@ class Page(object):
         Show English or Japanese text or none, accoridng to random choice.
         If it is to be japanese, show both. Else show either only english or nothing.
         """
-        choice = random.randint(0, 2)
+        choice = random.randint(1, 2)
         print("The choice is: ", choice)
         if choice == 0:
             self.etexts.show = 0
