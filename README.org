@@ -1,0 +1,13 @@
+* TRANSIENCE
+Comprovisation by Sandeep Bhagwati.
+
+This repository contains some software to help display the composition on screen. Useless to most people.
+
+** Requirements
+   guidolib: http://guidolib.sourceforge.net/
+   inscoreviewer: http://inscore.sourceforge.net/
+   sudo apt-get install python-pypm python-txosc
+
+(c) Matralab 
+
+(c) Michal Seta <djiamnot@gmail.com>

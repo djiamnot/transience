@@ -1,15 +1,12 @@
 #+INFOJS_OPT: view:showall toc:nil
-#+STYLE: <link rel="stylesheet" type="text/css" href="http://matralab.hexagram.ca/includes/style.css" />
-#+LaTeX_CLASS: article
-#+LaTeX_CLASS_OPTIONS: [article,letterpaper,10pt]
-#+TITLE: Transience - interactive score
-#+AUTHOR: Michal Seta
+#+STYLE: <link rel="stylesheet" type="text/css" href="style.css" />
+#+TITLE: Transience - dynamic score
 ** Intro
 
 This is a short set of instructions on how to run the interactive score software for Transience by Sandeep Bhagwati.
 The software actually consists of 2 different applications: 
 
-- Transience: developed at Matralab by myself (Michal Seta).
+- Transience: developed at Matralab by Michal Seta.
 - INScore: developed by Grame and Dominique Fober: http://inscore.sourceforge.net/
 
 INScore is a stand-alone application that acts as simple canvas on
@@ -19,9 +16,10 @@ designed to render Transience score on INScore's canvas.
 
 ** Installing in Mac OS
    You may download Transience from here:
-   http://matralab.hexagram.ca/~mseta/transience/ 
+   http://hexagram.ca/hex-mseta/transience/Transience_0.2.8.zip
 
-   Unpack the .zip archive anywhere on your hard-drive and you can run it in the usual wya, by double-clicking the application icon.
+   Unpack the .zip archive anywhere on your hard-drive and you can run
+   it in the usual way, by double-clicking the application icon. Accept to open in the warning about the application being downloaded from the internet.
 
    INScore is actually embedded in the current version of Transience. This may change in the future but for now, simply running Transience will launch INScoreViewer and he user will see and interact with INScoreViewer. Please keep in mind one imporant point:
 
@@ -54,15 +52,20 @@ designed to render Transience score on INScore's canvas.
     Clicking "SAVE" will save a new .transiencerc which will now be the default everytime you run Transience. The previous version will be backed up (in /var/tmp/transience directory, timestamped with the date and time of the backup).
 
     Clicking "CANCEL" will do nothing, it will simply close the configuration window.
+
 ** Installing on Linux:
    Although Transience has been developped on Linux, there is no Linux package yet as MacOS packaging was given priority. If you need to use Transience on Linux, please communicate with me (mis@artnegine.ca) and I will send you instructions on how to get going.
 
 ** Outro
 
 *** To do
-    - [ ] MIDI pedal control
-    - [ ] Automatic generation of score session for synchronising with recordings
+    - [X] MIDI pedal control
+    - [X] Automatic generation of score session for synchronising with recordings
 
-There are probably some problems with the application, please try it for yourself and get familiar with the score layout and the overall functionnality. Please, do not hesitate to communicate any ideas or notes concerning the layout, design or the functionality of this software.
+Please, do not hesitate to communicate any issues or
+notes concerning the layout, design or the functionality of this
+software.
 
-Sandeep Bhagwati - sandeep.bhagwati@gmail.com, Michal Seta - mis@artengine.ca
+Sandeep Bhagwati - sandeep.bhagwati@gmail.com
+
+Michal Seta - mis@artengine.ca
